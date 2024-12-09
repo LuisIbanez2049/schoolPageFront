@@ -1,13 +1,13 @@
 import React from 'react'
 
-function InputGodEfecto({placeHolder, textColorLabelClicked, inputClickedColor, textColor, textColorPlaceHolder}) {
+function InputGodEfecto({placeHolder, textColorLabelClicked, inputClickedColor, textColor, textColorPlaceHolder, borderBottomInput}) {
   return (
     <div>
         {/* Input god --------------------------------------------------- */}
-        <div className="relative w-[500px]">
+        <div className="relative w-[270px] lg:w-[500px]">
                 <input
                   type="text"
-                  className= {`${textColor} w-full py-2 bg-transparent text-[17px] border-b border-gray-300 focus:border-[${inputClickedColor}] focus:outline-none transition-colors peer relative z-10`}
+                  className= {`${textColor} w-full py-2 bg-transparent text-[17px] border-b ${borderBottomInput} focus:border-[${inputClickedColor}] focus:outline-none transition-colors peer relative z-10`}
                   placeholder=" "
                 />
                 <label

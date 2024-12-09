@@ -2,61 +2,75 @@ import React, { useState } from "react";
 import InputGodEfecto from "../components/InputGodEfecto";
 import BotonElegante from "../components/BotonElegante";
 import InputContrasena from "../components/InputContrasena";
+import MensajeDeErrorInput from "../components/MensajeDeErrorInput";
 
 function Home() {
-  const [buttonLogin, setButtonLogin] = useState("h-[100px] top-[-20px] rounded-tr-[20px]");
-  const [buttonResgister, setButtonRegister] = useState("h-[80px] rounded-bl-[20px]");
+  const [buttonLogin, setButtonLogin] = useState("h-[80px] lg:h-[100px] top-[-15px] lg:top-[-20px] rounded-tr-[20px]");
+  const [buttonResgister, setButtonRegister] = useState("h-[67px] lg:h-[80px] rounded-bl-[20px]");
   const [bgForm, setBgForm] = useState("bg-[#476C77]");
   const [logginIsClicked, setLogginIsClicked] = useState(true)
   return (
     <div>
       <div className="flex flex-col min-h-screen bg-[#1a3c7d]">
-        <div className="w-full flex flex-row justify-center mt-[200px]">
-          <div className="w-[800px] h-[500px] ">
+        <div className="w-full min-h-screen flex flex-row justify-center items-center">
+          <div className="w-[95%] lg:w-[800px] h-[500px] ">
 
             {/* CONTENEDOR DOS BOTONES */}
-            <div className={`w-full h-[100px] flex flex-row ${bgForm}`}>
+            <div className={`w-full h-[80px] lg:h-[100px] flex flex-row ${bgForm} `}>
+
+              {/* BOTON LOGIN */}
               <div
                 className={`relative w-[50%] ${buttonLogin} flex flex-row justify-center items-center bg-[#476C77]`}
               >
                 <button
                   className="w-full h-full"
                   onClick={() => {
-                    setButtonLogin("h-[100px] top-[-20px] rounded-tr-[20px]");
-                    setButtonRegister("h-[80px] rounded-bl-[20px]");
+                    setButtonLogin("h-[80px] lg:h-[100px] top-[-15px] lg:top-[-20px] rounded-tr-[20px]");
+                    setButtonRegister("h-[67px] lg:h-[80px] rounded-bl-[20px]");
                     setBgForm("bg-[#476C77]");
                     setLogginIsClicked(true)
                   }}
                 >
-                  <h1 className="text-[35px] text-[white] ">LOGIN</h1>
+                  <h1 className="text-[25px] lg:text-[35px] text-[white] ">LOGIN</h1>
                 </button>
               </div>
 
+              {/* BOTON REGISTER */}
               <div
                 className={`relative w-[50%] ${buttonResgister} flex flex-row justify-center items-center bg-[#EFB071] `}
               >
                 <button
                   className="w-full h-full"
                   onClick={() => {
-                    setButtonLogin("h-[80px] rounded-br-[20px]");
+                    setButtonLogin("h-[67px] lg:h-[80px] rounded-br-[20px]");
                     setButtonRegister(
-                      "h-[100px] top-[-20px] rounded-tl-[20px]"
+                      "h-[80px] lg:h-[100px] top-[-15px] lg:top-[-20px] rounded-tl-[20px]"
                     );
                     setBgForm("bg-[#EFB071]");
                     setLogginIsClicked(false)
                   }}
                 >
-                  <h1 className="text-[35px] text-[white] ">REGISTER</h1>
+                  <h1 className="text-[25px] lg:text-[35px] text-[white] ">REGISTER</h1>
                 </button>
               </div>
             </div>
 
             {/* CONTENEDOR FORMULARIO LOGGIN*/}
-            <div className={`w-full h-[80%] ${bgForm} flex felx-col items-center justify-center ${logginIsClicked ? "show" : "hidden"}`}>
+            <div className={`w-full h-[90%] ${bgForm} flex felx-col items-center justify-center ${logginIsClicked ? "show" : "hidden"} `}>
               
-              <form className="flex flex-col items-center  h-[180px] justify-between" action="">
-                <InputGodEfecto placeHolder={"Ingrese email"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} textColorPlaceHolder={"text-[#dcdcdc]"}/>
-                <InputContrasena placeHolder={"Ingrese contraseña"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} textColorPlaceHolder={"text-[#dcdcdc]"}/>
+              <form className="flex flex-col items-center justify-between gap-5" action="">
+                {/* #EFB071 */}
+                <div className="">
+                <InputGodEfecto placeHolder={"Ingrese email"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} 
+                textColorPlaceHolder={"text-[#dcdcdc]"} borderBottomInput={"border-gray-300"}/>
+                <MensajeDeErrorInput texto={"Hola"}/>
+                </div>
+                
+                <div>
+                <InputContrasena placeHolder={"Ingrese contraseña"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} 
+                textColorPlaceHolder={"text-[#dcdcdc]"} borderBottomInput={"border-gray-300"}/>
+                <MensajeDeErrorInput texto={"Hola"}/>
+                </div>
                 <BotonElegante text={"LOGIN"} backGroundIsHovered={"bg-[#EFB071]"} textColor={"text-black"}/>
               </form>
 
@@ -65,14 +79,19 @@ function Home() {
 
 
             {/* CONTENEDOR FORMULARIO REGISTER*/}
-            <div className={`w-full h-[80%] ${bgForm} flex felx-col items-center justify-center ${logginIsClicked ? "hidden" : "show"}`}>
+            <div className={`w-full h-[90%] ${bgForm} flex felx-col items-center justify-center ${logginIsClicked ? "hidden" : "show"}`}>
               
-              <form className="flex flex-col items-center  h-[350px] justify-between " action="">
-                <InputGodEfecto placeHolder={"Nombre"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} textColorPlaceHolder={"text-[#535b61]"}/> 
-                <InputGodEfecto placeHolder={"Apellido"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} textColorPlaceHolder={"text-[#535b61]"}/> 
-                <InputGodEfecto placeHolder={"Email"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} textColorPlaceHolder={"text-[#535b61]"}/> 
-                <InputGodEfecto placeHolder={"DNI"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} textColorPlaceHolder={"text-[#535b61]"}/> 
-                <InputContrasena placeHolder={"Contrsaeña"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} textColorPlaceHolder={"text-[#535b61]"}/>
+              <form className="flex flex-col items-center justify-between gap-5" action="">
+                <InputGodEfecto placeHolder={"Nombre"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
+                <InputGodEfecto placeHolder={"Apellido"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"}
+                 textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
+                <InputGodEfecto placeHolder={"Email"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
+                <InputGodEfecto placeHolder={"DNI"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
+                <InputContrasena placeHolder={"Contrseña"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/>
                 <BotonElegante text={"REGISTER"} backGroundIsHovered={"bg-[#476C77]"} textColor={"text-white"}/>
               </form>
 

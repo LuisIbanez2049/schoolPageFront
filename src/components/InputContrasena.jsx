@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function InputContrasena({ placeHolder, textColorLabelClicked, inputClickedColor, textColor, textColorPlaceHolder }) {
+function InputContrasena({ placeHolder, textColorLabelClicked, inputClickedColor, textColor, textColorPlaceHolder, borderBottomInput }) {
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {
@@ -10,10 +10,10 @@ function InputContrasena({ placeHolder, textColorLabelClicked, inputClickedColor
   return (
     <div>
       {/* Input con funcionalidad para mostrar/ocultar contraseña */}
-      <div className="relative w-[500px]">
+      <div className="relative w-[270px] lg:w-[500px]">
         <input
           type={isPasswordVisible ? 'text' : 'password'}
-          className={`${textColor} w-full py-2 bg-transparent border-b text-[17px] border-gray-300 focus:border-[${inputClickedColor}] focus:outline-none transition-colors peer relative z-10`}
+          className={`${textColor} w-full py-2 bg-transparent border-b ${borderBottomInput} text-[17px] focus:border-[${inputClickedColor}] focus:outline-none transition-colors peer relative z-10`}
           placeholder=" "
         />
         <label
