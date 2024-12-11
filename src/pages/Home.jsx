@@ -11,14 +11,13 @@ function Home() {
   const [bgForm, setBgForm] = useState("bg-[#476C77]");
   const [logginIsClicked, setLogginIsClicked] = useState(true)
 
+  // FORMULARIO DE LOGGIN
   const [email, setEmail] = useState("")
   const [contraseña, setContraseña] = useState("")
+
   const [mesaggeErrorEmail, setMesaggeErrorEmail] = useState("")
   const [mesaggeErrorContraseña, setMesaggeErrorContraseña] = useState("")
-
-
-  const [emailR, setEmailR] = useState("")
-  const [contraseñaR, setContraseñaR] = useState("")
+  // ----------------------------------
 
   const [showErroeMessageInputEmail, setShowErroeMessageInputEmail] = useState(false)
   const [showErroeMessageInputContraseña, setShowErroeMessageInputContraseña] = useState(false)
@@ -38,13 +37,82 @@ function Home() {
     } catch (error) {
       console.error(error.response ? error.response.data : error.message)
       let errorMesagge = error.response ? error.response.data : error.message
-      if (errorMesagge.includes("email")) {
+      if (errorMesagge.includes("email") || errorMesagge.includes("Email")) {
         setMesaggeErrorEmail(errorMesagge)
         setShowErroeMessageInputEmail(true)
       }
       if (errorMesagge.includes("password")) {
         setMesaggeErrorContraseña(errorMesagge)
         setShowErroeMessageInputContraseña(true)
+      }
+    }
+  }
+
+  //---------------------------------------------------------------------------------------------------------------------------------
+
+  // FORMULARIO DE REGISTER
+  const [name, setName] = useState("")
+  const [lastname, setLastname] = useState("")
+  const [dni, setDni] = useState("")
+  const [emailR, setEmailR] = useState("")
+  const [contraseñaR, setContraseñaR] = useState("")
+
+  const [mesaggeErrorName, setMesaggeErrorName] = useState("")
+  const [mesaggeErrorLastName, setMesaggeErrorLastName] = useState("")
+  const [mesaggeErrorDni, setMesaggeErrorDni] = useState("")
+  const [mesaggeErrorEmailR, setMesaggeErrorEmailR] = useState("")
+  const [mesaggeErrorPasswordR, setMesaggeErrorPasswordR] = useState("")
+  
+
+
+
+  // ----------------------------------
+
+  const [showErroeMessageInputNameR, setShowErroeMessageInputNameR] = useState(false)
+  const [showErroeMessageInputLastNameR, setShowErroeMessageInputLastNameR] = useState(false)
+  const [showErroeMessageInputDniR, setShowErroeMessageInputDniR] = useState(false)
+  const [showErroeMessageInputEmailR, setShowErroeMessageInputEmailR] = useState(false)
+  const [showErroeMessageInputContraseñaR, setShowErroeMessageInputContraseñaR] = useState(false)
+
+  const handleRegister = async (event) => {
+    event.preventDefault()
+    const bodyRegister = {
+      name: name,
+      lastName: lastname,
+      email: emailR,
+      dni: dni,
+      password: contraseñaR
+    }
+
+    console.log(bodyRegister)
+
+    try {
+      const response = await axios.post("http://localhost:8080/api/auth/register", bodyRegister)
+      console.log(response)
+    } catch (error) {
+      console.error(error.response ? error.response.data : error.message)
+      let errorMesagge = error.response ? error.response.data : error.message
+      if (errorMesagge.includes("first name") || errorMesagge.includes("First name")) {
+        setMesaggeErrorName(errorMesagge)
+        setShowErroeMessageInputNameR(true)
+      }
+      if (errorMesagge.includes("last name") || errorMesagge.includes("Last name")) {
+        setMesaggeErrorLastName(errorMesagge)
+        setShowErroeMessageInputLastNameR(true)
+      }
+
+      if (errorMesagge.includes("DNI")) {
+        setMesaggeErrorDni(errorMesagge)
+        setShowErroeMessageInputDniR(true)
+      }
+
+      if (errorMesagge.includes("email") || errorMesagge.includes("Email")) {
+        setMesaggeErrorEmailR(errorMesagge)
+        setShowErroeMessageInputEmailR(true)
+      }
+      if (errorMesagge.includes("Password")) {
+        setMesaggeErrorPasswordR(errorMesagge)
+        setShowErroeMessageInputContraseñaR(true)
       }
     }
   }
@@ -104,23 +172,23 @@ function Home() {
               <form className="flex flex-col items-center justify-between gap-5" action="" onSubmit={handleLogin}>
                 {/* #EFB071 */}
                 <div className="">
-                <InputGodEfecto placeHolder={"Ingrese email"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} 
-                textColorPlaceHolder={"text-[#dcdcdc]"} borderBottomInput={`${showErroeMessageInputEmail ? "border-[red]" : "border-gray-300"}`}
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                  setShowErroeMessageInputEmail(false)
-                }}/>
-                <MensajeDeErrorInput texto={mesaggeErrorEmail} showInput={showErroeMessageInputEmail}/>
+                  <InputGodEfecto placeHolder={"Ingrese email"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} 
+                  textColorPlaceHolder={"text-[#dcdcdc]"} borderBottomInput={`${showErroeMessageInputEmail ? "border-[red]" : "border-gray-300"}`}
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                    setShowErroeMessageInputEmail(false)
+                  }}/>
+                  <MensajeDeErrorInput texto={mesaggeErrorEmail} showInput={showErroeMessageInputEmail}/>
                 </div>
                 
                 <div>
-                <InputContrasena placeHolder={"Ingrese contraseña"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} 
-                textColorPlaceHolder={"text-[#dcdcdc]"} borderBottomInput={`${showErroeMessageInputContraseña ? "border-[red]" : "border-gray-300"}`}
-                onChange={(e) => {
-                  setContraseña(e.target.value)
-                  setShowErroeMessageInputContraseña(false)
-                }}/>
-                <MensajeDeErrorInput texto={mesaggeErrorContraseña} showInput={showErroeMessageInputContraseña}/>
+                  <InputContrasena placeHolder={"Ingrese contraseña"} textColor={"text-[#dcdcdc]"} textColorLabelClicked={"#EFB071"} inputClickedColor={"#EFB071"} 
+                  textColorPlaceHolder={"text-[#dcdcdc]"} borderBottomInput={`${showErroeMessageInputContraseña ? "border-[red]" : "border-gray-300"}`}
+                  onChange={(e) => {
+                    setContraseña(e.target.value)
+                    setShowErroeMessageInputContraseña(false)
+                  }}/>
+                  <MensajeDeErrorInput texto={mesaggeErrorContraseña} showInput={showErroeMessageInputContraseña}/>
                 </div>
                 <BotonElegante text={"LOGIN"} backGroundIsHovered={"bg-[#EFB071]"} textColor={"text-black"}/>
               </form>
@@ -132,35 +200,56 @@ function Home() {
             {/* CONTENEDOR FORMULARIO REGISTER*/}
             <div className={`w-full h-[90%] ${bgForm} flex felx-col items-center justify-center ${logginIsClicked ? "hidden" : "show"}`}>
               
-              <form className="flex flex-col items-center justify-between gap-5" action="">
-                <div>
-                  <InputGodEfecto placeHolder={"Nombre"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
-                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
-                  <MensajeDeErrorInput texto={"Hola"}/>
+              <form className="flex flex-col items-center justify-between gap-5" action="" onSubmit={handleRegister}>
+
+                <div className="">
+                  <InputGodEfecto placeHolder={"Name"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={`${showErroeMessageInputNameR ? "border-[red]" : "border-gray-300"}`}
+                  onChange={(e) => {
+                    setName(e.target.value)
+                    setShowErroeMessageInputNameR(false)
+                  }}/>
+                  <MensajeDeErrorInput texto={mesaggeErrorName} showInput={showErroeMessageInputNameR}/>
                 </div>
-                
-                <div>
-                  <InputGodEfecto placeHolder={"Apellido"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"}
-                   textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
-                   <MensajeDeErrorInput texto={"Hola"}/>
+
+                <div className="">
+                  <InputGodEfecto placeHolder={"Last name"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={`${showErroeMessageInputLastNameR ? "border-[red]" : "border-gray-300"}`}
+                  onChange={(e) => {
+                    setLastname(e.target.value)
+                    setShowErroeMessageInputLastNameR(false)
+                  }}/>
+                  <MensajeDeErrorInput texto={mesaggeErrorLastName} showInput={showErroeMessageInputLastNameR}/>
                 </div>
-                
-                <div>
-                  <InputGodEfecto placeHolder={"Email"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
-                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
-                  <MensajeDeErrorInput texto={"Hola"}/>
-                </div>
-                
-                <div>
+
+                <div className="">
                   <InputGodEfecto placeHolder={"DNI"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
-                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/> 
-                  <MensajeDeErrorInput texto={"Hola"}/>
+                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={`${showErroeMessageInputDniR ? "border-[red]" : "border-gray-300"}`}
+                  onChange={(e) => {
+                    setDni(e.target.value)
+                    setShowErroeMessageInputDniR(false)
+                  }}/>
+                  <MensajeDeErrorInput texto={mesaggeErrorDni} showInput={showErroeMessageInputDniR}/>
                 </div>
-                
+
+                <div className="">
+                  <InputGodEfecto placeHolder={"Email"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={`${showErroeMessageInputEmailR ? "border-[red]" : "border-gray-300"}`}
+                  onChange={(e) => {
+                    setEmailR(e.target.value)
+                    setShowErroeMessageInputEmailR(false)
+                  }}/>
+                  <MensajeDeErrorInput texto={mesaggeErrorEmailR} showInput={showErroeMessageInputEmailR}/>
+                </div>
+
                 <div>
-                  <InputContrasena placeHolder={"Contrseña"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
-                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={"border-gray-300"}/>
-                  <MensajeDeErrorInput texto={"Hola"}/>
+                  <InputContrasena placeHolder={"Password"} textColor={"text-[#476C77]"} textColorLabelClicked={"#476C77"} inputClickedColor={"#476C77"} 
+                  textColorPlaceHolder={"text-[#535b61]"} borderBottomInput={`${showErroeMessageInputContraseñaR ? "border-[red]" : "border-gray-300"}`}
+                  onChange={(e) => {
+                    setContraseñaR(e.target.value)
+                    setShowErroeMessageInputContraseñaR(false)
+                  }}/>
+                  <MensajeDeErrorInput texto={mesaggeErrorPasswordR} showInput={showErroeMessageInputContraseñaR}/>
                 </div>
 
                 <BotonElegante text={"REGISTER"} backGroundIsHovered={"bg-[#476C77]"} textColor={"text-white"}/>
