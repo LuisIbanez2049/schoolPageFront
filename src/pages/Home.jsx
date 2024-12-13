@@ -4,6 +4,7 @@ import BotonElegante from "../components/BotonElegante";
 import InputContrasena from "../components/InputContrasena";
 import MensajeDeErrorInput from "../components/MensajeDeErrorInput";
 import axios from "axios";
+import PopUpMessage from "../components/PopUpMessage";
 
 function Home() {
   const [buttonLogin, setButtonLogin] = useState("h-[80px] lg:h-[100px] top-[-15px] lg:top-[-20px] rounded-tr-[20px]");
@@ -19,8 +20,11 @@ function Home() {
   const [mesaggeErrorContraseña, setMesaggeErrorContraseña] = useState("")
   // ----------------------------------
 
+
+
   const [showErroeMessageInputEmail, setShowErroeMessageInputEmail] = useState(false)
   const [showErroeMessageInputContraseña, setShowErroeMessageInputContraseña] = useState(false)
+
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -64,15 +68,27 @@ function Home() {
   const [mesaggeErrorPasswordR, setMesaggeErrorPasswordR] = useState("")
   
 
-
-
-  // ----------------------------------
-
   const [showErroeMessageInputNameR, setShowErroeMessageInputNameR] = useState(false)
   const [showErroeMessageInputLastNameR, setShowErroeMessageInputLastNameR] = useState(false)
   const [showErroeMessageInputDniR, setShowErroeMessageInputDniR] = useState(false)
   const [showErroeMessageInputEmailR, setShowErroeMessageInputEmailR] = useState(false)
   const [showErroeMessageInputContraseñaR, setShowErroeMessageInputContraseñaR] = useState(false)
+  // ----------------------------------
+
+
+
+   //-----------------------------------------------VENTANA EMERGENTE--------------------------------------------
+
+   const [showPopUp, setShowPopUp] = useState(false)
+   const [messagePopUp, setMessagePopUp] = useState("")
+   
+    function showPopUpFunction(){
+     setShowPopUp(true)
+     setTimeout(() => {
+       setShowPopUp(false)
+     }, 3000) // 3 segundos
+   }
+   //------------------------------------------------------------------------------------------------------------
 
   const handleRegister = async (event) => {
     event.preventDefault()
@@ -88,8 +104,12 @@ function Home() {
 
     try {
       const response = await axios.post("http://localhost:8080/api/auth/register", bodyRegister)
-      console.log(response)
+      console.log(response.data)
+      setMessagePopUp(response.data)
+      showPopUpFunction()
+      
     } catch (error) {
+      setShowPopUpAux(false)
       console.error(error.response ? error.response.data : error.message)
       let errorMesagge = error.response ? error.response.data : error.message
       if (errorMesagge.includes("first name") || errorMesagge.includes("First name")) {
@@ -116,6 +136,11 @@ function Home() {
       }
     }
   }
+
+
+
+ 
+
   
 
 
@@ -123,6 +148,7 @@ function Home() {
   return (
     <div>
       <div className="flex flex-col min-h-screen bg-[#1a3c7d]">
+      <PopUpMessage show={showPopUp} message={messagePopUp}/>
         <div className="w-full min-h-screen flex flex-row justify-center items-center">
           <div className="w-[95%] lg:w-[800px] h-[560px] ">
 
@@ -252,7 +278,7 @@ function Home() {
                   <MensajeDeErrorInput texto={mesaggeErrorPasswordR} showInput={showErroeMessageInputContraseñaR}/>
                 </div>
 
-                <BotonElegante text={"REGISTER"} backGroundIsHovered={"bg-[#476C77]"} textColor={"text-white"}/>
+                <BotonElegante text={"REGISTER"} backGroundIsHovered={"bg-[#476C77]"} textColor={"text-white"} />
               </form>
 
             </div>
