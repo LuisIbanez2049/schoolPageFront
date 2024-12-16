@@ -1,34 +1,36 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { logOutAction } from '../redux/actions/authenticationAction';
-
+import EasyLearn from "../assets/EASYLEARNpng.png"
+import { useNavigate } from 'react-router-dom';
 function Nav() {
 
     const [isVisible, setIsVisible] = useState(false)
     const [isOnclick, setIsOnclick] = useState(false)
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     return (
-        <nav>
+        <nav className='bg-[#476c77]'>
             <div className={`${isVisible ? "" : "hidden"} min-h-screen w-[100vw] absolute z-0`}>
                 <button className=' block w-full h-[98vh] cursor-default' onClick={() => {
                     setIsOnclick(false)
                     setIsVisible(false)
                 }}></button>
             </div>
-            <div className=' min-w-screen h-[100px] border-2 border-black py-2 px-4 flex flex-row justify-between'>
+            <div className=' min-w-screen h-[100px] py-2 px-4 flex flex-row justify-between'>
                 <div className='flex flex-row'>
-                    <div id='logo' className='h-[80px] w-[80px] border border-black'>
-
+                    <div id='logo' className='h-[80px] w-[80px] '>
+                        <img src={EasyLearn} alt="" />
                     </div>
-                    <div id='pageName' className='h-[80px] w-[150px] border border-black'>
-
+                    <div id='pageName' className='h-[80px] w-[150px]  flex flex-row justify-center items-center'>
+                        <h1 className='text-[27px] text-[#efb071]'>EASYLEARN</h1>
                     </div>
                 </div>
 
 
-                <div id='profile' className=' relative h-[80px] w-[80px] border border-black flex flex-row justify-center items-center'>
+                <div id='profile' className=' relative h-[80px] w-[80px] flex flex-row justify-center items-center'>
                     <button onClick={() => {
                         if (isOnclick) {
                             setIsOnclick(false)
@@ -65,11 +67,13 @@ function Nav() {
                                 </div>
 
                                 <div className=' hover:bg-gray-300 '>
-                                    <button className=' block w-full' onClick={() => {
-                                        dispatch(logOutAction())
-                                    }}>
-                                        <h1 className='p-1 text-start mx-2 font-thin'> <span className='mr-[10px]'> <i className="fa-solid fa-right-to-bracket"></i> </span> Logout </h1>
-                                    </button>
+                                    <a href="/">
+                                        <button className=' block w-full' onClick={() => {
+                                            dispatch(logOutAction())
+                                        }}>
+                                            <h1 className='p-1 text-start mx-2 font-thin'> <span className='mr-[10px]'> <i className="fa-solid fa-right-to-bracket"></i> </span> Logout </h1>
+                                        </button>
+                                    </a>
                                 </div>
 
 
