@@ -13,19 +13,21 @@ function Nav() {
 
     return (
         <nav className='bg-[#476c77]'>
-            <div className={`${isVisible ? "" : "hidden"} min-h-screen w-[100vw] absolute z-0`}>
+            <div className={`${isVisible ? "" : "hidden"} min-h-screen w-[99vw] absolute z-0`}>
                 <button className=' block w-full h-[98vh] cursor-default' onClick={() => {
                     setIsOnclick(false)
                     setIsVisible(false)
                 }}></button>
             </div>
             <div className=' min-w-screen h-[100px] py-2 px-4 flex flex-row justify-between'>
-                <div className='flex flex-row'>
-                    <div id='logo' className='h-[80px] w-[80px] '>
-                        <img src={EasyLearn} alt="" />
+                <div className='flex flex-row ' >
+                    <div className=' h-full flex flex-row justify-center items-center '>
+                        <div id='logo' className='h-[60px] w-[60px] lg:h-[80px] lg:w-[80px] '>
+                            <img src={EasyLearn} alt="" />
+                        </div>
                     </div>
-                    <div id='pageName' className='h-[80px] w-[150px]  flex flex-row justify-center items-center'>
-                        <h1 className='text-[27px] text-[#efb071]'>EASYLEARN</h1>
+                    <div id='pageName' className='h-[80px] w-[150px]  flex flex-row ml-[5px] lg:ml-[0px] lg:justify-center items-center'>
+                        <h1 className='text-[22px] lg:text-[27px] text-[#efb071]'>EASYLEARN</h1>
                     </div>
                 </div>
 
@@ -40,7 +42,7 @@ function Nav() {
                             setIsVisible(true)
                         }
                     }}>
-                        <span className={`text-[40px] text-[${isOnclick ? "#EFB071" : "black"}] hover:text-[#EFB071]`}> <i className="fa-solid fa-user"></i> </span>
+                        <span className={`text-[30px] lg:text-[40px] text-[${isOnclick ? "#EFB071" : "black"}] hover:text-[#EFB071]`}> <i className="fa-solid fa-user"></i> </span>
                     </button>
 
                     <div className={`absolute z-10 right-8 top-[80px] w-[250px] flex flex-col items-center bg-[#7eaaaa] pt-4 rounded-[15px] shadow-xl transition-all duration-500 transform ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
@@ -62,7 +64,7 @@ function Nav() {
                                         onClick={() => {
 
                                         }}>
-                                        <h1 className='p-1 text-start mx-2 font-thin'> <span className='mr-[10px]'> <i class="fa-solid fa-gear"></i> </span> Configuration</h1>
+                                        <h1 className='p-1 text-start mx-2 font-thin'> <span className='mr-[10px]'> <i className="fa-solid fa-gear"></i> </span> Configuration</h1>
                                     </button>
                                 </div>
 
