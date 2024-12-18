@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
 import { useSelector } from 'react-redux'
+import Materia from './pages/Materia'
 
 function App() {
   const isLogged = localStorage.getItem("userToken")
@@ -30,6 +31,7 @@ function App() {
               <>
                 {/* Si está logueado, redirigir a <Materias /> */}
                 <Route path='/materias' element={<Materias />}></Route>
+                <Route path='/materia/:id' element={<Materia/>}></Route>
                 <Route path='*' element={<Navigate to="/materias" replace />} />
               </>
             ) : (
