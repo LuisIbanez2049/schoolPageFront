@@ -7,7 +7,7 @@ function TarjetaMateria({ titulo, imagen, descripcion, bg, id }) {
   return (
     <div>
       <Link to={`/materia/${id}`}>
-        <div className=' relative w-[450px] h-[400px] rounded-br-[30px] mt-[10%]' onMouseEnter={() => {
+        <div className=' relative w-[330px] lg:w-[450px] h-[380px] rounded-br-[30px] mt-[10%] ' onMouseEnter={() => {
           setMouseIn(true)
         }} onMouseLeave={() => {
           setMouseIn(false)
@@ -19,7 +19,7 @@ function TarjetaMateria({ titulo, imagen, descripcion, bg, id }) {
             <h1 className=' '>{titulo}</h1>
           </div>
           {/* Contenedor de la imagen */}
-          <div className=' relative w-full h-[54%]  rounded-tr-[30px] z-10'>
+          <div className=' relative w-full h-[180px] lg:h-[230px]  rounded-tr-[30px] z-10'>
             <div
               className='w-full h-full  rounded-tr-[30px] '
               style={{
@@ -29,8 +29,8 @@ function TarjetaMateria({ titulo, imagen, descripcion, bg, id }) {
               }}
             ></div>
           </div>
-          <div className={`p-4 w-full h-[148px] rounded-br-[30px] bg-[${bg}]`}>
-            <p className='text-justify font-light text-[18px]'> {descripcion} </p>
+          <div className={`p-4 w-full h-[130px] lg:h-[148px] rounded-br-[30px] bg-[${bg}]`}>
+            <p className='text-justify font-light text-[16px] lg:text-[18px]'> {descripcion} </p>
           </div>
         </div>
       </Link>

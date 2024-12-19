@@ -27,7 +27,7 @@ function Materias() {
     }, [])
     return (
         <div className='flex flex-col min-h-screen bg-[#e0e2ed]'>
-            <div className='w-full flex flex-row justify-around gap-16 flex-wrap pt-[40px]'>
+            <div className='w-full flex flex-row justify-center gap-16 flex-wrap pt-[40px] '>
                 {subjects && subjects.length > 0 && subjects.map((subject) => {
                     return (
                         <TarjetaMateria key={subject.id} id={subject.id} titulo={subject.nombre} imagen={subject.portada} descripcion={subject.descripcion} bg={subject.color}/>
