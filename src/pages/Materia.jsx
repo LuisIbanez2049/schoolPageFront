@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import CommentUser from '../components/CommentUser'
+import CardPostsSubject from '../components/CardPostsSubject'
 
 function Materia() {
     const [subject, setSubject] = useState({})
@@ -53,14 +55,30 @@ function Materia() {
                                         })}
                                     </ul>
                                     <h1 className='font-bold'>PROFESSOR</h1>
-                                    <ul className='pl-1'> 
-                                        {subject && subject.profesores && subject.profesores.map(professor =>{
-                                        return (<> <li> {professor.name + " " + professor.lastName} </li> </>)
-                                    })} 
+                                    <ul className='pl-1'>
+                                        {subject && subject.profesores && subject.profesores.map(professor => {
+                                            return (<> <li> {professor.name + " " + professor.lastName} </li> </>)
+                                        })}
                                     </ul>
                                 </div>
-                                <div className='w-[88%] flex flex-col border border-green-600'>
-                                    
+                                <div className='w-[88%] flex flex-col items-center gap-12 border border-green-600'>
+                                    {/* <CommentUser/> */}
+                                    {/* <div className='w-[95%] p-2 border border-black'>
+                                        <h1 className='text-[35px]'>Polinomios</h1>
+                                        <small>20-12-2024 | 15:16</small>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit modi ipsum numquam, suscipit alias porro quo labore atque molestias explicabo
+                                            quisquam aliquid maiores aut facilis similique quod corrupti nulla!
+                                        </p>
+                                        <div>
+                                            <a href="http://" target="_blank" rel="noopener noreferrer"> <span className='text-[60px]'> <i className="fa-solid fa-file"></i> </span> </a>
+                                        </div>
+                                    </div> */}
+                                    { subject && subject.contenidos && subject.contenidos.map(contenido =>{
+                                        return (<>
+                                          <CardPostsSubject color={subject && subject.color} title={contenido.titulo} date={contenido.fechaDePublicacion} description={contenido.detalleDelContenido}
+                                          file={contenido.archivo} />
+                                        </>)
+                                    })}
                                 </div>
                             </div>
                         </div>
