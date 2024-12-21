@@ -63,16 +63,6 @@ function Materia() {
                                 </div>
                                 <div className='w-[88%] flex flex-col items-center gap-12 border border-green-600'>
                                     {/* <CommentUser/> */}
-                                    {/* <div className='w-[95%] p-2 border border-black'>
-                                        <h1 className='text-[35px]'>Polinomios</h1>
-                                        <small>20-12-2024 | 15:16</small>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae velit modi ipsum numquam, suscipit alias porro quo labore atque molestias explicabo
-                                            quisquam aliquid maiores aut facilis similique quod corrupti nulla!
-                                        </p>
-                                        <div>
-                                            <a href="http://" target="_blank" rel="noopener noreferrer"> <span className='text-[60px]'> <i className="fa-solid fa-file"></i> </span> </a>
-                                        </div>
-                                    </div> */}
                                     { subject && subject.contenidos && subject.contenidos.map(contenido =>{
                                         return (<>
                                           <CardPostsSubject color={subject && subject.color} title={contenido.titulo} date={contenido.fechaDePublicacion} description={contenido.detalleDelContenido}
