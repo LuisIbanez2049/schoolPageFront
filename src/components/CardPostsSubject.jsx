@@ -1,12 +1,20 @@
 import { Archive, CalendarDays, FileText } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CommentUser from './CommentUser';
 
-function CardPostsSubject({ color, title, description, date, file }) {
+function CardPostsSubject({ color, title, description, date, file, arrayComments }) {
+
+    const [comments, setComments] = useState(arrayComments && arrayComments)
+    useEffect(() =>{
+        console.log(comments)
+    }, [])
     const dateDate = date && date.slice(0, 10);
     const dateHour = date && date.slice(11, 16);
     const divStyle = {
         boxShadow: `0px 5px 8px ${color}`
+    }
+    const textStyle = {
+        textShadow: `0px 0px 1px ${color}`
     }
 
     const [viewComments, setViewComments] = useState(false)
@@ -35,16 +43,18 @@ function CardPostsSubject({ color, title, description, date, file }) {
                 } else { setViewComments(true) }
             }}>
                 <h1 className={`text-[20px] text-[${color}] font-bold `}>
-                    <span > Comments </span>
+                    <span style={textStyle}> Comments </span>
                     <span className=' '>
                         <i className={`fa-solid fa-arrow-turn-down transition-all duration-700 transform ${viewComments ? "rotate-180" : "rotate-0"}`}></i>
                     </span>
                 </h1>
             </button>
             <div className={`mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} border border-black `}>
-                <CommentUser />
-                <CommentUser />
-                <CommentUser />
+                {comments && comments.length > 0 && comments.map(comment => {
+                    return (<>
+                     <CommentUser fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} arrayAnswers={comment.respuestas}/>
+                    </>)
+                })}
             </div>
         </div>
     )

@@ -20,6 +20,7 @@ function Materia() {
         })
             .then((response) => {
                 console.log(response.data)
+                console.log(response.data.contenidos)
                 setSubject(response.data)
             })
             .catch((error) => {
@@ -66,7 +67,7 @@ function Materia() {
                                     { subject && subject.contenidos && subject.contenidos.map(contenido =>{
                                         return (<>
                                           <CardPostsSubject color={subject && subject.color} title={contenido.titulo} date={contenido.fechaDePublicacion} description={contenido.detalleDelContenido}
-                                          file={contenido.archivo} />
+                                          file={contenido.archivo} arrayComments={contenido.comentarios}/>
                                         </>)
                                     })}
                                 </div>
