@@ -48,7 +48,7 @@ function CommentUser({ date, text, fullName, arrayAnswers }) {
                 <div className={`pl-4 mt-2 flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewAnswers ? "h-[400px]" : "h-0 "} `}>
                     {answers && answers.length > 0 && answers.map(answer => {
                         return (<>
-                            <AnswerCommentUser fullName={answer.nombreUsuario} date={answer.fecha} text={answer.texto} />
+                            <AnswerCommentUser fullName={answer.nombreUsuario} date={answer.fecha} text={answer.texto} receptorFullName={answer.respuestaPara}/>
                         </>)
                     })}
                 </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AnswerCommentUser({date, text, fullName}) {
+function AnswerCommentUser({date, text, fullName, receptorFullName}) {
 
     const dateDate = date && date.slice(0, 10);
     const dateHour = date && date.slice(11, 16);
@@ -22,7 +22,7 @@ function AnswerCommentUser({date, text, fullName}) {
                         </div>
                     </div>
                 </div>
-                <p className='text-[15px] font-light'> <span className=' font-semibold text-[#0000ffc0]'> <i className="fa-brands fa-threads"></i>nombre </span> 
+                <p className='text-[15px] font-light'> <span className=' font-semibold text-[#0000ffc0]'> <i className="fa-brands fa-threads"></i>{receptorFullName} </span> 
                 {text}
                 </p>
                 <div className='w-full flex flex-row justify-end'>
