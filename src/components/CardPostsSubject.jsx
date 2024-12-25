@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import CommentUser from './CommentUser';
 import InputAddComment from './InputAddComment';
 
-function CardPostsSubject({ color, title, description, date, file, arrayComments }) {
+function CardPostsSubject({ color, title, description, date, file, arrayComments, contentId }) {
 
     const [comments, setComments] = useState(arrayComments && arrayComments)
     useEffect(() =>{
