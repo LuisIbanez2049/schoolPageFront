@@ -7,7 +7,7 @@ function AnswerCommentUser({date, text, fullName, receptorFullName}) {
   return (
     <div>
         <div>
-            <div className='w-[800px] p-4 bg-[#ffffff69] rounded-[30px] shadow-md'>
+            <div className='w-[1100px] p-4 bg-[#ffffff69] rounded-[30px] shadow-md'>
                 <div className='  flex flex-row'>
                     <div className=''>
                         <div className='w-[50px] h-[50px] rounded-full border border-black'>

@@ -1,6 +1,7 @@
 import { Archive, CalendarDays, FileText } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import CommentUser from './CommentUser';
+import InputAddComment from './InputAddComment';
 
 function CardPostsSubject({ color, title, description, date, file, arrayComments }) {
 
@@ -50,9 +51,15 @@ function CardPostsSubject({ color, title, description, date, file, arrayComments
                 </h1>
             </button>
             <div className={`mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} border border-black `}>
+                <div className={` ${comments.length <= 0 ? "show" : "hidden"} w-full p-4 bg-[#ffffff69] rounded-[15px] shadow-md border border-[#0000001c]`}>
+                    <h1 className='font-medium text-[18px] text-[#0000009a] text-center'>THERE IS NO COMMENTS YET</h1>
+                </div>
+                <div className=' w-[1230px]'>
+                    <InputAddComment color={color}/>
+                </div>
                 {comments && comments.length > 0 && comments.map(comment => {
                     return (<>
-                     <CommentUser fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} arrayAnswers={comment.respuestas}/>
+                     <CommentUser fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} arrayAnswers={comment.respuestas} color={color} commentId={comment.id} userIdFromComment={comment.userId}/>
                     </>)
                 })}
             </div>
