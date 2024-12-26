@@ -2,11 +2,70 @@ import { Archive, CalendarDays, FileText } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import CommentUser from './CommentUser';
 import InputAddComment from './InputAddComment';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { hiddenPopUpAction, showPopUpAction } from '../redux/actions/popUpMessageAction';
+import store from '../redux/store';
 
-function CardPostsSubject({ color, title, description, date, file, arrayComments, contentId }) {
+function CardPostsSubject({ color, title, description, date, file, contentId }) {
 
-    const [comments, setComments] = useState(arrayComments && arrayComments)
-    useEffect(() =>{
+
+    const token = localStorage.getItem("userToken")
+    let tokenSinComillas = token.replace(/"/g, '');
+
+    const [comments, setComments] = useState([])
+    const [viewComments, setViewComments] = useState(false)
+    const [aux, setAux] = useState(false)
+    const [inputValueTextComment, setInputValueTextComment] = useState("")
+
+    const dispatch = useDispatch()
+
+    function showPopUpFunction(data) {
+        dispatch(showPopUpAction(data))
+        setTimeout(() => {
+            dispatch(hiddenPopUpAction())
+        }, 3000) // 3 segundos
+      }
+
+
+    const handleOnClick = async (event) => {
+        event.preventDefault()
+
+        let bodyCreateComment = {
+            idContenido: contentId,
+            texto: inputValueTextComment,
+        }
+        axios.post("http://localhost:8080/api/comentario/create", bodyCreateComment, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            if (aux) {
+                setAux(false)
+            } else { setAux(true) }
+            
+            setInputValueTextComment("")
+
+            showPopUpFunction(response.data)
+
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+    }
+
+    const handleOnClickCancel = () => {
+        setInputValueTextComment("")
+    }
+
+    const handleOnChangeFunction = (e) => {
+        setInputValueTextComment(e.target.value)
+    }
+
+    useEffect(() => {
         console.log(comments)
     }, [])
     const dateDate = date && date.slice(0, 10);
@@ -18,7 +77,23 @@ function CardPostsSubject({ color, title, description, date, file, arrayComments
         textShadow: `0px 0px 1px ${color}`
     }
 
-    const [viewComments, setViewComments] = useState(false)
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/contenido/${contentId}`, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setComments(response.data.comentarios)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [aux])
+
+
     return (
         <div className="w-[1300px] rounded-lg bg-[#f3f2f2] p-6 shadow-md" style={divStyle}>
             <h1 className={`mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white bg-[${color}] rounded-[15px] p-2`}>{title}</h1>
@@ -50,16 +125,16 @@ function CardPostsSubject({ color, title, description, date, file, arrayComments
                     </span>
                 </h1>
             </button>
-            <div className={`mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} border border-black `}>
+            <div className={` py-${viewComments ? "3" : "0"} mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} border border-green-600 `}>
                 <div className={` ${comments.length <= 0 ? "show" : "hidden"} w-full p-4 bg-[#ffffff69] rounded-[15px] shadow-md border border-[#0000001c]`}>
                     <h1 className='font-medium text-[18px] text-[#0000009a] text-center'>THERE IS NO COMMENTS YET</h1>
                 </div>
                 <div className=' w-[1230px]'>
-                    <InputAddComment color={color}/>
+                    <InputAddComment color={color} onClickFunction={handleOnClick} inputValue={inputValueTextComment} onChangeFunction={handleOnChangeFunction} onClickFunctionCancel={handleOnClickCancel}/>
                 </div>
                 {comments && comments.length > 0 && comments.map(comment => {
                     return (<>
-                     <CommentUser fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} arrayAnswers={comment.respuestas} color={color} commentId={comment.id} userIdFromComment={comment.userId}/>
+                        <CommentUser fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} color={color} commentId={comment.id} userIdFromComment={comment.userId} />
                     </>)
                 })}
             </div>

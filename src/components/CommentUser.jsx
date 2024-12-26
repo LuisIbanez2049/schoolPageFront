@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import AnswerCommentUser from './AnswerCommentUser'
 import InputAddAnswer from './InputAddAnswer'
 import axios from 'axios'
+import PopUpMessage from './PopUpMessage'
 
-function CommentUser({ date, text, fullName, arrayAnswers, color, commentId, userIdFromComment}) {
+function CommentUser({ date, text, fullName, color, commentId, userIdFromComment }) {
 
-    const [answers, setAnswers] = useState(arrayAnswers && arrayAnswers)
+    const [answers, setAnswers] = useState([])
 
     useEffect(() => {
         console.log(answers)
@@ -17,6 +18,28 @@ function CommentUser({ date, text, fullName, arrayAnswers, color, commentId, use
     const [viewAnswers, setViewAnswers] = useState(false)
 
     const [valueInput, setValueInput] = useState("")
+
+    const [aux, setAux] = useState(false)
+
+
+    const token = localStorage.getItem("userToken")
+    let tokenSinComillas = token.replace(/"/g, '');
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/comentario/${commentId}`, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+            .then((response) => {
+                console.log(response.data)
+                setAnswers(response.data.respuestas)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+    }, [aux])
 
     const handleAnswer = () => {
         const token = localStorage.getItem("userToken")
@@ -36,15 +59,24 @@ function CommentUser({ date, text, fullName, arrayAnswers, color, commentId, use
         })
             .then((response) => {
                 console.log(response.data)
+                if (aux) {
+                    setAux(false)
+                } else { setAux(true) }
+                setValueInput("")
             })
             .catch((error) => {
                 console.log(error)
             })
     }
 
+
     const handleOnChange = (e) => {
-    setValueInput(e.target.value)
+        setValueInput(e.target.value)
     }
+    const handleOnClickCancel = () => {
+        setValueInput("")
+    }
+
 
 
     return (
@@ -66,7 +98,7 @@ function CommentUser({ date, text, fullName, arrayAnswers, color, commentId, use
                 </div>
                 <p className='text-[17px] font-light'> {text} </p>
 
-                
+
 
                 <button className={`block mt-4 `} onClick={() => {
                     if (viewAnswers) {
@@ -81,9 +113,10 @@ function CommentUser({ date, text, fullName, arrayAnswers, color, commentId, use
                     </h1>
                 </button>
 
-                <div className={`pl-4 mt-2 flex flex-col gap-8 transition-all duration-700 overflow-hidden  ${viewAnswers ? `h-[${answers && answers.length > 0 && answers.length * 230}px]` : "h-0 "} border border-black`}>
-                    <div className='w-[1100px]'>
-                     <InputAddAnswer color={color} commentId={commentId} userIdFromComment={userIdFromComment} userName={fullName} onClickFunction={handleAnswer} onChangeFunction={handleOnChange} valueInput={valueInput}/>
+                <div className={`${viewAnswers ? `h-[${answers && answers.length > 0 && answers.length * 400}px]` : "h-0 "} pl-4 py-${viewAnswers ? "3" : "0"} mt-2 flex flex-col gap-8 transition-all duration-700 overflow-hidden border border-black`}>
+                    <div className='w-[1100px]' id='textBoxMessage'>
+                        <InputAddAnswer color={color} commentId={commentId} userIdFromComment={userIdFromComment} userName={fullName} onClickFunction={handleAnswer} onChangeFunction={handleOnChange}
+                            valueInput={valueInput} onClickCancelFunction={handleOnClickCancel} />
                     </div>
                     {answers && answers.length > 0 && answers.map(answer => {
                         return (<>

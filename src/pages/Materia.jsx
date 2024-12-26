@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CommentUser from '../components/CommentUser'
 import CardPostsSubject from '../components/CardPostsSubject'
+import PopUpMessage from '../components/PopUpMessage'
+import { useSelector } from 'react-redux'
 
 function Materia() {
 
@@ -15,6 +17,8 @@ function Materia() {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [fileURL, setFileURL] = useState("")
+
+    const bodyPopUpMessage = useSelector(store => store.popUpMessageReducer)
     
 
     const token = localStorage.getItem("userToken")
@@ -47,6 +51,7 @@ function Materia() {
             detalleContenido: description,
             archivo: fileURL,
         }
+        console.log(bodyCreateContent)
         axios.post("http://localhost:8080/api/contenido/create", bodyCreateContent, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
@@ -65,6 +70,7 @@ function Materia() {
     return (
         <div>
             <div className='flex flex-col min-h-screen'>
+            <PopUpMessage message={bodyPopUpMessage.message} show={bodyPopUpMessage.isShow}/>
                 <div>
                     <div className={`w-full h-[80px] bg-[${subject && subject.color}] flex flex-row justify-center items-center `}>
                         <h1 className='text-[45px] font-thin'> {subject && subject.nombre} </h1>
@@ -130,7 +136,6 @@ function Materia() {
                                                 <div className='w-full flex flex-row justify-end'>
                                                     <div className='p-3 flex flex-row gap-8 '>
                                                         <button onClick={() => {
-                                                            setIdSubject(0)
                                                             setTitle("")
                                                             setDescription("")
                                                             setFileURL("")
@@ -149,7 +154,7 @@ function Materia() {
                                     {subject && subject.contenidos && subject.contenidos.map(contenido => {
                                         return (<>
                                             <CardPostsSubject color={subject && subject.color} title={contenido.titulo} date={contenido.fechaDePublicacion} description={contenido.detalleDelContenido}
-                                                file={contenido.archivo} arrayComments={contenido.comentarios} contentId={contenido.id}/>
+                                                file={contenido.archivo} contentId={contenido.id}/>
                                         </>)
                                     })}
                                 </div>
