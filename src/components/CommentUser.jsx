@@ -3,14 +3,16 @@ import AnswerCommentUser from './AnswerCommentUser'
 import InputAddAnswer from './InputAddAnswer'
 import axios from 'axios'
 import PopUpMessage from './PopUpMessage'
+import { useDispatch, useSelector } from 'react-redux'
+import store from '../redux/store'
 
-function CommentUser({ date, text, fullName, color, commentId, userIdFromComment }) {
+function CommentUser({ date, text, fullName, color, commentId, userIdFromComment, reRenderAux }) {
 
     const [answers, setAnswers] = useState([])
 
     useEffect(() => {
         console.log(answers)
-    }, [])
+    }, [answers])
 
     const dateDate = date && date.slice(0, 10);
     const dateHour = date && date.slice(11, 16);
@@ -21,25 +23,46 @@ function CommentUser({ date, text, fullName, color, commentId, userIdFromComment
 
     const [aux, setAux] = useState(false)
 
+    const dispatchAux = useDispatch()
+    let auxGlobal = useSelector(store => store.auxReducer)
+
 
     const token = localStorage.getItem("userToken")
     let tokenSinComillas = token.replace(/"/g, '');
 
+    // useEffect(() => {
+    //     axios.get(`http://localhost:8080/api/comentario/${commentId}`, {
+    //         headers: {
+    //             Authorization: `Bearer ${tokenSinComillas}`
+    //         }
+    //     })
+    //         .then((response) => {
+    //             console.log(response.data)
+    //             setAnswers(response.data.respuestas)
+    //             console.log("USEEFFECT PARA HACER DE NUEVOP LA PETICION")
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
+
+    // }, [aux, reRenderAux])
+
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/comentario/${commentId}`, {
+        axios.get(`http://localhost:8080/api/respuesta/fromAcomment/${commentId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
         })
             .then((response) => {
                 console.log(response.data)
-                setAnswers(response.data.respuestas)
+                setAnswers(response.data)
+                console.log("USEEFFECT PARA HACER DE NUEVOP LA PETICION")
             })
             .catch((error) => {
                 console.log(error)
             })
 
-    }, [aux])
+    }, [aux, reRenderAux])
 
     const handleAnswer = () => {
         const token = localStorage.getItem("userToken")
@@ -61,8 +84,18 @@ function CommentUser({ date, text, fullName, color, commentId, userIdFromComment
                 console.log(response.data)
                 if (aux) {
                     setAux(false)
-                } else { setAux(true) }
+                    console.log(" SE ACTUALIZO AUX A FALSE")
+                } else {
+                    setAux(true)
+                    console.log(" SE ACTUALIZO AUX A TRUE")
+                }
                 setValueInput("")
+
+                console.log(auxGlobal.isAux)
+                if (auxGlobal.isAux) {
+                    dispatchAux(falseAuxAction())
+                } else { dispatchAux(truAuxAction(response.data)) }
+
             })
             .catch((error) => {
                 console.log(error)
@@ -96,6 +129,9 @@ function CommentUser({ date, text, fullName, color, commentId, userIdFromComment
                         </div>
                     </div>
                 </div>
+                <div>
+                    <h1> ID del comentario {commentId} </h1>
+                </div>
                 <p className='text-[17px] font-light'> {text} </p>
 
 
@@ -120,7 +156,7 @@ function CommentUser({ date, text, fullName, color, commentId, userIdFromComment
                     </div>
                     {answers && answers.length > 0 && answers.map(answer => {
                         return (<>
-                            <AnswerCommentUser fullName={answer.nombreUsuario} date={answer.fecha} text={answer.texto} receptorFullName={answer.respuestaPara}/>
+                            <AnswerCommentUser fullName={answer.nombreUsuario} date={answer.fecha} text={answer.texto} receptorFullName={answer.respuestaPara} />
                         </>)
                     })}
                 </div>

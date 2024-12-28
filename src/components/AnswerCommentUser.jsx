@@ -6,7 +6,9 @@ function AnswerCommentUser({ date, text, fullName, receptorFullName }) {
     const dateDate = date && date.slice(0, 10);
     const dateHour = date && date.slice(11, 16);
 
-    
+    const [showInputAnswer, setShowInputAnswer] = useState(false)
+
+
 
     return (
         <div>
@@ -30,9 +32,16 @@ function AnswerCommentUser({ date, text, fullName, receptorFullName }) {
                         {text}
                     </p>
                     <div className='w-full flex flex-row justify-end'>
-                        <button >
+                        <button onClick={() => {
+                            if (showInputAnswer) {
+                                setShowInputAnswer(false)
+                            } else { setShowInputAnswer(true) }
+                        }}>
                             <h1 className='text-[14px] font-semibold'>REPLY</h1>
                         </button>
+                    </div>
+                    <div className={`border border-black transition-all transform duration-500 ${showInputAnswer ? "h-[100px]" : "h-[0px]"} overflow-auto`}>
+                        <h1>Hola</h1>
                     </div>
                 </div>
             </div>

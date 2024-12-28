@@ -19,6 +19,7 @@ function Materia() {
     const [fileURL, setFileURL] = useState("")
 
     const bodyPopUpMessage = useSelector(store => store.popUpMessageReducer)
+    const bodyAux = useSelector(store => store.auxReducer)
     
 
     const token = localStorage.getItem("userToken")
@@ -41,7 +42,7 @@ function Materia() {
             .catch((error) => {
                 console.log(error)
             })
-    }, [aux])
+    }, [aux, bodyAux.isAux])
 
     const handleCreateAContent = async (event) => {
         event.preventDefault()

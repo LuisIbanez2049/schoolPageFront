@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { hiddenPopUpAction, showPopUpAction } from '../redux/actions/popUpMessageAction';
 import store from '../redux/store';
+import { falseAuxAction, truAuxAction } from '../redux/actions/auxAction';
 
 function CardPostsSubject({ color, title, description, date, file, contentId }) {
 
@@ -18,7 +19,11 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
     const [aux, setAux] = useState(false)
     const [inputValueTextComment, setInputValueTextComment] = useState("")
 
+    const [reRenderAxiosGetComments, setReRenderAxiosGetComments] = useState(false)
+
     const dispatch = useDispatch()
+    const dispatchAux = useDispatch()
+    let auxGlobal = useSelector(store => store.auxReducer)
 
     function showPopUpFunction(data) {
         dispatch(showPopUpAction(data))
@@ -45,8 +50,17 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
             if (aux) {
                 setAux(false)
             } else { setAux(true) }
+
+            if (reRenderAxiosGetComments) {
+                setReRenderAxiosGetComments(false)
+            } else { setReRenderAxiosGetComments(true) }
             
             setInputValueTextComment("")
+
+            console.log(auxGlobal.isAux)
+            if (auxGlobal.isAux) {
+                dispatchAux(falseAuxAction())
+            } else { dispatchAux(truAuxAction(response.data)) }
 
             showPopUpFunction(response.data)
 
@@ -134,7 +148,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                 </div>
                 {comments && comments.length > 0 && comments.map(comment => {
                     return (<>
-                        <CommentUser fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} color={color} commentId={comment.id} userIdFromComment={comment.userId} />
+                        <CommentUser fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} color={color} commentId={comment.id} userIdFromComment={comment.userId} reRenderAux={reRenderAxiosGetComments}/>
                     </>)
                 })}
             </div>
