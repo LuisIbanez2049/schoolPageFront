@@ -88,21 +88,23 @@ function Materia() {
                         </div>
                         <div className='w-full flex flex-col justify-center items-center '>
                             <div className='w-[95%] flex flex-row border border-red-600'>
-                                <div className=' w-[12%] h-[300px] border border-black'>
-                                    <h1 className='font-bold'>STUDENTS</h1>
+                                <div className={`w-[12%] h-auto `}>
+                                   <div className={` p-2 border-4 border-[${subject && subject.color}] rounded-[15px] bg-gray-100`}>
+                                   <h1 className={`font-bold text-[24px] text-[#2c2c2c]`}>STUDENTS</h1>
                                     <ul className=' pl-1 '>
                                         {subject && subject.alumnos && subject.alumnos.map(alumno => {
                                             return (
-                                                <> <li> {alumno.name} </li> </>
+                                                <> <li className='text-[19px]'> {alumno.name} </li> </>
                                             )
                                         })}
                                     </ul>
-                                    <h1 className='font-bold'>PROFESSOR</h1>
+                                    <h1 className='font-bold text-[24px] text-[#2c2c2c]'>PROFESSOR</h1>
                                     <ul className='pl-1'>
                                         {subject && subject.profesores && subject.profesores.map(professor => {
-                                            return (<> <li> {professor.name + " " + professor.lastName} </li> </>)
+                                            return (<> <li className='text-[19px]'> {professor.name + " " + professor.lastName} </li> </>)
                                         })}
                                     </ul>
+                                   </div>
                                 </div>
                                 <div className='w-[88%] flex flex-col items-center gap-12 border border-green-600'>
 
