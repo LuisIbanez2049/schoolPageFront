@@ -34,12 +34,12 @@ function Materias() {
                     )
                 })}
                 {/* #a1d9d9 azul marino --  #a2b38b  verde  --  #c8677f rojo*/}
-                <TarjetaMateria titulo={"Matematica"} imagen={"https://www.gndiario.com/sites/default/files/styles/noticia_detalle_noticia_2_1/public/noticias/matematicas-dia-disciplina-DiMa.jpg?itok=q7DpqUV6"}
+                {/* <TarjetaMateria titulo={"Matematica"} imagen={"https://www.gndiario.com/sites/default/files/styles/noticia_detalle_noticia_2_1/public/noticias/matematicas-dia-disciplina-DiMa.jpg?itok=q7DpqUV6"}
                     descripcion={"Estudio del razonamiento lógico y analítico, abordando números, álgebra, geometría y más, para resolver problemas cotidianos y científicos."} bg={"#a1d9d9"}/>
                 <TarjetaMateria titulo={"Matematica"} imagen={"https://www.gndiario.com/sites/default/files/styles/noticia_detalle_noticia_2_1/public/noticias/matematicas-dia-disciplina-DiMa.jpg?itok=q7DpqUV6"}
                     descripcion={"Estudio del razonamiento lógico y analítico, abordando números, álgebra, geometría y más, para resolver problemas cotidianos y científicos."} bg={"#a2b38b"}/>
                 <TarjetaMateria titulo={"Matematica"} imagen={"https://www.gndiario.com/sites/default/files/styles/noticia_detalle_noticia_2_1/public/noticias/matematicas-dia-disciplina-DiMa.jpg?itok=q7DpqUV6"}
-                    descripcion={"Estudio del razonamiento lógico y analítico, abordando números, álgebra, geometría y más, para resolver problemas cotidianos y científicos."} bg={"#c8677f"}/>
+                    descripcion={"Estudio del razonamiento lógico y analítico, abordando números, álgebra, geometría y más, para resolver problemas cotidianos y científicos."} bg={"#c8677f"}/> */}
             </div>
         </div>
     )
