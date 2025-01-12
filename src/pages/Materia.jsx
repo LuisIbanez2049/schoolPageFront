@@ -63,11 +63,15 @@ function Materia() {
             if (aux) {
                 setAux(false)
             } else { setAux(true) }
+            //------------------------------------------------
+            window.location.reload()
+            //------------------------------------------------
         })
         .catch((error) => {
             console.log(error)
         })
     }
+
     return (
         <div>
             <div className='flex flex-col min-h-screen'>
@@ -128,7 +132,7 @@ function Materia() {
                                                         setDescription(e.target.value)
                                                     }} ></textarea>
 
-                                                <input type="url"
+                                                <input type="text"
                                                     className={`h-[50px] w-full text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
                                                     placeholder='File URL' 
                                                     value={fileURL}

@@ -7,7 +7,8 @@ const store = configureStore({
     reducer: {
         authenticationReducer,
         popUpMessageReducer,
-        auxReducer
+        auxReducer, 
+        authenticatedUserInformationReducer
     }
 })
 
