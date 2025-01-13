@@ -1,5 +1,4 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { build } from "vite"
 import { loginUserAction, logOutUserAction } from "../actions/authenticatedUserInformationAction"
 
 const initialState = {
@@ -20,6 +19,7 @@ const authenticatedUserInformationReducer = createReducer(initialState, (builder
         }
     })
     .addCase(logOutUserAction, (state, action) => {
+        localStorage.removeItem("userInformation")
         return initialState
     })
 })

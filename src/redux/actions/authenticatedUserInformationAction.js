@@ -7,6 +7,7 @@ export const loginUserAction = createAction("loginUser", (data) => {
         email: data.mail,
         rol: data.rol
     }
+    localStorage.setItem("userInformation", JSON.stringify(data))
     return {
         payload:userInformation
     }

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction, logOutAction } from "../redux/actions/authenticationAction";
 import store from "../redux/store";
 import { Navigate, useNavigate } from "react-router-dom";
+import { loginUserAction } from "../redux/actions/authenticatedUserInformationAction";
 
 function Home() {
   const [buttonLogin, setButtonLogin] = useState("h-[80px] lg:h-[100px] top-[-15px] lg:top-[-20px] rounded-tr-[20px]");
@@ -30,11 +31,14 @@ function Home() {
   const [showErroeMessageInputContraseña, setShowErroeMessageInputContraseña] = useState(false)
 
   const dispatch = useDispatch()
+  const dispatchUserInformation = useDispatch()
   const user = useSelector(store => store.authenticationReducer)
 
   const navigate = useNavigate()
 
   const [tokken, setTokken] = useState(null)
+
+
 
 
   const handleLogin = async (event) => {
@@ -52,6 +56,25 @@ function Home() {
       dispatch(loginAction(response.data))
       setTokken("materias")
       navigate("/materias")
+
+      const token = localStorage.getItem("userToken")
+      let tokenSinComillas = token.replace(/"/g, '');
+      axios.get("http://localhost:8080/api/auth/current", {
+        headers: {
+          Authorization: `Bearer ${tokenSinComillas}`
+        }
+      })
+        .then((response) => {
+          console.log(response.data)
+          dispatchUserInformation(loginUserAction(response.data))
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+
+
+
+
     } catch (error) {
       console.error(error.response ? error.response.data : error.message)
       let errorMesagge = error.response ? error.response.data : error.message

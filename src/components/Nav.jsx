@@ -11,6 +11,8 @@ function Nav() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
+
     return (
         <nav className='bg-[#476c77]'>
             <div className={`${isVisible ? "" : "hidden"} min-h-screen w-[99vw] absolute z-20`}>
@@ -49,10 +51,10 @@ function Nav() {
                         }`}>
 
                         <div className='text-gray-100 flex flex-col items-center'>
-                            <h1 className='text-[17px] font-semibold'> Luis </h1>
-                            <div className='w-[75px] h-[75px] border border-black rounded-full'></div>
-                            <h1> luis@gmail.com </h1>
-                            <h1 className='text-[18px]'> Welcome Luis Ibañez </h1>
+                            <h1 className='text-[17px] font-semibold'> {userInformationLocalStorage.name} </h1>
+                            <div className='w-[75px] h-[75px] my-[10px] border border-black rounded-full'></div>
+                            <h1 className='text-[18px]'> {userInformationLocalStorage.name + " " + userInformationLocalStorage.lastName} </h1>
+                            <h1 className='mb-[5px]'> {userInformationLocalStorage.mail} </h1>
                         </div>
 
                         <div className='w-full flex flex-col items-center bg-gray-100 rounded-b-[15px]'>

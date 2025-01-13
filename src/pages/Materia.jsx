@@ -20,6 +20,10 @@ function Materia() {
 
     const bodyPopUpMessage = useSelector(store => store.popUpMessageReducer)
     const bodyAux = useSelector(store => store.auxReducer)
+
+    //--------------------------------------------------------------------------------------------
+    const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
+    //--------------------------------------------------------------------------------------------
     
 
     const token = localStorage.getItem("userToken")
@@ -112,7 +116,8 @@ function Materia() {
                                 </div>
                                 <div className='w-[88%] flex flex-col items-center gap-12 border border-green-600'>
 
-                                    <div className='w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2]'>
+                                {/* userInformationLocalStorage */}
+                                    <div className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2]`}>
                                         <form action="" onSubmit={handleCreateAContent}>
                                             <h1 className={`text-[20px] font-bold bg-[${subject && subject.color}] p-2 rounded-[8px] text-center`}>CREATE CONTENT</h1>
 

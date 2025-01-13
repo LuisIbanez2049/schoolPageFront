@@ -15,10 +15,30 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
     const token = localStorage.getItem("userToken")
     let tokenSinComillas = token.replace(/"/g, '');
 
+    //--------------------------------------------------------------------------------------------
+    const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
+    //--------------------------------------------------------------------------------------------
+
 
     const [viewComments, setViewComments] = useState(false)
     const [showDeletePopUpMesagge, setShowDeletePopUpMesagge] = useState(false)
     const dispatch = useDispatch()
+
+    const [viewTitlePen, setViewTitlePen] = useState(false)
+    const [viewDescriptionPen, setViewDescriptionPen] = useState(false)
+    const [viewFileUrlPen, setViewFileUrlPen] = useState(false)
+
+    const [valueTitle, setValueTitle] = useState(title)
+    const [viewInputEditTitle, setViewInputEditTitle] = useState(false)
+
+    const [valueDescription, setValueDescription] = useState(description)
+    const [viewInputEditDescription, setViewInputEditDescription] = useState(false)
+    const [isDisabledInputTextArea, setIsDisabledInputTextArea] = useState(true)
+
+    const [valueUrl, setValueUrl] = useState(file)
+    const [viewInputEditUrl, setViewInputEditUrl] = useState(false)
+
+    const [bodyEditContent, setBodyEditContent] = useState({})
 
     function showPopUpFunction(data) {
         dispatch(showPopUpAction(data))
@@ -75,22 +95,41 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
             })
     }
 
+    function editContent (body){
+        console.log(body)
+        axios.patch(`http://localhost:8080/api/contenido/modificar`, body, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        } )
+        .then((response) => {
+            console.log(response.data)
+            //------------------------------------------------
+            window.location.reload()
+            //------------------------------------------------
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
 
     return (
         <div className=" relative w-[1300px] rounded-lg bg-[#f3f2f2] p-6 shadow-md" style={divStyle}>
 
 
-            <div className=' absolute top-1 right-1 w-[45px] h-[45px] flex flex-row justify-center items-center rounded-full'>
+            <div className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} absolute z-20 top-1 right-1 w-[45px] h-[45px] flex flex-row justify-center items-center rounded-full`}>
                 <button onClick={onClickdeleteButtom}>
                     <i className="fa-solid fa-circle-xmark text-[40px] text-red-500"></i>
                 </button>
             </div>
 
-            <div className={` ${showDeletePopUpMesagge ? "show" : "hidden"} absolute top-0 w-[98%] h-full flex flex-row justify-center  items-center`}>
+            <div className={` absolute top-0 w-[98%] h-full flex flex-row justify-center  items-center transition-all duration-500 transform ${showDeletePopUpMesagge ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
+                } `}>
                 <div className='flex flex-col gap-6 bg-[#e4dcd7] p-4 rounded-[20px] shadow-sm'>
                     <h1 className=' text-center text-[20px] font-semibold text-gray-800'> Are you sure you want to <br /> delete this content? </h1>
                     <div className='w-full flex flex-row justify-center gap-8'>
-                        <button onClick={() => {setShowDeletePopUpMesagge(false)}}>
+                        <button onClick={() => { setShowDeletePopUpMesagge(false) }}>
                             <h1 className='rounded-[5px] p-2 bg-[#ff00007a] font-semibold'>CANCEL</h1>
                         </button>
 
@@ -100,39 +139,182 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
             </div>
 
 
-            <h1 className={`mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white bg-[${color}] rounded-[15px] p-2`}>{title}</h1>
-            <div className="mb-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
-                <CalendarDays className="mr-2 h-4 w-4" />
-                <time >{dateDate} | {dateHour}</time>
-            </div>
-            <p className="mb-6 text-base text-gray-700 dark:text-gray-300">
-                {description}
-            </p>
-            <a
-                href={`${file}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center rounded-lg bg-[${color}] px-4 py-2 text-center text-sm  text-[#000000c0] font-semibold hover:text-black`}
-            >
-                <FileText className="mr-2 h-5 w-5" />
-                View Document
-            </a>
-            <button className=' block mt-4' onClick={() => {
-                if (viewComments) {
-                    setViewComments(false)
-                } else { setViewComments(true) }
-            }}>
-                <h1 className={`text-[20px] text-[${color}] font-bold `}>
-                    <span style={textStyle}> Comments </span>
-                    <span className=' '>
-                        <i className={`fa-solid fa-arrow-turn-down transition-all duration-700 transform ${viewComments ? "rotate-180" : "rotate-0"}`}></i>
+            <div className=' relative z-10'>
+                <div className='relative'>
+
+                    {/* ---------------------------------------------------------------- TITLE TITLE TITLE -------------------------------------------------- */}
+                    <h1 className={` relative mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white bg-[${color}] rounded-[15px] p-2`}
+                        onMouseEnter={() => { setViewTitlePen(true) }} onMouseLeave={() => { setViewTitlePen(false) }}>
+
+                        {title}
+
+                        {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+                        <span className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} ml-[20px]`}>
+                            <button className={`${viewTitlePen ? "show" : "hidden"}`} onClick={() => {
+                                setViewInputEditTitle(true)
+                            }}>
+                                <i class="fa-solid fa-pen text-[20px]"></i>
+                            </button>
+                        </span>
+                        {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+
+
+
+                        {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
+                        <div className={` ${viewInputEditTitle ? "show" : "hidden"} absolute top-0 h-full rounded-l-[20px] bg-[${color}] flex flex-row justify-center items-center`}>
+                            <input type="text" value={valueTitle} className='bg-transparent px-2' onChange={(e) => { setValueTitle(e.target.value) }} />
+
+                            <div className=' ml-2 flex flex-row gap-3'>
+                                <button onClick={() => {
+                                    setValueTitle(title)
+                                    setViewInputEditTitle(false)
+                                }}>
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i>
+                                </button>
+                                <button onClick={() => {
+                                    const upDateBody = {idContenido: contentId, titulo: valueTitle, detalleContenido: "", archivo: ""}
+                                    setBodyEditContent(upDateBody)
+                                    editContent(upDateBody)
+                                }}>
+                                    <i class="fa-solid fa-circle-check text-green-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
+
+
+
+                    </h1>
+                    {/* ---------------------------------------------------------------- TITLE TITLE TITLE -------------------------------------------------- */}
+
+
+
+
+
+                    {/* <div className='abso'> <i class="fa-solid fa-pen"></i> </div>  */}
+                </div>
+                <div className="mb-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    <time >{dateDate} | {dateHour}</time>
+                </div>
+                {/* <p className=" h-auto mb-6 text-base text-gray-700 dark:text-gray-300">
+                    {description}
+                </p> */}
+
+
+                {/* ---------------------------------------------------------------- DESCRIPTION DESCRIPTION DESCRIPTION -------------------------------------------------- */}
+                <div className=' relative' onMouseEnter={() => { setViewDescriptionPen(true) }} onMouseLeave={() => { setViewDescriptionPen(false) }}>
+                    <textarea name="" id="" className='bg-transparent w-[95%] h-[120px]' value={valueDescription} disabled={isDisabledInputTextArea}
+                        onChange={(e) => { setValueDescription(e.target.value) }}></textarea>
+
+                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+                    <span className={` relative z-0 ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} ml-[20px]`}>
+                        <button className={`${viewDescriptionPen ? "show" : "hidden"}`} onClick={() => {
+                            setViewInputEditDescription(true)
+                            setIsDisabledInputTextArea(false)
+                        }}>
+                            <i class="fa-solid fa-pen text-[22px]"></i>
+                        </button>
                     </span>
-                </h1>
-            </button>
-            <div className={` py-${viewComments ? "3" : "0"} mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} `}>
+                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
 
-                <CommentUser color={color} contentId={contentId} />
+                    <div className={` ${viewInputEditDescription ? "show" : "hidden"} absolute z-10 bottom-0 right-[-20px] text-3xl flex flex-row gap-3 p-1 bg-[#f3f2f2]`}>
+                        <button onClick={() => {
+                            setValueDescription(description)
+                            setViewInputEditDescription(false)
+                            setIsDisabledInputTextArea(true)
+                        }}>
+                            <i class="fa-solid fa-circle-xmark text-red-500"></i>
+                        </button>
+                        <button onClick={() => {
+                                    const upDateBody = {idContenido: contentId, titulo: "", detalleContenido: valueDescription, archivo: ""}
+                                    setBodyEditContent(upDateBody)
+                                    editContent(upDateBody)
+                                }}>
+                            <i class="fa-solid fa-circle-check text-green-500"></i>
+                        </button>
+                    </div>
 
+                    <div>
+
+                    </div>
+                </div>
+                {/* ---------------------------------------------------------------- DESCRIPTION DESCRIPTION DESCRIPTION -------------------------------------------------- */}
+
+
+
+
+
+                {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
+                <div className=' relative' onMouseEnter={() => { setViewFileUrlPen(true) }} onMouseLeave={() => { setViewFileUrlPen(false) }}>
+                    <a
+                        href={`${file}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center rounded-lg bg-[${color}] px-4 py-2 text-center text-sm  text-[#000000c0] font-semibold hover:text-black`}
+                    >
+                        <FileText className="mr-2 h-5 w-5" />
+                        View Document
+                    </a>
+
+                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+                    <span className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} ml-[20px]`}>
+                        <button className={`${viewFileUrlPen ? "show" : "hidden"}`} onClick={() => {
+                            setViewInputEditUrl(true)
+                        }}>
+                            <i class="fa-solid fa-pen text-[20px]"></i>
+                        </button>
+                    </span>
+                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+
+                    <div className={`${viewInputEditUrl ? "show" : "hidden"} absolute top-0 w-full h-full`}>
+                        {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
+                        <div className={` ${viewInputEditUrl ? "show" : "hidden"} absolute top-0 h-full  bg-[#f3f2f2] flex flex-row justify-center items-center`}>
+                            <input type="text" value={valueUrl} className='bg-transparent px-2 w-[900px]' onChange={(e) => { setValueUrl(e.target.value) }} />
+
+                            <div className=' ml-2 flex flex-row gap-3 text-3xl'>
+                                <button onClick={() => {
+                                    setValueUrl(file)
+                                    setViewInputEditUrl(false)
+                                }}>
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i>
+                                </button>
+                                <button onClick={() => {
+                                    const upDateBody = {idContenido: contentId, titulo: "", detalleContenido: "", archivo: valueUrl}
+                                    setBodyEditContent(upDateBody)
+                                    editContent(upDateBody)
+                                }}>
+                                    <i class="fa-solid fa-circle-check text-green-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
+                    </div>
+
+                </div>
+                {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
+
+
+
+
+
+                <button className=' block mt-4' onClick={() => {
+                    if (viewComments) {
+                        setViewComments(false)
+                    } else { setViewComments(true) }
+                }}>
+                    <h1 className={`text-[20px] text-[${color}] font-bold `}>
+                        <span style={textStyle}> Comments </span>
+                        <span className=' '>
+                            <i className={`fa-solid fa-arrow-turn-down transition-all duration-700 transform ${viewComments ? "rotate-180" : "rotate-0"}`}></i>
+                        </span>
+                    </h1>
+                </button>
+                <div className={` py-${viewComments ? "3" : "0"} mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} `}>
+
+                    <CommentUser color={color} contentId={contentId} />
+
+                </div>
             </div>
         </div>
     )
