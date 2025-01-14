@@ -11,6 +11,7 @@ function Nav() {
 
     const dispatch = useDispatch();
     const dispatchUser = useDispatch();
+    const navigate = useNavigate();
 
     const user = useSelector(store => store.authenticationReducer)
     const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
@@ -83,7 +84,7 @@ function Nav() {
                                 <div className=' hover:bg-gray-300 '>
                                     <button className=' block w-full'
                                         onClick={() => {
-
+                                            navigate("configuration")
                                         }}>
                                         <h1 className='p-1 text-start mx-2 font-thin'> <span className='mr-[10px]'> <i className="fa-solid fa-gear"></i> </span> Configuration</h1>
                                     </button>
