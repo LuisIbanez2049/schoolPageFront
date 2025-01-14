@@ -2,12 +2,15 @@ import React from 'react'
 import SendButton from "../assets/sendButton.png"
 
 function InputAddComment({color, onClickFunctionCancel, onClickFunction, inputValue, onChangeFunction}) {
+
+    const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
+
     return (
         <div className=' rounded-[20px] shadow-md border border-[#00000025]'>
             <div className='flex flex-row justify-between'>
                 <div className=' w-[8%] flex flex-row justify-center items-center '>
-                    <div className='w-[72px] h-[72px] rounded-full border border-black'>
-                        <img src="" alt="" />
+                    <div className='w-[72px] h-[72px] rounded-full overflow-hidden'>
+                        <img src={userInformationLocalStorage.userProfileImg} alt="" />
                     </div>
                 </div>
 

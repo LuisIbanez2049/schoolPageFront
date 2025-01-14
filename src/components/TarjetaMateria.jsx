@@ -19,18 +19,20 @@ function TarjetaMateria({ titulo, imagen, descripcion, bg, id }) {
             <h1 className=' '>{titulo}</h1>
           </div>
           {/* Contenedor de la imagen */}
-          <div className=' relative w-full h-[180px] lg:h-[230px]  rounded-tr-[30px] z-10'>
-            <div
-              className='w-full h-full  rounded-tr-[30px] '
-              style={{
-                backgroundImage: `url('${imagen}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            ></div>
-          </div>
-          <div className={`p-4 w-full h-[130px] lg:h-[148px] rounded-br-[30px] bg-[${bg}]`}>
-            <p className='text-justify font-light text-[16px] lg:text-[18px]'> {descripcion} </p>
+          <div className=''>
+            <div className=' relative w-full h-[180px] lg:h-[230px]  rounded-tr-[30px] z-10 '>
+              <div
+                className='w-full h-full  rounded-tr-[30px] '
+                style={{
+                  backgroundImage: `url('${imagen}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              ></div>
+            </div>
+            <div className={`p-4 w-full h-[130px] lg:h-[148px] rounded-br-[30px] bg-[${bg}]`}>
+              <p className='text-justify font-light text-[16px] lg:text-[18px]'> {descripcion} </p>
+            </div>
           </div>
         </div>
       </Link>

@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import TarjetaMateria from './TarjetaMateria'
 
 
-function MySubjects({useStateP}) {
+function MySubjects({ useStateP }) {
 
     const user = useSelector((store) => store.authenticationReducer)
-    const [mySubjects, setMySubjects] = useState([]) 
+    const [mySubjects, setMySubjects] = useState([])
 
 
     useEffect(() => {
@@ -29,17 +29,22 @@ function MySubjects({useStateP}) {
     }, [])
 
 
-  return (
-    <div>
-        <div className='w-full flex flex-row justify-center gap-16 flex-wrap pt-[40px]'>
-        {mySubjects && mySubjects.length > 0 && mySubjects.map((subject) => { 
+    return (
+        <div>
+            <div className='w-full flex flex-row justify-center gap-16 flex-wrap pt-[40px]'>
+                {mySubjects && mySubjects.length > 0 && mySubjects.map((subject) => {
                     return (
-                        <TarjetaMateria key={subject.id} id={subject.id} titulo={subject.nombre} imagen={subject.portada} descripcion={subject.descripcion} bg={subject.color}/>
+                        <TarjetaMateria key={subject.id} id={subject.id} titulo={subject.nombre} imagen={subject.portada} descripcion={subject.descripcion} bg={subject.color} />
                     )
                 })}
+
+                <div className={`${mySubjects && mySubjects.length == 0 ? "show" : "hidden"}`}>
+                    <h1 className='text-[45px] font-extrabold text-[#00000059]'>NO SUBJECTS AVAILABLE</h1>
+                </div>
+
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default MySubjects

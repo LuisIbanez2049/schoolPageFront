@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logOutAction } from '../redux/actions/authenticationAction';
 import EasyLearn from "../assets/EASYLEARNpng.png"
 import { useNavigate } from 'react-router-dom';
+import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction';
 function Nav() {
 
     const [isVisible, setIsVisible] = useState(false)
     const [isOnclick, setIsOnclick] = useState(false)
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const dispatchUser = useDispatch();
 
+    const user = useSelector(store => store.authenticationReducer)
     const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
 
     return (
@@ -50,12 +52,29 @@ function Nav() {
                     <div className={`absolute right-8 top-[80px] w-[250px] flex flex-col items-center bg-[#7eaaaa] pt-4 rounded-[15px] shadow-xl transition-all duration-500 transform ${isVisible ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                         }`}>
 
-                        <div className='text-gray-100 flex flex-col items-center'>
+                        {userInformationLocalStorage ? <>
+                            <div className='text-gray-100 flex flex-col items-center'>
+                                <h1 className='text-[17px] font-semibold'> {userInformationLocalStorage.name} </h1>
+
+                                <div className='w-[90px] h-[90px] my-[10px] border border-gray-400 rounded-full' style={{
+                                    backgroundImage: `url('${userInformationLocalStorage.userProfileImg}')`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                }}>
+
+                                </div>
+
+                                <h1 className='text-[18px]'> {userInformationLocalStorage.name + " " + userInformationLocalStorage.lastName} </h1>
+                                <h1 className='mb-[5px]'> {userInformationLocalStorage.mail} </h1>
+                            </div>
+                        </> : <> </>}
+
+                        {/* <div className='text-gray-100 flex flex-col items-center'>
                             <h1 className='text-[17px] font-semibold'> {userInformationLocalStorage.name} </h1>
                             <div className='w-[75px] h-[75px] my-[10px] border border-black rounded-full'></div>
                             <h1 className='text-[18px]'> {userInformationLocalStorage.name + " " + userInformationLocalStorage.lastName} </h1>
                             <h1 className='mb-[5px]'> {userInformationLocalStorage.mail} </h1>
-                        </div>
+                        </div> */}
 
                         <div className='w-full flex flex-col items-center bg-gray-100 rounded-b-[15px]'>
                             <div className='w-full border border-[#EFB071]'></div>
@@ -74,6 +93,7 @@ function Nav() {
                                     <a href="/">
                                         <button className=' block w-full' onClick={() => {
                                             dispatch(logOutAction())
+                                            dispatchUser(logOutUserAction())
                                         }}>
                                             <h1 className='p-1 text-start mx-2 font-thin'> <span className='mr-[10px]'> <i className="fa-solid fa-right-to-bracket"></i> </span> Logout </h1>
                                         </button>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import SendButton from "../assets/sendButton.png"
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function TarjetaMateriaWithAccessCode({ titulo, imagen, descripcion, bg, id }) {
 
@@ -32,6 +33,9 @@ function TarjetaMateriaWithAccessCode({ titulo, imagen, descripcion, bg, id }) {
             .then((response) => {
                 console.log(response.data)
                 setViewInputAccessCode(false)
+                //------------------------------------------------
+                window.location.reload()
+                //------------------------------------------------
             })
             .catch((error) => {
                 console.log(error)
@@ -119,10 +123,10 @@ function TarjetaMateriaWithAccessCode({ titulo, imagen, descripcion, bg, id }) {
             </div>
 
 
-            <button onClick={() => {
+            <button className=' mt-[10%]' onClick={() => {
                 setViewInputAccessCode(true)
             }}>
-                <div className=' relative w-[330px] lg:w-[450px] h-[380px] rounded-br-[30px] mt-[10%] ' onMouseEnter={() => {
+                <div className=' relative w-[330px] lg:w-[450px] h-[380px] rounded-br-[30px] ' onMouseEnter={() => {
                     setMouseIn(true)
                 }} onMouseLeave={() => {
                     setMouseIn(false)

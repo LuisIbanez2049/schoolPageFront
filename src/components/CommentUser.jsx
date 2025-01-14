@@ -86,7 +86,7 @@ function CommentUser({ date, text, fullName, color, contentId, userIdFromComment
             <div className='flex flex-col gap-10'>
                 {comments && comments.length > 0 && comments.map(comment => {
                     return (<>
-                        <CommentUserCard fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} color={color} commentId={comment.id} userIdFromComment={comment.userId}/>
+                        <CommentUserCard fullName={comment.nombreUsuario} text={comment.texto} date={comment.fecha} color={color} commentId={comment.id} userIdFromComment={comment.userId} profileImgFromUserComment={comment.profileImgFromUserComment}/>
                     </>)
                 })}
             </div>

@@ -4,14 +4,15 @@ import axios from 'axios'
 
 function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunction, onChangeFunction, valueInput}) {
 
+    const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
 
     return (
         <div>
-            <div className=' rounded-[20px] shadow-md border border-[#00000025]'>
+            <div className=' rounded-[10px] shadow-md border border-[#00000025]'>
                 <div className='flex flex-row justify-between'>
                     <div className=' w-[8%] flex flex-row justify-center items-center '>
-                        <div className='w-[72px] h-[72px] rounded-full border border-black'>
-                            <img src="" alt="" />
+                        <div className='w-[72px] h-[72px] rounded-full overflow-hidden'>
+                            <img src={userInformationLocalStorage.userProfileImg} alt="" />
                         </div>
                     </div>
 

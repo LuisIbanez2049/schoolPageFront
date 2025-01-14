@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import InputAddAnswer from './InputAddAnswer';
 import axios from 'axios';
 
-function AnswerUserCard({ date, text, fullName, receptorFullName, answerUserId, color, commentId }) {
+function AnswerUserCard({ date, text, fullName, receptorFullName, answerUserId, color, commentId, profileImgFromUserAnswer }) {
 
     const dateDate = date && date.slice(0, 10);
     const dateHour = date && date.slice(11, 16);
@@ -54,8 +54,8 @@ function AnswerUserCard({ date, text, fullName, receptorFullName, answerUserId, 
                 <div className='w-[1150px] p-4 bg-[#ffffff69] rounded-[30px] shadow-md border border-[#00000015]'>
                     <div className='  flex flex-row'>
                         <div className=''>
-                            <div className='w-[50px] h-[50px] rounded-full border border-black'>
-                                <img src="" alt="" />
+                            <div className='w-[50px] h-[50px] rounded-full overflow-hidden'>
+                                <img src={profileImgFromUserAnswer} alt="" />
                             </div>
                         </div>
                         <div className='pl-4 '>

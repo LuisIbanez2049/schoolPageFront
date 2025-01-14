@@ -95,7 +95,7 @@ function AnswerUser({ color, commentId, userIdFromComment, fullName }) {
             <div className='flex flex-col gap-6'>
                 {answers && answers.length > 0 && answers.map(answer => {
                     return (<>
-                      <AnswerUserCard commentId={commentId} answerUserId={answer.usuarioId} color={color} date={answer.fecha} fullName={answer.nombreUsuario} receptorFullName={answer.respuestaPara} text={answer.texto} key={answer.id}/>
+                      <AnswerUserCard commentId={commentId} answerUserId={answer.usuarioId} color={color} date={answer.fecha} fullName={answer.nombreUsuario} receptorFullName={answer.respuestaPara} text={answer.texto} key={answer.id} profileImgFromUserAnswer={answer.profileImgFromUserAnswer}/>
                     </>)
                 })}
             </div>

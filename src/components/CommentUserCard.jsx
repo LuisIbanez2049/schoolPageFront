@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import InputAddAnswer from './InputAddAnswer';
 import AnswerUser from './AnswerUser';
 
-function CommentUserCard({ date, text, fullName, color, commentId, userIdFromComment }) {
+function CommentUserCard({ date, text, fullName, color, commentId, userIdFromComment, profileImgFromUserComment }) {
 
     const dateDate = date && date.slice(0, 10);
     const dateHour = date && date.slice(11, 16);
@@ -15,8 +15,8 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
             <div className='w-[1220px] p-4 bg-[#ffffff69] rounded-[30px] shadow-md border border-[#0000001f]'>
                 <div className='  flex flex-row'>
                     <div className=''>
-                        <div className='w-[60px] h-[60px] rounded-full border border-black'>
-                            <img src="" alt="" />
+                        <div className='w-[60px] h-[60px] rounded-full overflow-hidden'>
+                            <img src={profileImgFromUserComment} alt="" />
                         </div>
                     </div>
                     <div className='pl-4 '>
