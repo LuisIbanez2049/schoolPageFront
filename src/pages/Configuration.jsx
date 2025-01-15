@@ -1,27 +1,87 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function Configuration() {
-  return (
-    <div className='flex flex-col min-h-screen'>
-        <div className='w-full min-h-screen flex flex-col items-center border-2 border-red-600'>
 
-            <div className='w-[65%] flex flex-row border border-black mt-[12%]'>
-                <div className='w-[50%] flex flex-row justify-center items-center'>
-                    <div className='w-[300px] h-[300px] rounded-full border border-black'>
+    const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
 
+    const [viewNamePen, setViewNamePen] = useState(true)
+
+
+    return (
+        <div className='flex flex-col min-h-screen'>
+            <div className='w-full min-h-screen flex flex-col items-center border-2 border-red-600'>
+
+                <div className='w-[65%] flex flex-row border border-black mt-[12%]'>
+
+                    <div className='w-[40%] flex flex-row justify-center items-center'>
+                        <div className='w-[300px] h-[300px] rounded-full border border-black'>
+
+                        </div>
+                    </div>
+
+                    <div className='w-[60%] flex flex-col justify-around border border-red-600 font-extrabold text-gray-800'>
+
+                        <div className='border border-black flex flex-row justify-center'>
+
+                            {/* ----------------------------------------------------------------------------------------------------NAME NAME NAME-------------------------------------------------- */}
+                            <div className='flex flex-row border border-red-600'>
+                                <input className='text-[45px] text-center focus:outline-none focus:border-none border border-black w-[270px]' type="text" value={"Luis"} />
+
+                                <div className=' relative border border-green-600'>
+                                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+                                    <span className={``}>
+                                        <button className={`${viewNamePen ? "show" : "hidden"}`} onClick={() => {
+                                            setViewInputEditTitle(true)
+                                        }}>
+                                            <i class="fa-solid fa-pen text-[30px]"></i>
+                                        </button>
+                                    </span>
+                                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+
+                                    <div className=' absolute top-0 w-full h-full flex flex-col items-center justify-center gap-1 bg-white'>
+                                        <button onClick={() => {
+                                            setValueTitle(title)
+                                            setViewInputEditTitle(false)
+                                        }}>
+                                            <i class="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                        </button>
+                                        <button onClick={() => {
+                                            const upDateBody = { idContenido: contentId, titulo: valueTitle, detalleContenido: "", archivo: "" }
+                                            setBodyEditContent(upDateBody)
+                                            editContent(upDateBody)
+                                        }}>
+                                            <i class="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* ----------------------------------------------------------------------------------------------------NAME NAME NAME-------------------------------------------------- */}
+
+
+
+
+                            <input className='text-[45px] text-center focus:outline-none focus:border-none border border-black w-[270px]' type="text" value={"Ibañez"} />
+
+                            {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+                            <span className={``}>
+                                <button className={`${viewNamePen ? "show" : "hidden"}`} onClick={() => {
+                                    setViewInputEditTitle(true)
+                                }}>
+                                    <i class="fa-solid fa-pen text-[30px]"></i>
+                                </button>
+                            </span>
+                            {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+
+                        </div>
+                        
+                        <input className='text-[45px] focus:outline-none focus:border-none' type="text" value={"94706333"} />
+                        <input className='text-[45px] focus:outline-none focus:border-none' type="text" value={"luis@gmail.com"} />
                     </div>
                 </div>
 
-                <div className='w-[50%] flex flex-col justify-around border border-red-600 text-[35px] font-extrabold text-gray-800'>
-                    <input className='text-[45px] text-center focus:outline-none focus:border-none' type="text" value={"Luis Ibañez"}/>
-                    <h1>94706333</h1>
-                    <h1>luis@gmail.com</h1>
-                </div>
             </div>
-
         </div>
-    </div>
-  )
+    )
 }
 
 export default Configuration
