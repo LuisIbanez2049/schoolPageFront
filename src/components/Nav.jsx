@@ -85,6 +85,8 @@ function Nav() {
                                     <button className=' block w-full'
                                         onClick={() => {
                                             navigate("configuration")
+                                            setIsVisible(false)
+                                            setIsOnclick(false)
                                         }}>
                                         <h1 className='p-1 text-start mx-2 font-thin'> <span className='mr-[10px]'> <i className="fa-solid fa-gear"></i> </span> Configuration</h1>
                                     </button>
