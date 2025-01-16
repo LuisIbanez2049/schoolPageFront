@@ -129,11 +129,13 @@ function Materia() {
             <div className='flex flex-col min-h-screen'>
                 <PopUpMessage message={bodyPopUpMessage.message} show={bodyPopUpMessage.isShow} />
                 <div className=' relative border border-black'>
+
                     <div className=' absolute p-5'>
                         <button onClick={() => { navigate("/materias") }}>
                             <h1> <i className="fa-solid fa-share fa-flip-horizontal text-[40px] hover:text-[#f3a04d]"></i> </h1>
                         </button>
                     </div>
+                    
                     <div className={`w-full h-[80px] bg-[${subject && subject.color}] flex flex-row justify-center items-center `}>
                         <h1 className='text-[45px] font-bold text-gray-600'> {subject && subject.nombre} </h1>
                     </div>
