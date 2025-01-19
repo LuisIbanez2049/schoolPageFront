@@ -21,9 +21,14 @@ function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunctio
                             <div>
 
                                 <div className=' flex flex-row'>
-                                    <label htmlFor="" className='flex flex-row justify-center items-center px-2  border-b border-[#00000071]'> <span className=' font-semibold text-[#0000ffc0]'> <i className="fa-brands fa-threads"></i>{userName} </span> </label>
-                                    <input className={`h-[50px] w-[750px] text-pretty font-light pr-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
-                                        type="text" placeholder='Add answer...' value={valueInput} onChange={onChangeFunction}/>
+                                    <div className='flex flex-row px-2'> 
+                                        <span className=' font-semibold text-[#0000ffc0]'> <i className="fa-brands fa-threads"></i>{userName} </span> 
+                                    </div>
+                                    {/* <input className={`h-[50px] w-[750px] text-pretty font-light pr-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
+                                        type="text" placeholder='Add answer...' value={valueInput} onChange={onChangeFunction}/> */}
+
+                                        <textarea name="" id="" className={`h-[50px] w-[750px] text-pretty font-light pr-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
+                                        placeholder='Add answer...' value={valueInput} onChange={onChangeFunction}></textarea>
                                 </div>
 
                                 <div className='flex flex-row justify-end pr-3'>

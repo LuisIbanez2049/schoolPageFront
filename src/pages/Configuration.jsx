@@ -138,6 +138,8 @@ function Configuration() {
                                     <button onClick={() => {
                                         setInputValueProfileImg(userInformationLocalStorage.userProfileImg)
                                         setViewInputEditProfileImg(false)
+                                        setErrorMessage("")
+                                        setShowErrorMessage(false)
                                     }}>
                                         <i class="fa-solid fa-circle-xmark text-red-500"></i>
                                     </button>

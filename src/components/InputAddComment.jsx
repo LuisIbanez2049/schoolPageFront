@@ -17,9 +17,12 @@ function InputAddComment({color, onClickFunctionCancel, onClickFunction, inputVa
                 <div className='w-[95%] flex flex-col items-center '>
                     <div className=' w-full flex flex-row p-2 justify-around '>
                         <div>
-                            <input className={`h-[50px] w-[1020px] text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
+                            {/* <input className={`h-[50px] w-[1020px] text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
                              type="text" placeholder='Add comment...' value={inputValue} 
-                             onChange={onChangeFunction}/>
+                             onChange={onChangeFunction}/> */}
+
+                             <textarea name="" id="" className={`h-[50px] w-[1020px] text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
+                             placeholder='Add comment...' value={inputValue} onChange={onChangeFunction}></textarea>
 
                             <div className='flex flex-row justify-end pr-3'>
                                 <button onClick={onClickFunctionCancel}>

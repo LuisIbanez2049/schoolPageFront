@@ -19,12 +19,72 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
     const [popUpEditComment, setPopUpEditComment] = useState(false)
     const [isDisabledButtons, setIsDisabledButtons] = useState(true)
 
+    const [errorMesagge, setErrorMesagge] = useState("")
+    const [showErrorMesaggePopUp, setShowErrorMesaggePopUp] = useState(false)
+
+    const token = localStorage.getItem("userToken")
+    let tokenSinComillas = token.replace(/"/g, '');
+
+
+    function editComment(body) {
+        console.log(body)
+        axios.patch(`http://localhost:8080/api/comentario/modificar`, body, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+            .then((response) => {
+                console.log(response.data)
+                setShowEditInputText(false)
+                setIsDisabledTextArea(true)
+                //------------------------------------------------
+                window.location.reload()
+                //------------------------------------------------
+            })
+            .catch((error) => {
+                console.log(error)
+                console.log(error.response.data)
+                setErrorMesagge(error.response.data)
+                showPopUpFunction()
+            })
+    }
+
+
+    function showPopUpFunction() {
+        setShowErrorMesaggePopUp(true)
+        setTimeout(() => {
+            setShowErrorMesaggePopUp(false)
+            setErrorMesagge("")
+        }, 2000) // 2 segundos
+    }
+
+
+    function deleteComment() {
+        axios.delete(`http://localhost:8080/api/comentario/authenticatedUserDesactivar/${commentId}`, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+            .then((response) => {
+                console.log(response.data)
+                //------------------------------------------------
+                window.location.reload()
+                //------------------------------------------------
+            })
+            .catch((error) => {
+                console.log(error)
+                console.log(error.response.data)
+            })
+    }
+
 
     return (
         <div>
             <div className='w-[1220px] p-4 bg-[#ffffff69] rounded-[30px] shadow-md border border-[#0000001f]'>
-                <div className=' relative  flex flex-row border border-black'>
+                <div className=' relative  flex flex-row'>
 
+
+                    {/* ----------------------------------------------------------- TRES PUNTITOS VERTICAL MAS EL CUADRO POPUP CON LOS BOTONES DELETE Y EDIT-------------------------------------- */}
                     <div className={` ${userInformationLocalStorage.id == userIdFromComment ? "show" : "hidden"} absolute top-0 right-0`}>
                         <button onClick={() => {
                             setPopUpEditComment(true)
@@ -32,8 +92,9 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
                             if (popUpEditComment) {
                                 setPopUpEditComment(false)
                                 setIsDisabledButtons(true)
-                            }}}>
-                          <i className="fa-solid fa-ellipsis-vertical text-[35px] p-2"></i>
+                            }
+                        }}>
+                            <i className="fa-solid fa-ellipsis-vertical text-[35px] p-2"></i>
                         </button>
 
                         <div className={`absolute left-[-90px] top-[45px] flex flex-col items-start gap-2 rounded-[15px] bg-gray-200 border border-gray-300 shadow-md 
@@ -48,13 +109,16 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
                                 <h1 className=' font-semibold text-[20px]'> <i className="fa-solid fa-pen"></i> Edit </h1>
                             </button>
 
-                            <button disabled={isDisabledButtons} className=' w-full text-start p-2 rounded-b-[15px] hover:bg-gray-300 '>
+                            <button disabled={isDisabledButtons} className=' w-full text-start p-2 rounded-b-[15px] hover:bg-gray-300' onClick={() => {deleteComment()}}>
                                 <h1 className=' font-semibold text-[20px]'> <i className="fa-solid fa-trash-can"></i> Delete </h1>
                             </button>
                         </div>
-                        
+
 
                     </div>
+                    {/* ----------------------------------------------------------- TRES PUNTITOS VERTICAL MAS EL CUADRO POPUP CON LOS BOTONES DELETE Y EDIT-------------------------------------- */}
+
+
 
                     <div className=''>
                         <div className='w-[60px] h-[60px] rounded-full overflow-hidden'>
@@ -69,14 +133,27 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h1> ID del comentario {commentId} </h1>
-                </div>
+
                 {/* <p className='text-[17px] font-light'> {text} </p> */}
 
-                <div>
-                    <textarea disabled={isDisabledTextArea} className={`w-full ${showEditInputText ? "border border-black bg-gray-300 rounded-[5px]" : "bg-transparent"} p-2 focus:outline-none focus:border-none`} 
-                    name="" id="" value={valueInputText} onChange={(e) => {setValueInputText(e.target.value)}}></textarea>
+
+
+
+                {/* -----------------------------------------------------------------------CONTENEDOR MENSAJE POPUP ERROR, IMPUT TEXTAREA Y BOTONES PARA CONFIRMAR LA EDICION DE TEXTO------------------ */}
+                <div className=' relative'>
+
+                    {/* --------------------------------------------POPUP ERROR MESAGGE-------------------------------------------- */}
+                    <div className={`absolute w-full flex flex-row justify-center items-center transition-all duration-500 transform 
+                    ${showErrorMesaggePopUp ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"}`}>
+
+                        <h1 className='p-2 bg-yellow-300 font-semibold text-gray-800 rounded-[8px] shadow-md mt-[8px]'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMesagge} </h1>
+                    </div>
+                    {/* --------------------------------------------POPUP ERROR MESAGGE-------------------------------------------- */}
+
+
+
+                    <textarea disabled={isDisabledTextArea} className={` relative w-full ${showEditInputText ? "border border-gray-400 bg-gray-300 rounded-[5px]" : "bg-transparent"} p-2 focus:outline-none focus:border-gray-400`}
+                        name="" id="" value={valueInputText} onChange={(e) => { setValueInputText(e.target.value) }}></textarea>
 
                     <div className={` ${showEditInputText ? "show" : "hidden"} ml-2 flex flex-row gap-3 justify-end text-3xl`}>
                         <button onClick={() => {
@@ -88,18 +165,18 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
                         </button>
                         <button onClick={() => {
                             const upDateBody = {
-                                idMateria: id,
-                                nombre: "",
-                                descripcion: "",
-                                portada: valueUrl
+                                idComentario: commentId,
+                                texto: valueInputText
                             }
-                            editSubjectBanner(upDateBody)
+                            editComment(upDateBody)
                         }}>
                             <i class="fa-solid fa-circle-check text-green-500"></i>
                         </button>
                     </div>
 
                 </div>
+                {/* -----------------------------------------------------------------------CONTENEDOR MENSAJE POPUP ERROR, IMPUT TEXTAREA Y BOTONES PARA CONFIRMAR LA EDICION DE TEXTO------------------ */}
+
 
 
 
