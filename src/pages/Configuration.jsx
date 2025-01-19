@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logOutAction } from '../redux/actions/authenticationAction'
 import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction'
+import LoadingView from '../components/LoadingView'
 
 function Configuration() {
 
@@ -36,8 +37,19 @@ function Configuration() {
 
     const [showPopUpMessage, setShowPopUpMessage] = useState(false)
 
-    const [errorMessage, setErrorMessage] = useState("")
-    const [showErrorMessage, setShowErrorMessage] = useState(false)
+    const [errorMessageName, setErrorMessageName] = useState("")
+    const [showErrorMessageName, setShowErrorMessageName] = useState(false)
+
+    const [errorMessageLastName, setErrorMessageLastName] = useState("")
+    const [showErrorMessageLastName, setShowErrorMessageLastName] = useState(false)
+
+    const [errorMessageDNI, setErrorMessageDNI] = useState("")
+    const [showErrorMessageDNI, setShowErrorMessageDNI] = useState(false)
+
+    const [errorMessageEmail, setErrorMessageEmail] = useState("")
+    const [showErrorMessageEmail, setShowErrorMessageEmail] = useState(false)
+
+
 
     const token = localStorage.getItem("userToken")
     let tokenSinComillas = token.replace(/"/g, '');
@@ -91,14 +103,29 @@ function Configuration() {
             .catch((error) => {
                 console.log(error)
                 console.log(error.response.data)
-                setErrorMessage(error.response.data)
-                setShowErrorMessage(true)
+                if (error.response.data.includes("first name")) {
+                    setErrorMessageName(error.response.data)
+                    setShowErrorMessageName(true)
+                }
+                if (error.response.data.includes("last name")) {
+                    setErrorMessageLastName(error.response.data)
+                    setShowErrorMessageLastName(true)
+                }
+                if (error.response.data.includes("DNI")) {
+                    setErrorMessageDNI(error.response.data)
+                    setShowErrorMessageDNI(true)
+                }
+                if (error.response.data.includes("Email") || error.response.data.includes("email")) {
+                    setErrorMessageEmail(error.response.data)
+                    setShowErrorMessageEmail(true)
+                }
             })
     }
 
 
     return (
         <div className='flex flex-col min-h-screen'>
+            <LoadingView/>
             <div className=' relative w-full min-h-screen flex flex-col items-center bg-gray-200'>
 
                 <div className=' absolute left-0 p-5 '>
@@ -123,7 +150,7 @@ function Configuration() {
                                     setViewInputEditProfileImg(true)
                                     setIsDisabledInputProfileImg(false)
                                 }}>
-                                    <i class="fa-solid fa-pen text-[30px]"></i>
+                                    <i className="fa-solid fa-pen text-[30px]"></i>
                                 </button>
                             </span>
                             {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -138,16 +165,16 @@ function Configuration() {
                                     <button onClick={() => {
                                         setInputValueProfileImg(userInformationLocalStorage.userProfileImg)
                                         setViewInputEditProfileImg(false)
-                                        setErrorMessage("")
-                                        setShowErrorMessage(false)
+                                        setErrorMessageEmail("")
+                                        setShowErrorMessageEmail(false)
                                     }}>
-                                        <i class="fa-solid fa-circle-xmark text-red-500"></i>
+                                        <i className="fa-solid fa-circle-xmark text-red-500"></i>
                                     </button>
                                     <button onClick={() => {
                                         const upDateBody = { name: "", lastName: "", dni: "", email: "", profileImg: inputValueProfileImg }
                                         editUserParemeters(upDateBody)
                                     }}>
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
+                                        <i className="fa-solid fa-circle-check text-green-500"></i>
                                     </button>
                                 </div>
                             </div>
@@ -169,8 +196,19 @@ function Configuration() {
 
                             {/* ----------------------------------------------------------------------------------------------------NAME NAME NAME-------------------------------------------------- */}
                             <div className='flex flex-row  w-[310px]' onMouseEnter={() => { setViewNamePen(true) }} onMouseLeave={() => { setViewNamePen(false) }}>
-                                <input className='text-[45px] text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueName} disabled={isDisabledInputName}
-                                    onChange={(e) => { setInputValueName(e.target.value) }} />
+
+                                <div>
+                                    <input className='text-[45px] text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueName} disabled={isDisabledInputName}
+                                        onChange={(e) => { 
+                                            setInputValueName(e.target.value)
+                                            setErrorMessageName("")
+                                            setShowErrorMessageName(false) }} />
+
+                                    <div className={`z-0  transition-all duration-500 transform ${showErrorMessageName ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
+                                        }`}>
+                                        <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageName} </h1>
+                                    </div>
+                                </div>
 
                                 <div className=' relative w-[100px]'>
                                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -179,7 +217,7 @@ function Configuration() {
                                             setViewInputEditName(true)
                                             setIsDisabledInputName(false)
                                         }}>
-                                            <i class="fa-solid fa-pen text-[30px]"></i>
+                                            <i className="fa-solid fa-pen text-[30px]"></i>
                                         </button>
                                     </span>
                                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -189,14 +227,16 @@ function Configuration() {
                                             setInputValueName(userInformationLocalStorage.name)
                                             setViewInputEditName(false)
                                             setIsDisabledInputName(true)
+                                            setErrorMessageName("")
+                                            setShowErrorMessageName(false)
                                         }}>
-                                            <i class="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                            <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
                                         </button>
                                         <button onClick={() => {
-                                            const upDateBody = { name: inputValueName }
+                                            const upDateBody = { name: inputValueName, lastName: "", dni: "", email: "", profileImg: "" }
                                             editUserParemeters(upDateBody)
                                         }}>
-                                            <i class="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                            <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -207,8 +247,21 @@ function Configuration() {
 
                             {/* ----------------------------------------------------------------------------------------------------LASTNAME LASTNAME LASTNAME-------------------------------------------------- */}
                             <div className='flex flex-row w-[310px] ' onMouseEnter={() => { setViewLastNamePen(true) }} onMouseLeave={() => { setViewLastNamePen(false) }}>
-                                <input className='text-[45px] text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueLastName} disabled={isDisabledInputLastName}
-                                    onChange={(e) => { setInputValueLastName(e.target.value) }} />
+
+                                <div>
+                                    <input className='text-[45px] text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueLastName} disabled={isDisabledInputLastName}
+                                        onChange={(e) => {
+                                            setInputValueLastName(e.target.value)
+                                            setErrorMessageLastName("")
+                                            setShowErrorMessageLastName(false)
+                                        }} />
+
+                                    <div className={`z-0  transition-all duration-500 transform ${showErrorMessageLastName ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
+                                        }`}>
+                                        <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageLastName} </h1>
+                                    </div>
+
+                                </div>
 
                                 <div className=' relative w-[100px] '>
                                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -217,7 +270,7 @@ function Configuration() {
                                             setViewInputEditLastName(true)
                                             setIsDisabledInputLastName(false)
                                         }}>
-                                            <i class="fa-solid fa-pen text-[30px]"></i>
+                                            <i className="fa-solid fa-pen text-[30px]"></i>
                                         </button>
                                     </span>
                                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -227,14 +280,16 @@ function Configuration() {
                                             setInputValueLastName(userInformationLocalStorage.lastName)
                                             setViewInputEditLastName(false)
                                             setIsDisabledInputLastName(true)
+                                            setErrorMessageLastName("")
+                                            setShowErrorMessageLastName(false)
                                         }}>
-                                            <i class="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                            <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
                                         </button>
                                         <button onClick={() => {
                                             const upDateBody = { name: "", lastName: inputValueLastName, dni: "", email: "", profileImg: "" }
                                             editUserParemeters(upDateBody)
                                         }}>
-                                            <i class="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                            <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -246,8 +301,19 @@ function Configuration() {
 
                         {/* ----------------------------------------------------------------------------------------------------DNI DNI DNI-------------------------------------------------- */}
                         <div className='flex flex-row w-[310px] ' onMouseEnter={() => { setViewDniPen(true) }} onMouseLeave={() => { setViewDniPen(false) }}>
-                            <input className='text-[40px] focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueDni} disabled={isDisabledInputDni}
-                                onChange={(e) => { setInputValueDni(e.target.value) }} />
+                            <div>
+                                <input className='text-[40px] focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueDni} disabled={isDisabledInputDni}
+                                    onChange={(e) => {
+                                        setInputValueDni(e.target.value)
+                                        setErrorMessageDNI("")
+                                        setShowErrorMessageDNI(false)
+                                    }} />
+
+                                <div className={`z-0  transition-all duration-500 transform ${showErrorMessageDNI ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
+                                    }`}>
+                                    <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageDNI} </h1>
+                                </div>
+                            </div>
 
                             <div className=' relative w-[100px] '>
                                 {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -256,7 +322,7 @@ function Configuration() {
                                         setViewInputEditDni(true)
                                         setIsDisabledInputDni(false)
                                     }}>
-                                        <i class="fa-solid fa-pen text-[30px]"></i>
+                                        <i className="fa-solid fa-pen text-[30px]"></i>
                                     </button>
                                 </span>
                                 {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -266,14 +332,16 @@ function Configuration() {
                                         setInputValueDni(userInformationLocalStorage.dni)
                                         setViewInputEditDni(false)
                                         setIsDisabledInputDni(true)
+                                        setErrorMessageDNI("")
+                                        setShowErrorMessageDNI(false)
                                     }}>
-                                        <i class="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                        <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
                                     </button>
                                     <button onClick={() => {
                                         const upDateBody = { name: "", lastName: "", dni: inputValueDni, email: "", profileImg: "" }
                                         editUserParemeters(upDateBody)
                                     }}>
-                                        <i class="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                        <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
                                     </button>
                                 </div>
                             </div>
@@ -295,13 +363,13 @@ function Configuration() {
                                 <input className='text-[40px] focus:outline-none focus:border-none w-[450px] bg-transparent' type="text" value={inputValueEmail} disabled={isDisabledInputEmail}
                                     onChange={(e) => {
                                         setInputValueEmail(e.target.value)
-                                        setShowErrorMessage(false)
-                                        setErrorMessage("")
+                                        setShowErrorMessageEmail(false)
+                                        setErrorMessageEmail("")
                                     }} />
 
-                                <div className={`z-0  transition-all duration-500 transform ${showErrorMessage ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
+                                <div className={`z-0  transition-all duration-500 transform ${showErrorMessageEmail ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                                     }`}>
-                                    <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessage} </h1>
+                                    <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageEmail} </h1>
                                 </div>
                             </div>
 
@@ -313,7 +381,7 @@ function Configuration() {
                                         setIsDisabledInputEmail(false)
                                         setShowPopUpMessage(true)
                                     }}>
-                                        <i class="fa-solid fa-pen text-[30px]"></i>
+                                        <i className="fa-solid fa-pen text-[30px]"></i>
                                     </button>
                                 </span>
                                 {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -324,22 +392,22 @@ function Configuration() {
                                         setViewInputEditEmail(false)
                                         setIsDisabledInputEmail(true)
                                         setShowPopUpMessage(false)
-                                        setShowErrorMessage(false)
-                                        setErrorMessage("")
+                                        setShowErrorMessageEmail(false)
+                                        setErrorMessageEmail("")
                                     }}>
-                                        <i class="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                        <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
                                     </button>
                                     <button onClick={() => {
                                         const upDateBody = { name: "", lastName: "", dni: "", email: inputValueEmail, profileImg: "" }
                                         editUserParemeters(upDateBody)
                                     }}>
-                                        <i class="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                        <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         {/* ----------------------------------------------------------------------------------------------------EMAIL EMAIL EMAIL-------------------------------------------------- */}
-                                                      
+
                     </div>
                 </div>
 
