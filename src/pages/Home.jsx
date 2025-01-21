@@ -10,6 +10,7 @@ import { loginAction, logOutAction } from "../redux/actions/authenticationAction
 import store from "../redux/store";
 import { Navigate, useNavigate } from "react-router-dom";
 import { loginUserAction } from "../redux/actions/authenticatedUserInformationAction";
+import LoadingView from "../components/LoadingView";
 
 function Home() {
   const [buttonLogin, setButtonLogin] = useState("h-[80px] lg:h-[100px] top-[-15px] lg:top-[-20px] rounded-tr-[20px]");
@@ -42,6 +43,7 @@ function Home() {
 
 
   const handleLogin = async (event) => {
+    setViewLoadingComponent(true)
     event.preventDefault()
     const bodyLogin = {
       email: email,
@@ -52,6 +54,7 @@ function Home() {
 
     try {
       const response = await axios.post("http://localhost:8080/api/auth/login", bodyLogin)
+      setViewLoadingComponent(false)
       console.log(response)
       dispatch(loginAction(response.data))
       setTokken("materias")
@@ -76,6 +79,7 @@ function Home() {
 
 
     } catch (error) {
+      setViewLoadingComponent(false)
       console.error(error.response ? error.response.data : error.message)
       let errorMesagge = error.response ? error.response.data : error.message
       if (errorMesagge.includes("email") || errorMesagge.includes("Email")) {
@@ -114,6 +118,8 @@ function Home() {
   const [showErroeMessageInputContraseñaR, setShowErroeMessageInputContraseñaR] = useState(false)
   // ----------------------------------
 
+  const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
+
 
 
   //-----------------------------------------------VENTANA EMERGENTE--------------------------------------------
@@ -131,6 +137,7 @@ function Home() {
 
 
   const handleRegister = async (event) => {
+    setViewLoadingComponent(true)
     event.preventDefault()
     const bodyRegister = {
       name: name,
@@ -144,6 +151,7 @@ function Home() {
 
     try {
       const response = await axios.post("http://localhost:8080/api/auth/register", bodyRegister)
+      setViewLoadingComponent(false)
       console.log(response.data)
       setMessagePopUp(response.data)
       showPopUpFunction()
@@ -155,6 +163,7 @@ function Home() {
 
 
     } catch (error) {
+      setViewLoadingComponent(false)
       console.error(error.response ? error.response.data : error.message)
       let errorMesagge = error.response ? error.response.data : error.message
       if (errorMesagge.includes("first name") || errorMesagge.includes("First name")) {
@@ -194,22 +203,12 @@ function Home() {
       <div className="flex flex-col min-h-screen bg-[#1a3c7d]">
 
 
-        {/* <div className="absolute z-50 w-[200px] h-[200px] border ">
-          <h1 className="text-red-500"> hola {user.token} </h1>
-          <button onClick={() => {
-            dispatch(logOutAction())
-          }}>
-            <h1 className="p-2 bg-yellow-600 rounded-[15px]">LogOut</h1>
-          </button>
-          <button onClick={() => {
-            verLocalStorage()
-          }}>
-            <h1 className="p-2 bg-yellow-600 rounded-[15px]">VerLocalStorage</h1>
-          </button>
-        </div> */}
-
-
         <PopUpMessage show={showPopUp} message={messagePopUp} />
+
+        {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+        <LoadingView show={viewLoadingComponent} />
+        {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+
         <div className="w-full min-h-screen flex flex-row justify-center items-center">
           <div className="w-[95%] lg:w-[800px] h-[560px] ">
 

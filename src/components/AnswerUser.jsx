@@ -88,7 +88,7 @@ function AnswerUser({ color, commentId, userIdFromComment, fullName }) {
 
     return (
         <div>
-            <div className='w-[1150px] mb-[20px]'>
+            <div className='w-[272px] lg:w-[1150px] mb-[14px] lg:mb-[20px]'>
                 <InputAddAnswer color={color} commentId={commentId} userName={fullName} onClickFunction={handleAnswer} onChangeFunction={handleOnChange}
                     valueInput={valueInput} onClickCancelFunction={handleOnClickCancel} />
             </div>

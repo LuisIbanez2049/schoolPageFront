@@ -31,7 +31,7 @@ function MySubjects({ useStateP }) {
 
     return (
         <div>
-            <div className='w-full flex flex-row justify-center gap-16 flex-wrap pt-[40px]'>
+            <div className='w-full flex flex-row justify-center gap-0 lg:gap-16 flex-wrap pt-[40px]'>
                 {mySubjects && mySubjects.length > 0 && mySubjects.map((subject) => {
                     return (
                         <TarjetaMateria key={subject.id} id={subject.id} titulo={subject.nombre} imagen={subject.portada} descripcion={subject.descripcion} bg={subject.color} />
@@ -39,7 +39,7 @@ function MySubjects({ useStateP }) {
                 })}
 
                 <div className={`${mySubjects && mySubjects.length == 0 ? "show" : "hidden"}`}>
-                    <h1 className='text-[45px] font-extrabold text-[#00000059]'>NO SUBJECTS AVAILABLE</h1>
+                    <h1 className='text-[25px] lg:text-[45px] font-extrabold text-[#00000059]'>NO SUBJECTS AVAILABLE</h1>
                 </div>
 
             </div>

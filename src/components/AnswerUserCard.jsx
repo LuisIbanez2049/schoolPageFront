@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import InputAddAnswer from './InputAddAnswer';
 import axios from 'axios';
+import LoadingView from './LoadingView';
 
 function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answerUserId, color, commentId, profileImgFromUserAnswer }) {
 
@@ -25,8 +26,11 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
     const [errorMesagge, setErrorMesagge] = useState("")
     const [showErrorMesaggePopUp, setShowErrorMesaggePopUp] = useState(false)
 
+    const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
+
     const handleAnswer = () => {
 
+        setViewLoadingComponent(true)
         console.log(tokenSinComillas)
 
         const bodyAnswer = {
@@ -41,6 +45,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
             }
         })
             .then((response) => {
+                setViewLoadingComponent(false)
                 console.log(response.data)
                 setValueInput("")
                 //------------------------------------------------
@@ -49,6 +54,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                 setShowInputAnswer(false)
             })
             .catch((error) => {
+                setViewLoadingComponent(false)
                 console.log(error)
             })
     }
@@ -65,6 +71,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
 
     function editAnswer(body) {
+        setViewLoadingComponent(true)
         console.log(body)
         axios.patch(`http://localhost:8080/api/respuesta/modificar`, body, {
             headers: {
@@ -72,6 +79,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
             }
         })
             .then((response) => {
+                setViewLoadingComponent(false)
                 console.log(response.data)
                 setShowEditInputText(false)
                 setIsDisabledTextArea(true)
@@ -80,6 +88,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                 //------------------------------------------------
             })
             .catch((error) => {
+                setViewLoadingComponent(false)
                 console.log(error)
                 console.log(error.response.data)
                 setErrorMesagge(error.response.data)
@@ -97,18 +106,21 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
 
     function deleteAnswer() {
+        setViewLoadingComponent(true)
         axios.delete(`http://localhost:8080/api/respuesta/authenticatedUserDesactivar/${answerId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
         })
             .then((response) => {
+                setViewLoadingComponent(false)
                 console.log(response.data)
                 //------------------------------------------------
                 window.location.reload()
                 //------------------------------------------------
             })
             .catch((error) => {
+                setViewLoadingComponent(false)
                 console.log(error)
                 console.log(error.response.data)
             })
@@ -116,8 +128,13 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
     return (
         <div>
+
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+            <LoadingView show={viewLoadingComponent}/>
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+
             <div>
-                <div className='w-[1150px] p-4 bg-[#ffffff69] rounded-[30px] shadow-md border border-[#00000015]'>
+                <div className='w-[272px] lg:w-[1150px] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#00000015]'>
                     <div className=' relative flex flex-row '>
 
 
@@ -131,10 +148,10 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                                     setIsDisabledButtons(true)
                                 }
                             }}>
-                                <i className="fa-solid fa-ellipsis-vertical text-[35px] p-2"></i>
+                                <i className="fa-solid fa-ellipsis-vertical text-[22px] lg:text-[35px] p-2"></i>
                             </button>
 
-                            <div className={`absolute left-[-90px] top-[45px] flex flex-col items-start gap-2 rounded-[15px] bg-gray-200 border border-gray-300 shadow-md 
+                            <div className={`absolute left-[-75px] top-[32px] lg:left-[-90px] lg:top-[45px] flex flex-col items-start gap-1 lg:gap-2 rounded-[10px] lg:rounded-[15px] bg-gray-200 border border-gray-300 shadow-md 
                                    transition-all duration-500 transform ${popUpEditComment ? "opacity-100 scale-100 z-20" : "opacity-0 scale-90 z-0"}`}>
 
                                 <button disabled={isDisabledButtons} className=' w-full text-start p-2 rounded-t-[15px] hover:bg-gray-300 ' onClick={() => {
@@ -143,11 +160,11 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                                     setShowEditInputText(true)
                                     setIsDisabledTextArea(false)
                                 }}>
-                                    <h1 className=' font-semibold text-[20px]'> <i className="fa-solid fa-pen"></i> Edit </h1>
+                                    <h1 className=' font-semibold text-[16px] lg:text-[20px]'> <i className="fa-solid fa-pen"></i> Edit </h1>
                                 </button>
 
                                 <button disabled={isDisabledButtons} className=' w-full text-start p-2 rounded-b-[15px] hover:bg-gray-300' onClick={() => { deleteAnswer() }}>
-                                    <h1 className=' font-semibold text-[20px]'> <i className="fa-solid fa-trash-can"></i> Delete </h1>
+                                    <h1 className=' font-semibold text-[16px] lg:text-[20px]'> <i className="fa-solid fa-trash-can"></i> Delete </h1>
                                 </button>
                             </div>
                         </div>
@@ -156,14 +173,14 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
 
                         <div className=''>
-                            <div className='w-[50px] h-[50px] rounded-full overflow-hidden'>
+                            <div className='w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full overflow-hidden'>
                                 <img src={profileImgFromUserAnswer} alt="" />
                             </div>
                         </div>
                         <div className='pl-4 '>
-                            <h1 className='text-[18px] font-semibold text-gray-800'> {fullName} </h1>
+                            <h1 className='text-[14px] lg:text-[18px] font-semibold text-gray-800'> {fullName} </h1>
                             {/* <small className='text-muted-foreground '>20-12-2024 | 13:31</small> */}
-                            <div className="mb-4 flex items-center text-[14px] text-gray-500 dark:text-gray-400">
+                            <div className="mb-2 lg:mb-4 flex items-center text-[11px] lg:text-[14px] text-gray-500 dark:text-gray-400">
                                 <time > {dateDate} | {dateHour} </time>
                             </div>
                         </div>
@@ -175,14 +192,16 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                     <div className=' relative'>
 
                         {/* --------------------------------------------POPUP ERROR MESAGGE-------------------------------------------- */}
-                        <div className={`absolute w-full flex flex-row justify-center items-center transition-all duration-500 transform 
+                        <div className={`absolute right-[-30px] w-full flex flex-row justify-center items-center transition-all duration-500 transform 
                             ${showErrorMesaggePopUp ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"}`}>
 
-                            <h1 className='p-2 bg-yellow-300 font-semibold text-gray-800 rounded-[8px] shadow-md mt-[8px]'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMesagge} </h1>
+                            <h1 className='p-1 lg:p-2 bg-yellow-300 font-semibold text-gray-800 rounded-[6px] lg:rounded-[8px] shadow-md mt-[8px] text-[11px] lg:text-[15px]'> 
+                                <i className="fa-solid fa-triangle-exclamation"></i> {errorMesagge} 
+                            </h1>
                         </div>
                         {/* --------------------------------------------POPUP ERROR MESAGGE-------------------------------------------- */}
 
-                        <div className='text-[15px] flex flex-row font-light'>
+                        <div className='text-[11px] lg:text-[15px] flex flex-row font-light'>
                             <div className=' inline-block py-2 '>
                                 <span className=' font-semibold text-[#0000ffc0] '> <i className="fa-brands fa-threads"></i>{receptorFullName} </span>
                             </div>
@@ -192,7 +211,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
                         </div>
 
-                        <div className={` ${showEditInputText ? "show" : "hidden"} ml-2 flex flex-row gap-3 justify-end text-3xl pr-[80px]`}>
+                        <div className={` ${showEditInputText ? "show" : "hidden"} ml-2 flex flex-row gap-2 lg:gap-3 justify-end text-[25px] lg:text-3xl pr-[5px] lg:pr-[80px]`}>
                             <button onClick={() => {
                                 setValueInputText(text)
                                 setShowEditInputText(false)
@@ -222,7 +241,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                                 setShowInputAnswer(false)
                             } else { setShowInputAnswer(true) }
                         }}>
-                            <h1 className='text-[14px] font-semibold'>REPLY</h1>
+                            <h1 className='text-[12px] lg:text-[14px] font-semibold'>REPLY</h1>
                         </button>
                     </div>
                     <div className={` transition-all transform duration-500 ${showInputAnswer ? "h-[100px]" : "h-[0px]"} overflow-hidden`}>

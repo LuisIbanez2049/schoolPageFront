@@ -10,30 +10,30 @@ function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunctio
         <div>
             <div className=' rounded-[10px] shadow-md border border-[#00000025]'>
                 <div className='flex flex-row justify-between'>
-                    <div className=' w-[8%] flex flex-row justify-center items-center '>
-                        <div className='w-[72px] h-[72px] rounded-full overflow-hidden'>
+                    <div className=' lg:w-[8%] flex flex-row justify-center items-center '>
+                        <div className='w-[40px] lg:w-[72px] pl-1 h-[40px] lg:h-[72px] rounded-full overflow-hidden'>
                             <img src={userInformationLocalStorage.userProfileImg} alt="" />
                         </div>
                     </div>
 
-                    <div className='w-[95%] flex flex-col items-center '>
-                        <div className=' w-full flex flex-row p-2 justify-around '>
+                    <div className='w-[85%] lg:w-[95%] flex flex-col items-center '>
+                        <div className=' w-full flex flex-row p-1 lg:p-2 justify-around '>
                             <div>
 
                                 <div className=' flex flex-row'>
-                                    <div className='flex flex-row px-2'> 
-                                        <span className=' font-semibold text-[#0000ffc0]'> <i className="fa-brands fa-threads"></i>{userName} </span> 
+                                    <div className='flex flex-row px-1 lg:px-2'> 
+                                        <span className=' font-semibold text-[#0000ffc0] text-[8px] lg:text-[16px]'> <i className="fa-brands fa-threads"></i>{userName} </span> 
                                     </div>
                                     {/* <input className={`h-[50px] w-[750px] text-pretty font-light pr-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
                                         type="text" placeholder='Add answer...' value={valueInput} onChange={onChangeFunction}/> */}
 
-                                        <textarea name="" id="" className={`h-[50px] w-[750px] text-pretty font-light pr-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
+                                        <textarea name="" id="" className={`h-[25px] lg:h-[50px] w-[130px] lg:w-[750px] text-pretty font-light pr-1 lg:pr-2 bg-transparent text-[10px] lg:text-[16px] border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
                                         placeholder='Add answer...' value={valueInput} onChange={onChangeFunction}></textarea>
                                 </div>
 
                                 <div className='flex flex-row justify-end pr-3'>
                                     <button onClick={onClickCancelFunction}>
-                                        <h1 className='text-[15px] font-bold text-[#ff0000af]'>CANCEL</h1>
+                                        <h1 className='text-[10px] lg:text-[15px] font-bold text-[#ff0000af]'>CANCEL</h1>
                                     </button>
                                 </div>
 
@@ -41,7 +41,7 @@ function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunctio
 
                             <button onClick={onClickFunction}>
                                 <div className={` rounded-full bg-[${color}] p-[1px]`}>
-                                    <img src={SendButton} alt="" className='w-[50px] h-[50px] transition-all duration-300 hover:translate-x-1' />
+                                    <img src={SendButton} alt="" className='w-[27px] h-[27px] lg:w-[50px] lg:h-[50px] transition-all duration-300 hover:translate-x-1' />
                                 </div>
                             </button>
                         </div>

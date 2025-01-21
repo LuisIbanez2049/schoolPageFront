@@ -49,6 +49,8 @@ function Configuration() {
     const [errorMessageEmail, setErrorMessageEmail] = useState("")
     const [showErrorMessageEmail, setShowErrorMessageEmail] = useState(false)
 
+    const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
+
 
 
     const token = localStorage.getItem("userToken")
@@ -82,6 +84,7 @@ function Configuration() {
     }
 
     function editUserParemeters(body) {
+        setViewLoadingComponent(true)
         console.log(body)
         axios.patch(`http://localhost:8080/api/usuarios/configuration`, body, {
             headers: {
@@ -89,6 +92,7 @@ function Configuration() {
             }
         })
             .then((response) => {
+                setViewLoadingComponent(false)
                 console.log(response.data)
                 updateLocalStorage()
                 if (response.data.includes("Email")) {
@@ -101,6 +105,7 @@ function Configuration() {
                 }
             })
             .catch((error) => {
+                setViewLoadingComponent(false)
                 console.log(error)
                 console.log(error.response.data)
                 if (error.response.data.includes("first name")) {
@@ -125,22 +130,30 @@ function Configuration() {
 
     return (
         <div className='flex flex-col min-h-screen'>
-            <LoadingView/>
+
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+            <LoadingView show={viewLoadingComponent}/>
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+
+
             <div className=' relative w-full min-h-screen flex flex-col items-center bg-gray-200'>
 
-                <div className=' absolute left-0 p-5 '>
+                {/* ------------------------------------------------------------FLECHA VOLVER ATRAS------------------------------------------------------------ */}
+                <div className=' absolute left-0 p-2 lg:p-5'>
                     <button onClick={() => { navigate("/materias") }}>
-                        <h1> <i className="fa-solid fa-share fa-flip-horizontal text-[40px] hover:text-[#f3a04d]"></i> </h1>
+                        <h1> <i className="fa-solid fa-share fa-flip-horizontal text-[30px] lg:text-[40px] hover:text-[#f3a04d]"></i> </h1>
                     </button>
                 </div>
+                {/* ------------------------------------------------------------FLECHA VOLVER ATRAS------------------------------------------------------------ */}
 
 
 
-                <div className='w-[65%] flex flex-row border border-[#00000046] shadow-xl rounded-[30px] mt-[12%]'>
+
+                <div className=' w-[95%] lg:w-[800px]  flex flex-col border border-[#00000046] shadow-xl rounded-[30px] mt-[20%] lg:mt-[5%]'>
 
 
                     {/* ----------------------------------------------------------------------------------------------------IMG IMG IMG----------------------------------------------------------------------------- */}
-                    <div className=' relative w-[40%] flex flex-row justify-center items-center bg-[#476c77] p-4 rounded-l-[30px]'
+                    <div className=' relative w-full flex flex-row justify-center items-center bg-[#476c77] p-4 rounded-t-[30px]'
                         onMouseEnter={() => { setViewProfileImgPen(true) }} onMouseLeave={() => { setViewProfileImgPen(false) }}>
 
                         <div className=' absolute top-0 right-0 p-6'>
@@ -156,10 +169,10 @@ function Configuration() {
                             {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
                         </div>
 
-                        <div className={`${viewInputEditProfileImg ? "show" : "hidden"} absolute w-full h-full bg-[#0000009c] flex flex-row justify-center items-center rounded-l-[30px]`}>
+                        <div className={`${viewInputEditProfileImg ? "show" : "hidden"} absolute w-full h-full bg-[#0000009c] flex flex-row  justify-center items-center rounded-t-[30px]`}>
                             {/* ----------------------------------------------------------------INPUT MAS DOS BOTONES -------------------------------------------------- */}
-                            <div className={` ${viewInputEditProfileImg ? "show" : "hidden"}  bg-[#f3f2f2] flex flex-row justify-center items-center p-6 rounded-[20px]`}>
-                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-2 w-[300px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
+                            <div className={` ${viewInputEditProfileImg ? "show" : "hidden"}  bg-[#f3f2f2] flex lg:flex-row flex-col justify-center items-center p-6 rounded-[20px]`}>
+                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-2 lg:w-[600px] w-[250px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
 
                                 <div className=' ml-2 flex flex-row gap-3 text-3xl'>
                                     <button onClick={() => {
@@ -182,7 +195,7 @@ function Configuration() {
                         </div>
 
                         <div className=''>
-                            <img className='w-[300px] h-[300px] rounded-full shadow-lg' src={inputValueProfileImg} alt="" />
+                            <img className='w-[250px] h-[250px] rounded-full shadow-lg' src={inputValueProfileImg} alt="" />
                         </div>
                     </div>
                     {/* ----------------------------------------------------------------------------------------------------IMG IMG IMG----------------------------------------------------------------------------- */}
@@ -190,15 +203,15 @@ function Configuration() {
 
 
 
-                    <div className='w-[60%] flex flex-col justify-around bg-[#EFB071] font-extrabold text-gray-800 p-4 rounded-r-[30px]'>
+                    <div className='w-full flex flex-col justify-around bg-[#EFB071] font-extrabold text-gray-800 p-4 rounded-b-[30px]'>
 
-                        <div className=' flex flex-row justify-center'>
+                        <div className=' flex flex-col lg:flex-row justify-center items-center'>
 
                             {/* ----------------------------------------------------------------------------------------------------NAME NAME NAME-------------------------------------------------- */}
-                            <div className='flex flex-row  w-[310px]' onMouseEnter={() => { setViewNamePen(true) }} onMouseLeave={() => { setViewNamePen(false) }}>
+                            <div className='flex flex-row w-[310px]' onMouseEnter={() => { setViewNamePen(true) }} onMouseLeave={() => { setViewNamePen(false) }}>
 
                                 <div>
-                                    <input className='text-[45px] text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueName} disabled={isDisabledInputName}
+                                    <input className='  text-[37px] lg:text-[45px] text-start lg:text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueName} disabled={isDisabledInputName}
                                         onChange={(e) => { 
                                             setInputValueName(e.target.value)
                                             setErrorMessageName("")
@@ -206,7 +219,7 @@ function Configuration() {
 
                                     <div className={`z-0  transition-all duration-500 transform ${showErrorMessageName ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                                         }`}>
-                                        <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageName} </h1>
+                                        <h1 className='p-1 bg-[#ff00008a] rounded-[10px] text-[13px] lg:text-[16px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageName} </h1>
                                     </div>
                                 </div>
 
@@ -217,12 +230,12 @@ function Configuration() {
                                             setViewInputEditName(true)
                                             setIsDisabledInputName(false)
                                         }}>
-                                            <i className="fa-solid fa-pen text-[30px]"></i>
+                                            <i className="fa-solid fa-pen text-[25px] lg:text-[30px]"></i>
                                         </button>
                                     </span>
                                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
 
-                                    <div className={` ${viewInputEditName ? "show" : "hidden"} absolute top-[-5px]  flex flex-col items-center justify-center gap-1 bg-gray-200 rounded-[5px] p-1`}>
+                                    <div className={` ${viewInputEditName ? "show" : "hidden"} absolute top-[-5px]  flex flex-col items-center justify-center gap-2 lg:gap-1 bg-gray-200 rounded-[5px] p-1`}>
                                         <button onClick={() => {
                                             setInputValueName(userInformationLocalStorage.name)
                                             setViewInputEditName(false)
@@ -230,13 +243,13 @@ function Configuration() {
                                             setErrorMessageName("")
                                             setShowErrorMessageName(false)
                                         }}>
-                                            <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                            <i className="fa-solid fa-circle-xmark text-[25px] lg:text-[30px] text-red-500"></i>
                                         </button>
                                         <button onClick={() => {
                                             const upDateBody = { name: inputValueName, lastName: "", dni: "", email: "", profileImg: "" }
                                             editUserParemeters(upDateBody)
                                         }}>
-                                            <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                            <i className="fa-solid fa-circle-check text-[25px] lg:text-[30px] text-green-500"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -249,7 +262,7 @@ function Configuration() {
                             <div className='flex flex-row w-[310px] ' onMouseEnter={() => { setViewLastNamePen(true) }} onMouseLeave={() => { setViewLastNamePen(false) }}>
 
                                 <div>
-                                    <input className='text-[45px] text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueLastName} disabled={isDisabledInputLastName}
+                                    <input className='text-[37px] lg:text-[45px] text-start lg:text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueLastName} disabled={isDisabledInputLastName}
                                         onChange={(e) => {
                                             setInputValueLastName(e.target.value)
                                             setErrorMessageLastName("")
@@ -258,7 +271,7 @@ function Configuration() {
 
                                     <div className={`z-0  transition-all duration-500 transform ${showErrorMessageLastName ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                                         }`}>
-                                        <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageLastName} </h1>
+                                        <h1 className='p-1 bg-[#ff00008a] rounded-[10px] text-[13px] lg:text-[16px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageLastName} </h1>
                                     </div>
 
                                 </div>
@@ -270,12 +283,12 @@ function Configuration() {
                                             setViewInputEditLastName(true)
                                             setIsDisabledInputLastName(false)
                                         }}>
-                                            <i className="fa-solid fa-pen text-[30px]"></i>
+                                            <i className="fa-solid fa-pen text-[25px] lg:text-[30px]"></i>
                                         </button>
                                     </span>
                                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
 
-                                    <div className={` ${viewInputEditLastName ? "show" : "hidden"} absolute top-[-5px]  flex flex-col items-center justify-center gap-1 bg-gray-200 rounded-[5px] p-1`}>
+                                    <div className={` ${viewInputEditLastName ? "show" : "hidden"} absolute top-[-5px]  flex flex-col items-center justify-center gap-2 lg:gap-1 bg-gray-200 rounded-[5px] p-1`}>
                                         <button onClick={() => {
                                             setInputValueLastName(userInformationLocalStorage.lastName)
                                             setViewInputEditLastName(false)
@@ -283,13 +296,13 @@ function Configuration() {
                                             setErrorMessageLastName("")
                                             setShowErrorMessageLastName(false)
                                         }}>
-                                            <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                            <i className="fa-solid fa-circle-xmark text-[25px] lg:text-[30px] text-red-500"></i>
                                         </button>
                                         <button onClick={() => {
                                             const upDateBody = { name: "", lastName: inputValueLastName, dni: "", email: "", profileImg: "" }
                                             editUserParemeters(upDateBody)
                                         }}>
-                                            <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                            <i className="fa-solid fa-circle-check text-[25px] lg:text-[30px] text-green-500"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -302,7 +315,7 @@ function Configuration() {
                         {/* ----------------------------------------------------------------------------------------------------DNI DNI DNI-------------------------------------------------- */}
                         <div className='flex flex-row w-[310px] ' onMouseEnter={() => { setViewDniPen(true) }} onMouseLeave={() => { setViewDniPen(false) }}>
                             <div>
-                                <input className='text-[40px] focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueDni} disabled={isDisabledInputDni}
+                                <input className='text-[34px] lg:text-[40px] focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueDni} disabled={isDisabledInputDni}
                                     onChange={(e) => {
                                         setInputValueDni(e.target.value)
                                         setErrorMessageDNI("")
@@ -311,7 +324,7 @@ function Configuration() {
 
                                 <div className={`z-0  transition-all duration-500 transform ${showErrorMessageDNI ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                                     }`}>
-                                    <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageDNI} </h1>
+                                    <h1 className='p-1 bg-[#ff00008a] rounded-[10px] text-[13px] lg:text-[16px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageDNI} </h1>
                                 </div>
                             </div>
 
@@ -322,7 +335,7 @@ function Configuration() {
                                         setViewInputEditDni(true)
                                         setIsDisabledInputDni(false)
                                     }}>
-                                        <i className="fa-solid fa-pen text-[30px]"></i>
+                                        <i className="fa-solid fa-pen text-[25px] lg:text-[30px]"></i>
                                     </button>
                                 </span>
                                 {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -335,13 +348,13 @@ function Configuration() {
                                         setErrorMessageDNI("")
                                         setShowErrorMessageDNI(false)
                                     }}>
-                                        <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                        <i className="fa-solid fa-circle-xmark text-[25px] lg:text-[30px] text-red-500"></i>
                                     </button>
                                     <button onClick={() => {
                                         const upDateBody = { name: "", lastName: "", dni: inputValueDni, email: "", profileImg: "" }
                                         editUserParemeters(upDateBody)
                                     }}>
-                                        <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                        <i className="fa-solid fa-circle-check text-[25px] lg:text-[30px] text-green-500"></i>
                                     </button>
                                 </div>
                             </div>
@@ -350,17 +363,17 @@ function Configuration() {
 
 
                         {/* ----------------------------------------------------------------------------------------------------EMAIL EMAIL EMAIL-------------------------------------------------- */}
-                        <div className=' relative flex flex-row w-[490px]' onMouseEnter={() => { setViewEmailPen(true) }} onMouseLeave={() => { setViewEmailPen(false) }}>
+                        <div className=' relative flex flex-row w-[310px] lg:w-[490px]' onMouseEnter={() => { setViewEmailPen(true) }} onMouseLeave={() => { setViewEmailPen(false) }}>
 
 
-                            <div className={`z-0 absolute top-[-30px]  left-[10px] transition-all duration-500 transform ${showPopUpMessage ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
+                            <div className={`z-0 absolute top-[-30px] transition-all duration-500 transform ${showPopUpMessage ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                                 }`}>
-                                <h1 className='p-1 bg-[#ffd900] rounded-[10px] font-normal shadow-lg'> <i className="fa-solid fa-triangle-exclamation"></i> If you change your email, you must login again.</h1>
+                                <h1 className='p-1 bg-[#ffd900] rounded-[10px] text-[13px] lg:text-[15px] font-normal shadow-lg'> <i className="fa-solid fa-triangle-exclamation"></i> If you change your email, you must login again.</h1>
                             </div>
 
 
                             <div>
-                                <input className='text-[40px] focus:outline-none focus:border-none w-[450px] bg-transparent' type="text" value={inputValueEmail} disabled={isDisabledInputEmail}
+                                <input className='  text-[34px] lg:text-[40px] focus:outline-none focus:border-none w-[274px] lg:w-[450px] bg-transparent' type="text" value={inputValueEmail} disabled={isDisabledInputEmail}
                                     onChange={(e) => {
                                         setInputValueEmail(e.target.value)
                                         setShowErrorMessageEmail(false)
@@ -369,11 +382,11 @@ function Configuration() {
 
                                 <div className={`z-0  transition-all duration-500 transform ${showErrorMessageEmail ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                                     }`}>
-                                    <h1 className='p-1 bg-[#ff00008a] rounded-[10px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageEmail} </h1>
+                                    <h1 className='p-1 bg-[#ff00008a] rounded-[10px] text-[13px] lg:text-[16px] font-semibold shadow-lg inline-block'> <i className="fa-solid fa-triangle-exclamation"></i> {errorMessageEmail} </h1>
                                 </div>
                             </div>
 
-                            <div className=' relative w-[100px] '>
+                            <div className=' relative w-[50px]'>
                                 {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
                                 <span className={``}>
                                     <button className={`${viewEmailPen ? "show" : "hidden"}`} onClick={() => {
@@ -381,7 +394,7 @@ function Configuration() {
                                         setIsDisabledInputEmail(false)
                                         setShowPopUpMessage(true)
                                     }}>
-                                        <i className="fa-solid fa-pen text-[30px]"></i>
+                                        <i className="fa-solid fa-pen text-[25px] lg:text-[30px]"></i>
                                     </button>
                                 </span>
                                 {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -395,13 +408,13 @@ function Configuration() {
                                         setShowErrorMessageEmail(false)
                                         setErrorMessageEmail("")
                                     }}>
-                                        <i className="fa-solid fa-circle-xmark text-[30px] text-red-500"></i>
+                                        <i className="fa-solid fa-circle-xmark text-[25px] lg:text-[30px] text-red-500"></i>
                                     </button>
                                     <button onClick={() => {
                                         const upDateBody = { name: "", lastName: "", dni: "", email: inputValueEmail, profileImg: "" }
                                         editUserParemeters(upDateBody)
                                     }}>
-                                        <i className="fa-solid fa-circle-check text-[30px] text-green-500"></i>
+                                        <i className="fa-solid fa-circle-check text-[25px] lg:text-[30px] text-green-500"></i>
                                     </button>
                                 </div>
                             </div>
