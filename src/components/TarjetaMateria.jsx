@@ -30,7 +30,7 @@ function TarjetaMateria({ titulo, imagen, descripcion, bg, id }) {
                 }}
               ></div>
             </div>
-            <div className={`p-4 w-full h-[130px] lg:h-[148px] rounded-br-[30px] bg-[${bg}]`}>
+            <div className={`p-3 lg:p-2 w-full h-[140px] lg:h-[149px] rounded-br-[30px] overflow-hidden bg-[${bg}]`}>
               <p className='text-justify font-light text-[16px] lg:text-[18px]'> {descripcion} </p>
             </div>
           </div>

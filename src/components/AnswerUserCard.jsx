@@ -173,7 +173,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
 
                         <div className=''>
-                            <div className='w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full overflow-hidden'>
+                            <div className='w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full overflow-hidden'>
                                 <img src={profileImgFromUserAnswer} alt="" />
                             </div>
                         </div>

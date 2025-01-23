@@ -9,7 +9,7 @@ function InputAddComment({color, onClickFunctionCancel, onClickFunction, inputVa
         <div className=' rounded-[12px] lg:rounded-[20px] shadow-md border border-[#00000025]'>
             <div className='flex flex-row justify-between'>
                 <div className=' lg:w-[8%] flex flex-row justify-center items-center px-1'>
-                    <div className='w-[45px] lg:w-[72px] h-[45px] lg:h-[72px] rounded-full overflow-hidden'>
+                    <div className='w-[45px] lg:w-[65px] h-[45px] lg:h-[65px] rounded-full overflow-hidden'>
                         <img src={userInformationLocalStorage.userProfileImg} alt="" />
                     </div>
                 </div>

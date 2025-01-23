@@ -141,16 +141,16 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                 </button>
             </div>
 
-            <div className={` absolute top-0 w-[98%] h-full flex flex-row justify-center  items-center transition-all duration-500 transform ${showDeletePopUpMesagge ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
+            <div className={` absolute top-0 w-[90%] lg:w-[98%] h-full flex flex-row justify-center  items-center transition-all duration-500 transform ${showDeletePopUpMesagge ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                 } `}>
                 <div className='flex flex-col gap-6 bg-[#e4dcd7] p-4 rounded-[20px] shadow-sm'>
-                    <h1 className=' text-center text-[20px] font-semibold text-gray-800'> Are you sure you want to <br /> delete this content? </h1>
+                    <h1 className=' text-center lg:text-[20px] font-semibold text-gray-800'> Are you sure you want to <br /> delete this content? </h1>
                     <div className='w-full flex flex-row justify-center gap-8'>
                         <button onClick={() => { setShowDeletePopUpMesagge(false) }}>
-                            <h1 className='rounded-[5px] p-2 bg-[#ff00007a] font-semibold'>CANCEL</h1>
+                            <h1 className='rounded-[5px] p-1 lg:p-2 bg-[#ff00007a] text-[15px] lg:text-[20px] font-semibold'>CANCEL</h1>
                         </button>
 
-                        <button onClick={deleteContend}> <h1 className='rounded-[5px] p-2 bg-[#00800094] font-semibold'>CONFIRM</h1> </button>
+                        <button onClick={deleteContend}> <h1 className='rounded-[5px] p-1 lg:p-2 bg-[#00800094] text-[15px] lg:text-[20px] font-semibold'>CONFIRM</h1> </button>
                     </div>
                 </div>
             </div>
@@ -179,7 +179,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
                         {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
                         <div className={` ${viewInputEditTitle ? "show" : "hidden"} absolute top-0 h-full rounded-l-[20px] bg-[${color}] flex flex-row justify-center items-center`}>
-                            <input type="text" value={valueTitle} className=' w-[150px] bg-transparent px-1 lg:px-2' onChange={(e) => { setValueTitle(e.target.value) }} />
+                            <input type="text" value={valueTitle} className={`w-[150px] ${viewInputEditTitle ? "show border border-gray-700 rounded-[8px]" : "hidden"} bg-transparent px-1 lg:px-2`} onChange={(e) => { setValueTitle(e.target.value) }} />
 
                             <div className=' ml-2 flex flex-row gap-3'>
                                 <button onClick={() => {
@@ -221,7 +221,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
                 {/* ---------------------------------------------------------------- DESCRIPTION DESCRIPTION DESCRIPTION -------------------------------------------------- */}
                 <div className=' relative' onMouseEnter={() => { setViewDescriptionPen(true) }} onMouseLeave={() => { setViewDescriptionPen(false) }}>
-                    <textarea name="" id="" className='bg-transparent w-[86%] lg:w-[95%] h-[50px] lg:h-[120px] text-[14px] lg:text-[18px] p-1' value={valueDescription} disabled={isDisabledInputTextArea}
+                    <textarea name="" id="" className={`bg-transparent w-[86%] lg:w-[95%] h-[50px] lg:h-[120px] ${viewInputEditDescription ? "show border border-gray-700 rounded-[2px]" : ""} text-[14px] lg:text-[18px] p-1`} value={valueDescription} disabled={isDisabledInputTextArea}
                         onChange={(e) => { setValueDescription(e.target.value) }}></textarea>
 
                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -268,10 +268,10 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                         href={`${file}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center rounded-[5px] lg:rounded-lg bg-[${color}] px-2 lg:px-4 py-1 lg:py-2 text-center text-sm  text-[#000000c0] font-semibold hover:text-black`}
+                        className={`inline-flex items-center rounded-[5px] lg:rounded-lg bg-[${color}] px-1 lg:px-4 py-1 lg:py-2 text-center text-sm  text-[#000000c0] font-semibold hover:text-black`}
                     >
-                        <FileText className="mr-2 h-5 w-5" />
-                        View Document
+                        <FileText className="mr-2 h-4 w-4 lg:h-5 lg:w-5" />
+                        <h1 className='text-[12px] lg:text-[16px]'>View Document</h1>
                     </a>
 
                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}

@@ -11,7 +11,7 @@ function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunctio
             <div className=' rounded-[10px] shadow-md border border-[#00000025]'>
                 <div className='flex flex-row justify-between'>
                     <div className=' lg:w-[8%] flex flex-row justify-center items-center '>
-                        <div className='w-[40px] lg:w-[72px] pl-1 h-[40px] lg:h-[72px] rounded-full overflow-hidden'>
+                        <div className='w-[40px] lg:w-[66px] pl-1 h-[40px] lg:h-[66px] rounded-full overflow-hidden'>
                             <img src={userInformationLocalStorage.userProfileImg} alt="" />
                         </div>
                     </div>

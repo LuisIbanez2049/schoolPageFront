@@ -136,7 +136,7 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
 
 
                     <div className=''>
-                        <div className='w-[45px] h-[45px] lg:w-[60px] lg:h-[60px] rounded-full overflow-hidden'>
+                        <div className='w-[45px] h-[45px] lg:w-[65px] lg:h-[65px] rounded-full overflow-hidden'>
                             <img src={profileImgFromUserComment} alt="" />
                         </div>
                     </div>

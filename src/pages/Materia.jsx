@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import CommentUser from '../components/CommentUser'
 import CardPostsSubject from '../components/CardPostsSubject'
@@ -11,6 +11,9 @@ import store from '../redux/store'
 function Materia() {
 
     const [subject, setSubject] = useState({})
+    const [studentsMorning, setStudentsMorning] = useState([])
+    const [studentsEvening, setStudentsEvening] = useState([])
+    const [studentsNight, setStudentsNight] = useState([])
     const [aux, setAux] = useState(false)
 
     const { id } = useParams()
@@ -23,6 +26,11 @@ function Materia() {
     const [viewBannerMateriaImgPen, setViewBannerMateriaImgPen] = useState(false)
     const [viewInputEditUrlBanner, setViewInputEditUrlBanner] = useState(false)
     const [valueUrl, setValueUrl] = useState("")
+
+    const [valueInputDescriptionSubject, setValueInputDescriptionSubject] = useState("")
+    const [viewInputEditDescriptionSubject, setViewInputEditDescriptionSubject] = useState(false)
+    const [viewDescriptionSubjectPen, setViewDescriptionSubjectPen] = useState(false)
+    const [isDesabledDescriptionInputSubject, setIsDesabledDescriptionInputSubject] = useState(true)
 
 
     const bodyPopUpMessage = useSelector(store => store.popUpMessageReducer)
@@ -60,14 +68,38 @@ function Materia() {
                 console.log(response.data)
                 console.log(response.data.contenidos)
                 setSubject(response.data)
+                let auxStudentsMornig = response.data.alumnos.filter(alumno => { alumno.usuarioMaterias.jornadaTurno == "MORNIG" })
+                setStudentsMorning(auxStudentsMornig)
                 setIdSubject(response.data.id)
                 setValueUrl(response.data.portada)
+                setValueInputDescriptionSubject(response.data.descripcion)
             })
             .catch((error) => {
                 setViewLoadingComponent(false)
                 console.log(error)
             })
     }, [aux, bodyAux.isAux])
+
+    useEffect(() => {
+        console.log("MOOOOOOORRRRNIIIIGGG")
+        console.log(subject.alumnos)
+        let auxStudentsMornig =
+            subject.alumnos &&
+            subject.alumnos.filter((alumno) =>
+                alumno.usuarioMaterias.some(
+                    (usuarioMateria) =>
+                        usuarioMateria.nombreMateria === "Matematica" &&
+                        usuarioMateria.jornadaTurno === "MORNING"
+                )
+            );
+        console.log(auxStudentsMornig)
+        setStudentsMorning(auxStudentsMornig)
+        console.log(studentsMorning)
+
+        
+    }, [subject])
+
+
 
     const handleCreateAContent = async (event) => {
         setViewLoadingComponent(true)
@@ -124,7 +156,7 @@ function Materia() {
             })
     }
 
-    function editSubjectBanner(body) {
+    function editSubject(body) {
         setViewLoadingComponent(true)
         console.log(body)
         axios.patch(`http://localhost:8080/api/materias/modificarMateria`, body, {
@@ -146,9 +178,32 @@ function Materia() {
             })
     }
 
+    function newFunction(){
+        console.log("hola")
+        console.log(subject && subject.alumnos && subject.alumnos[0].usuarioMaterias[1].jornadaTurno)
+                console.log(subject && subject.alumnos && subject.alumnos[0].usuarioMaterias[1].nombreMateria)
+        for (let i = 0; i < subject.alumnos && subject.alumnos.length; i++) {
+            for (let j = 0; j < subject.alumnos && subject.alumnos.usuarioMaterias && subject.alumnos.usuarioMaterias.length; j++) {
+                if (subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].jornadaTurno == "MORNING" && subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].nombreMateria == "Matematica") {
+                    console.log(subject.alumnos[i].name)
+                }
+
+                console.log(subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].jornadaTurno)
+                console.log(subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].nombreMateria)
+            }
+            
+        }
+    }
+
+
     return (
         <div>
             <div className='flex flex-col min-h-screen'>
+
+                <button onClick={newFunction}>
+                    <h1 className='bg-yellow-600'>HOLA</h1>
+                </button>
+                
 
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
                 <LoadingView show={viewLoadingComponent} />
@@ -219,7 +274,7 @@ function Materia() {
                                                 descripcion: "",
                                                 portada: valueUrl
                                             }
-                                            editSubjectBanner(upDateBody)
+                                            editSubject(upDateBody)
                                         }}>
                                             <i class="fa-solid fa-circle-check text-green-500"></i>
                                         </button>
@@ -239,13 +294,14 @@ function Materia() {
 
                                 {/* ----------------------------------------------NOMBRE DE ALUMNOS Y PROFESORES---------------------------------------------- */}
                                 <div className={` relative h-auto`}>
-                                    <div className={`${isMobileView ? "hidden" : "hidden"}`}>
+                                    <div className={`${isMobileView ? "hidden" : ""}`}>
                                         <div className={` p-2 border-4 border-[${subject && subject.color}] rounded-[15px] px-6 bg-gray-100`}>
                                             <h1 className={`font-bold text-[24px] text-[#2c2c2c]`}>STUDENTS</h1>
                                             <ul className=' pl-1 '>
                                                 {subject && subject.alumnos && subject.alumnos.map(alumno => {
+
                                                     return (
-                                                        <> <li className='text-[19px]'> {alumno.name} </li> </>
+                                                        <> <li className='text-[19px]'> {alumno.name} {`(${alumno.usuarioMaterias[0].jornadaTurno})`}</li> </>
                                                     )
                                                 })}
                                             </ul>
@@ -368,7 +424,44 @@ function Materia() {
                                     </div>
                                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
 
+                                    <div className=' relative w-[95%] lg:w-[1310px] p-2'
+                                        onMouseEnter={() => { setViewDescriptionSubjectPen(true) }} onMouseLeave={() => { setViewDescriptionSubjectPen(false) }}>
+                                        <textarea name="" id="" className={` w-[100%] lg:w-[1290px] h-[120px] lg:h-[160px] text-gray-800 font-normal shadow-md bg-[#f3f2f2] p-1 text-[13px] lg:text-[18px] lg:p-2 rounded-[5px] lg:rounded-md focus:border focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
+                                            disabled={isDesabledDescriptionInputSubject} value={valueInputDescriptionSubject} onChange={(e) => { setValueInputDescriptionSubject(e.target.value) }}></textarea>
 
+                                        {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+                                        <span className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} absolute ml-[-20px]`}>
+                                            <button className={`${viewDescriptionSubjectPen ? "show" : "hidden"} ${viewInputEditDescriptionSubject ? "hidden" : ""} `} onClick={() => {
+                                                setViewInputEditDescriptionSubject(true)
+                                                setIsDesabledDescriptionInputSubject(false)
+                                            }}>
+                                                <i class="fa-solid fa-pen text-[20px] lg:text-[22px]"></i>
+                                            </button>
+                                        </span>
+                                        {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
+
+                                        <div className={` ${viewInputEditDescriptionSubject ? "show" : "hidden"} w-full flex flex-row justify-end gap-3`}>
+                                            <button onClick={() => {
+                                                setViewInputEditDescriptionSubject(false)
+                                                setIsDesabledDescriptionInputSubject(true)
+                                                setValueInputDescriptionSubject(subject.descripcion)
+                                            }}>
+                                                <i class="fa-solid fa-circle-xmark text-[24px] lg:text-[30px] text-red-500"></i>
+                                            </button>
+                                            <button onClick={() => {
+                                                const upDateBody = {
+                                                    idMateria: id,
+                                                    nombre: "",
+                                                    descripcion: valueInputDescriptionSubject,
+                                                    portada: ""
+                                                }
+                                                editSubject(upDateBody)
+                                            }}>
+                                                <i class="fa-solid fa-circle-check text-[24px] lg:text-[30px] text-green-500"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
 
                                     {/* <CommentUser/> */}
                                     {subject && subject.contenidos && subject.contenidos.map(contenido => {

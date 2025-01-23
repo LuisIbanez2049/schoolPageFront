@@ -171,10 +171,10 @@ function Configuration() {
 
                         <div className={`${viewInputEditProfileImg ? "show" : "hidden"} absolute w-full h-full bg-[#0000009c] flex flex-row  justify-center items-center rounded-t-[30px]`}>
                             {/* ----------------------------------------------------------------INPUT MAS DOS BOTONES -------------------------------------------------- */}
-                            <div className={` ${viewInputEditProfileImg ? "show" : "hidden"}  bg-[#f3f2f2] flex lg:flex-row flex-col justify-center items-center p-6 rounded-[20px]`}>
-                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-2 lg:w-[600px] w-[250px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
+                            <div className={` ${viewInputEditProfileImg ? "show" : "hidden"}  bg-[#f3f2f2] flex lg:flex-row flex-col justify-center items-center p-2 lg:p-6 rounded-[12px] lg:rounded-[20px]`}>
+                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-1 lg:p-2 lg:w-[600px] text-[12px] lg:text-[16px] w-[270px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
 
-                                <div className=' ml-2 flex flex-row gap-3 text-3xl'>
+                                <div className=' ml-2 flex flex-row gap-3 text-[25px] lg:text-3xl'>
                                     <button onClick={() => {
                                         setInputValueProfileImg(userInformationLocalStorage.userProfileImg)
                                         setViewInputEditProfileImg(false)
@@ -195,7 +195,7 @@ function Configuration() {
                         </div>
 
                         <div className=''>
-                            <img className='w-[250px] h-[250px] rounded-full shadow-lg' src={inputValueProfileImg} alt="" />
+                            <img className='w-[200px] h-[200px] lg:w-[250px] lg:h-[250px] rounded-full shadow-lg' src={inputValueProfileImg} alt="" />
                         </div>
                     </div>
                     {/* ----------------------------------------------------------------------------------------------------IMG IMG IMG----------------------------------------------------------------------------- */}
@@ -203,7 +203,7 @@ function Configuration() {
 
 
 
-                    <div className='w-full flex flex-col justify-around bg-[#EFB071] font-extrabold text-gray-800 p-4 rounded-b-[30px]'>
+                    <div className='w-full flex flex-col justify-around bg-[#EFB071] font-extrabold text-gray-800 p-2 lg:p-4 rounded-b-[30px]'>
 
                         <div className=' flex flex-col lg:flex-row justify-center items-center'>
 
@@ -211,7 +211,8 @@ function Configuration() {
                             <div className='flex flex-row w-[310px]' onMouseEnter={() => { setViewNamePen(true) }} onMouseLeave={() => { setViewNamePen(false) }}>
 
                                 <div>
-                                    <input className='  text-[37px] lg:text-[45px] text-start lg:text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueName} disabled={isDisabledInputName}
+                                    <input className={`text-[22px] lg:text-[45px] text-start lg:text-center ${viewInputEditName ? "border border-gray-800 rounded-[5px]" : ""} px-1 focus:outline-none focus:border-none w-[270px] bg-transparent`} 
+                                    type="text" value={inputValueName} disabled={isDisabledInputName}
                                         onChange={(e) => { 
                                             setInputValueName(e.target.value)
                                             setErrorMessageName("")
@@ -262,7 +263,8 @@ function Configuration() {
                             <div className='flex flex-row w-[310px] ' onMouseEnter={() => { setViewLastNamePen(true) }} onMouseLeave={() => { setViewLastNamePen(false) }}>
 
                                 <div>
-                                    <input className='text-[37px] lg:text-[45px] text-start lg:text-center focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueLastName} disabled={isDisabledInputLastName}
+                                    <input className={`text-[22px] lg:text-[45px] text-start lg:text-center ${viewInputEditLastName ? "border border-gray-800 rounded-[5px]" : ""} px-1 focus:outline-none focus:border-none w-[270px] bg-transparent`}
+                                     type="text" value={inputValueLastName} disabled={isDisabledInputLastName}
                                         onChange={(e) => {
                                             setInputValueLastName(e.target.value)
                                             setErrorMessageLastName("")
@@ -315,7 +317,8 @@ function Configuration() {
                         {/* ----------------------------------------------------------------------------------------------------DNI DNI DNI-------------------------------------------------- */}
                         <div className='flex flex-row w-[310px] ' onMouseEnter={() => { setViewDniPen(true) }} onMouseLeave={() => { setViewDniPen(false) }}>
                             <div>
-                                <input className='text-[34px] lg:text-[40px] focus:outline-none focus:border-none w-[270px] bg-transparent' type="text" value={inputValueDni} disabled={isDisabledInputDni}
+                                <input className={`text-[18px] lg:text-[40px] ${viewInputEditDni ? "border border-gray-800 rounded-[5px]" : ""} px-1 focus:outline-none focus:border-none w-[270px] bg-transparent`} 
+                                type="text" value={inputValueDni} disabled={isDisabledInputDni}
                                     onChange={(e) => {
                                         setInputValueDni(e.target.value)
                                         setErrorMessageDNI("")
@@ -373,7 +376,8 @@ function Configuration() {
 
 
                             <div>
-                                <input className='  text-[34px] lg:text-[40px] focus:outline-none focus:border-none w-[274px] lg:w-[450px] bg-transparent' type="text" value={inputValueEmail} disabled={isDisabledInputEmail}
+                                <input className={`text-[18px] lg:text-[40px] ${viewInputEditEmail ? "border border-gray-800 rounded-[5px]" : ""} px-1 focus:outline-none  focus:border-none w-[274px] lg:w-[450px] bg-transparent`}
+                                 type="text" value={inputValueEmail} disabled={isDisabledInputEmail}
                                     onChange={(e) => {
                                         setInputValueEmail(e.target.value)
                                         setShowErrorMessageEmail(false)
