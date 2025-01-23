@@ -6,6 +6,7 @@ import MySubjects from '../components/MySubjects';
 import TarjetaMateriaWithAccessCode from '../components/TarjetaMateriaWithAccessCode';
 import LoadingView from '../components/LoadingView';
 import store from '../redux/store';
+import ConfirmationPopUpAlert from '../components/ConfirmationPopUpAlert';
 
 function Materias() {
     const user = useSelector((store) => store.authenticationReducer)
@@ -14,7 +15,6 @@ function Materias() {
 
 
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
-
 
 
 

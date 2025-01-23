@@ -7,10 +7,12 @@ import PopUpMessage from '../components/PopUpMessage'
 import { useSelector } from 'react-redux'
 import LoadingView from '../components/LoadingView'
 import store from '../redux/store'
+import ConfirmationPopUpAlert from '../components/ConfirmationPopUpAlert'
 
 function Materia() {
 
     const [subject, setSubject] = useState({})
+    const [students, setStudents] = useState([])
     const [studentsMorning, setStudentsMorning] = useState([])
     const [studentsEvening, setStudentsEvening] = useState([])
     const [studentsNight, setStudentsNight] = useState([])
@@ -31,6 +33,11 @@ function Materia() {
     const [viewInputEditDescriptionSubject, setViewInputEditDescriptionSubject] = useState(false)
     const [viewDescriptionSubjectPen, setViewDescriptionSubjectPen] = useState(false)
     const [isDesabledDescriptionInputSubject, setIsDesabledDescriptionInputSubject] = useState(true)
+
+    const [isDesplegable, setIsDesplegable] = useState(false)
+
+    const [viewConfirmationComponent, setViewConfirmationComponent] = useState(false)
+
 
 
     const bodyPopUpMessage = useSelector(store => store.popUpMessageReducer)
@@ -68,8 +75,7 @@ function Materia() {
                 console.log(response.data)
                 console.log(response.data.contenidos)
                 setSubject(response.data)
-                let auxStudentsMornig = response.data.alumnos.filter(alumno => { alumno.usuarioMaterias.jornadaTurno == "MORNIG" })
-                setStudentsMorning(auxStudentsMornig)
+                setStudents(response.data.alumnos)
                 setIdSubject(response.data.id)
                 setValueUrl(response.data.portada)
                 setValueInputDescriptionSubject(response.data.descripcion)
@@ -79,27 +85,6 @@ function Materia() {
                 console.log(error)
             })
     }, [aux, bodyAux.isAux])
-
-    useEffect(() => {
-        console.log("MOOOOOOORRRRNIIIIGGG")
-        console.log(subject.alumnos)
-        let auxStudentsMornig =
-            subject.alumnos &&
-            subject.alumnos.filter((alumno) =>
-                alumno.usuarioMaterias.some(
-                    (usuarioMateria) =>
-                        usuarioMateria.nombreMateria === "Matematica" &&
-                        usuarioMateria.jornadaTurno === "MORNING"
-                )
-            );
-        console.log(auxStudentsMornig)
-        setStudentsMorning(auxStudentsMornig)
-        console.log(studentsMorning)
-
-        
-    }, [subject])
-
-
 
     const handleCreateAContent = async (event) => {
         setViewLoadingComponent(true)
@@ -134,6 +119,10 @@ function Materia() {
 
 
     const handleLeaveSubject = () => {
+        setViewConfirmationComponent(true)
+    }
+
+    const handleOnConfirmFuntionPopUpComponent = () => {
         setViewLoadingComponent(true)
         let bodyCreateContent = {
             idMateria: id,
@@ -155,6 +144,11 @@ function Materia() {
                 console.log(error)
             })
     }
+
+    const handleOnCancelFuntionPopUpComponent = () => {
+        setViewConfirmationComponent(false)
+    }
+
 
     function editSubject(body) {
         setViewLoadingComponent(true)
@@ -178,39 +172,71 @@ function Materia() {
             })
     }
 
-    function newFunction(){
-        console.log("hola")
-        console.log(subject && subject.alumnos && subject.alumnos[0].usuarioMaterias[1].jornadaTurno)
-                console.log(subject && subject.alumnos && subject.alumnos[0].usuarioMaterias[1].nombreMateria)
-        for (let i = 0; i < subject.alumnos && subject.alumnos.length; i++) {
-            for (let j = 0; j < subject.alumnos && subject.alumnos.usuarioMaterias && subject.alumnos.usuarioMaterias.length; j++) {
-                if (subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].jornadaTurno == "MORNING" && subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].nombreMateria == "Matematica") {
-                    console.log(subject.alumnos[i].name)
-                }
 
-                console.log(subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].jornadaTurno)
-                console.log(subject && subject.alumnos && subject.alumnos[i].usuarioMaterias[j].nombreMateria)
-            }
-            
-        }
-    }
+
+    useEffect(() => {
+        let auxStudents = students && students
+        // console.log(auxStudents)
+
+        let auxStudentsMornig =
+            auxStudents.filter((alumno) =>
+                alumno.usuarioMaterias.some(
+                    (usuarioMateria) =>
+                        usuarioMateria.nombreMateria === subject.nombre &&
+                        usuarioMateria.jornadaTurno === "MORNING"
+                )
+            );
+
+        // console.log(auxStudentsMornig)
+        setStudentsMorning(auxStudentsMornig)
+
+        // ----------------------------------------------------------------------------------------------
+
+        let auxStudentsEvening =
+            auxStudents.filter((alumno) =>
+                alumno.usuarioMaterias.some(
+                    (usuarioMateria) =>
+                        usuarioMateria.nombreMateria === subject.nombre &&
+                        usuarioMateria.jornadaTurno === "EVENING"
+                )
+            );
+
+        // console.log(auxStudentsEvening)
+        setStudentsEvening(auxStudentsEvening)
+
+        // ----------------------------------------------------------------------------------------------
+
+        let auxStudentsNight =
+            auxStudents.filter((alumno) =>
+                alumno.usuarioMaterias.some(
+                    (usuarioMateria) =>
+                        usuarioMateria.nombreMateria === subject.nombre &&
+                        usuarioMateria.jornadaTurno === "NIGHT"
+                )
+            );
+
+        // console.log(auxStudentsNight)
+        setStudentsNight(auxStudentsNight)
+    }, [subject])
+
 
 
     return (
         <div>
             <div className='flex flex-col min-h-screen'>
 
-                <button onClick={newFunction}>
-                    <h1 className='bg-yellow-600'>HOLA</h1>
-                </button>
-                
-
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
                 <LoadingView show={viewLoadingComponent} />
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
+                {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+                <ConfirmationPopUpAlert isShow={viewConfirmationComponent} handleOnConfirmFunction={handleOnConfirmFuntionPopUpComponent} handleOnCancelFunction={handleOnCancelFuntionPopUpComponent} />
+                {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+
+
+
                 <PopUpMessage message={bodyPopUpMessage.message} show={bodyPopUpMessage.isShow} />
-                <div className=' relative border border-black'>
+                <div className=' relative'>
 
                     {/* --------------------------------------FLECHA PARA VOLVER ATRAS(MATERIAS)-------------------------------------- */}
                     <div className=' absolute p-2 lg:p-5'>
@@ -286,29 +312,154 @@ function Materia() {
                         {/* --------------------------------------------------------------------------------------------------BANNER PORTADA MATERIA------------------------------------------------------------------------ */}
 
 
-                        <div className='w-full flex flex-col justify-center items-center '>
-                            <div className='w-full lg:w-[95%] flex flex-row border border-red-600'>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div className='w-full overflow-hidden flex flex-col justify-center items-center '>
+
+                            <div className={` ${isMobileView ? "show" : "hidden"} relative w-full lg:w-[95%]`}>
+                                <div className=' relative p-2'>
+                                    <button onClick={() => { setIsDesplegable(true) }}>
+                                        <i className="fa-solid fa-bars text-[20px]"></i>
+                                    </button>
+                                </div>
+
+
+
+
+                                <div className={` transition-all duration-500 transform ${isDesplegable ? "translate-x-[0%]" : "translate-x-[-100%]"} w-full min-h-screen absolute z-20 top-0 bg-[#00000086]`}
+                                    onClick={() => { setIsDesplegable(false) }}>
+
+                                    <div className={` w-[240px] h-[100vh] border-r-4 border-t-4 border-b-4 border-[${subject && subject.color}] rounded-r-[15px] p-2 bg-gray-100`}>
+                                        <h1 className={`font-bold text-[20px] text-[#2c2c2c]`}>STUDENTS</h1>
+                                        <ul className=' pl-1 '>
+
+                                            {/* --------------------------------------------------------------------------------------------------------------------------- */}
+
+                                            {studentsMorning && studentsMorning.length > 0 && studentsMorning.map(alumno => {
+                                                let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                // console.log(shift) 
+                                                return (
+                                                    <> <li className='text-[16px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                )
+                                            })}
+
+                                            {studentsEvening && studentsEvening.length > 0 && studentsEvening.map(alumno => {
+                                                let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                // console.log(shift) 
+                                                return (
+                                                    <> <li className='text-[16px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                )
+                                            })}
+
+                                            {studentsNight && studentsNight.length > 0 && studentsNight.map(alumno => {
+                                                let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                // console.log(shift) 
+                                                return (
+                                                    <> <li className='text-[16px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                )
+                                            })}
+
+                                            {/* --------------------------------------------------------------------------------------------------------------------------- */}
+
+                                        </ul>
+                                        <h1 className='font-bold text-[20px] text-[#2c2c2c]'>PROFESSOR</h1>
+                                        <ul className='pl-1'>
+                                            {subject && subject.profesores && subject.profesores.map(professor => {
+                                                let shift = professor.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                return (<> <li className='text-[16px]'> {professor.name + " " + professor.lastName} <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>)
+                                            })}
+                                        </ul>
+
+
+
+                                        <div className=' relative w-full flex flex-row justify-center items-center  py-6'>
+                                            <button onClick={() => {
+                                                handleLeaveSubject()
+                                            }}>
+                                                <div onMouseEnter={() => { setPopUpH1(true) }} onMouseLeave={() => { setPopUpH1(false) }}>
+                                                    <h1 className='rounded-[5px] py-2 px-4 bg-[#ff00007a] font-semibold' > <i className="fa-solid fa-right-from-bracket text-[30px]"></i> </h1>
+                                                </div>
+                                            </button>
+                                            <div className='absolute top-[38px] right-[-60px]'>
+                                                <h1 className={` bg-gray-100  font-thin border border-[#00000065] rounded-[6px] p-[2px] shadow-md transition-all duration-500 transform
+                                         ${popUpH1 ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"}`}>LEAVE SUBJECT</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div className='w-full lg:w-[95%] flex flex-row'>
 
                                 {/* ----------------------------------------------NOMBRE DE ALUMNOS Y PROFESORES---------------------------------------------- */}
                                 <div className={` relative h-auto`}>
                                     <div className={`${isMobileView ? "hidden" : ""}`}>
-                                        <div className={` p-2 border-4 border-[${subject && subject.color}] rounded-[15px] px-6 bg-gray-100`}>
+                                        <div className={` w-[240px] border-4 border-[${subject && subject.color}] rounded-[15px] p-2 bg-gray-100`}>
                                             <h1 className={`font-bold text-[24px] text-[#2c2c2c]`}>STUDENTS</h1>
                                             <ul className=' pl-1 '>
-                                                {subject && subject.alumnos && subject.alumnos.map(alumno => {
 
+                                                {/* --------------------------------------------------------------------------------------------------------------------------- */}
+
+                                                {studentsMorning && studentsMorning.length > 0 && studentsMorning.map(alumno => {
+                                                    let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                    // console.log(shift) 
                                                     return (
-                                                        <> <li className='text-[19px]'> {alumno.name} {`(${alumno.usuarioMaterias[0].jornadaTurno})`}</li> </>
+                                                        <> <li className='text-[19px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
                                                     )
                                                 })}
+
+                                                {studentsEvening && studentsEvening.length > 0 && studentsEvening.map(alumno => {
+                                                    let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                    // console.log(shift) 
+                                                    return (
+                                                        <> <li className='text-[19px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                    )
+                                                })}
+
+                                                {studentsNight && studentsNight.length > 0 && studentsNight.map(alumno => {
+                                                    let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                    // console.log(shift) 
+                                                    return (
+                                                        <> <li className='text-[19px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                    )
+                                                })}
+
+                                                {/* --------------------------------------------------------------------------------------------------------------------------- */}
+
                                             </ul>
                                             <h1 className='font-bold text-[24px] text-[#2c2c2c]'>PROFESSOR</h1>
                                             <ul className='pl-1'>
                                                 {subject && subject.profesores && subject.profesores.map(professor => {
-                                                    return (<> <li className='text-[19px]'> {professor.name + " " + professor.lastName} </li> </>)
+                                                    let shift = professor.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
+                                                    return (<> <li className='text-[19px]'> {professor.name + " " + professor.lastName} <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>)
                                                 })}
                                             </ul>
                                         </div>
@@ -327,46 +478,6 @@ function Materia() {
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    {/* <div className={` z-0 relative p-2`}>
-                                        <button>
-                                          <i className="fa-solid fa-bars text-[35px] text-gray-700"></i>
-                                        </button>
-                                    </div>
-
-                                    <div className={` absolute top-0 z-10 translate-x-[-190px]`}>
-                                        <div className={` p-2 border-4 border-[${subject && subject.color}] rounded-[15px] px-6 bg-gray-100`}>
-                                            <h1 className={`font-bold text-[24px] text-[#2c2c2c]`}>STUDENTS</h1>
-                                            <ul className=' pl-1 '>
-                                                {subject && subject.alumnos && subject.alumnos.map(alumno => {
-                                                    return (
-                                                        <> <li className='text-[19px]'> {alumno.name} </li> </>
-                                                    )
-                                                })}
-                                            </ul>
-                                            <h1 className='font-bold text-[24px] text-[#2c2c2c]'>PROFESSOR</h1>
-                                            <ul className='pl-1'>
-                                                {subject && subject.profesores && subject.profesores.map(professor => {
-                                                    return (<> <li className='text-[19px]'> {professor.name + " " + professor.lastName} </li> </>)
-                                                })}
-                                            </ul>
-                                        </div>
-
-                                        <div className=' relative w-full flex flex-row justify-center items-center  py-6'>
-                                            <button onClick={() => {
-                                                handleLeaveSubject()
-                                            }}>
-                                                <div onMouseEnter={() => { setPopUpH1(true) }} onMouseLeave={() => { setPopUpH1(false) }}>
-                                                    <h1 className='rounded-[5px] py-2 px-6 bg-[#ff00007a] font-semibold' > <i className="fa-solid fa-right-from-bracket text-[40px]"></i> </h1>
-                                                </div>
-                                            </button>
-                                            <div className='absolute top-[38px] right-[-60px]'>
-                                                <h1 className={` bg-gray-100  font-thin border border-[#00000065] rounded-[6px] p-[2px] shadow-md transition-all duration-500 transform
-                                         ${popUpH1 ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"}`}>LEAVE SUBJECT</h1>
-                                            </div>
-                                        </div>
-                                    </div> */}
 
 
                                 </div>
@@ -376,7 +487,7 @@ function Materia() {
 
 
 
-                                <div className='w-full flex flex-col items-center gap-12 border border-green-600'>
+                                <div className='w-full flex flex-col items-center gap-12 '>
 
                                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
                                     <div className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2]`}>
