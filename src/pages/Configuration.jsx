@@ -139,8 +139,9 @@ function Configuration() {
             <div className=' relative w-full min-h-screen flex flex-col items-center bg-gray-200'>
 
                 {/* ------------------------------------------------------------FLECHA VOLVER ATRAS------------------------------------------------------------ */}
+                {/* userInformationLocalStorage && userInformationLocalStorage.rol */}
                 <div className=' absolute left-0 p-2 lg:p-5'>
-                    <button onClick={() => { navigate("/materias") }}>
+                    <button onClick={() => { navigate(`${userInformationLocalStorage && userInformationLocalStorage.rol === "ADMIN" ? "/adminViewSubjects" : "/materias"}`) }}>
                         <h1> <i className="fa-solid fa-share fa-flip-horizontal text-[30px] lg:text-[40px] hover:text-[#f3a04d]"></i> </h1>
                     </button>
                 </div>

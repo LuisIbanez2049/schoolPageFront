@@ -25,6 +25,8 @@ function Nav() {
                 }}></button>
             </div>
             <div className=' min-w-screen h-[100px] py-2 px-4 flex flex-row justify-between'>
+
+                {/* --------------------------------------------------------------------LOGO LOGO LOGO----------------------------------------------- */}
                 <div className='flex flex-row ' >
                     <div className=' h-full flex flex-row justify-center items-center '>
                         <div id='logo' className='h-[60px] w-[60px] lg:h-[80px] lg:w-[80px] '>
@@ -35,6 +37,24 @@ function Nav() {
                         <h1 className='text-[22px] lg:text-[27px] text-[#efb071]'>EASYLEARN</h1>
                     </div>
                 </div>
+                {/* --------------------------------------------------------------------LOGO LOGO LOGO----------------------------------------------- */}
+
+
+
+                {userInformationLocalStorage && userInformationLocalStorage.rol === "ADMIN" ?
+                    <>
+                        <div className='flex flex-row gap-10'>
+                            <button>
+                                {/* color button is selected: #db9854 */}
+                                <h1 className={` w-[133px] text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[10px] text-[#000000af]`}>SUBJECTS</h1>
+                            </button>
+
+                            <button>
+                                <h1 className={`w-[133px] text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[10px] text-[#000000af]`}>USERS</h1>
+                            </button>
+                        </div>
+                    </> : <></>}
+
 
 
                 <div id='profile' className=' relative h-[80px] w-[80px] flex flex-row justify-center items-center'>
@@ -70,12 +90,6 @@ function Nav() {
                             </div>
                         </> : <> </>}
 
-                        {/* <div className='text-gray-100 flex flex-col items-center'>
-                            <h1 className='text-[17px] font-semibold'> {userInformationLocalStorage.name} </h1>
-                            <div className='w-[75px] h-[75px] my-[10px] border border-black rounded-full'></div>
-                            <h1 className='text-[18px]'> {userInformationLocalStorage.name + " " + userInformationLocalStorage.lastName} </h1>
-                            <h1 className='mb-[5px]'> {userInformationLocalStorage.mail} </h1>
-                        </div> */}
 
                         <div className='w-full flex flex-col items-center bg-gray-100 rounded-b-[15px]'>
                             <div className='w-full border border-[#EFB071]'></div>

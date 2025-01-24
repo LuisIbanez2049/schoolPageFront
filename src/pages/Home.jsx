@@ -37,8 +37,6 @@ function Home() {
 
   const navigate = useNavigate()
 
-  const [tokken, setTokken] = useState(null)
-
 
 
 
@@ -57,7 +55,6 @@ function Home() {
       setViewLoadingComponent(false)
       console.log(response)
       dispatch(loginAction(response.data))
-      setTokken("materias")
       navigate("/materias")
 
       const token = localStorage.getItem("userToken")
@@ -70,6 +67,9 @@ function Home() {
         .then((response) => {
           console.log(response.data)
           dispatchUserInformation(loginUserAction(response.data))
+          if (response.data.rol === "ADMIN") {
+            navigate("/adminViewSubjects")
+          }
         })
         .catch((error) => {
           console.log(error)

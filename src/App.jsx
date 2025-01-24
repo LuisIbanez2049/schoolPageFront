@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout'
 import { useSelector } from 'react-redux'
 import Materia from './pages/Materia'
 import Configuration from './pages/Configuration'
+import AdminViewSubjects from './components/admin/AdminViewSubjects'
 
 function App() {
   const isLogged = localStorage.getItem("userToken")
@@ -16,24 +17,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<MainLayout />}>
-            {/* {isLoggedIn ? <>
-              <Route path='/materias' element={<Materias />}></Route>
-            </> : isLogged ? <>
-
-              <Route path='/materias' element={<Materias />}></Route>
-              <Route path='*' element={<Navigate to={"/materias"} />}></Route>
-
-            </> : <>
-              <Route index element={<Home />}></Route>
-            </>}
-            <Route path='*' element={<Navigate to={"/"} />}></Route> */}
-
+           
             {isLoggedIn || isLogged ? (
               <>
                 {/* Si está logueado, redirigir a <Materias /> */}
                 <Route path='/materias' element={<Materias />}></Route>
                 <Route path='/materia/:id' element={<Materia/>}></Route>
                 <Route path='/configuration' element={<Configuration/>}></Route>
+                <Route path='/adminViewSubjects' element={<AdminViewSubjects/>}/>
                 <Route path='*' element={<Navigate to="/materias" replace />} />
               </>
             ) : (
