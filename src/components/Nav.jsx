@@ -27,14 +27,14 @@ function Nav() {
             <div className=' min-w-screen h-[100px] py-2 px-4 flex flex-row justify-between'>
 
                 {/* --------------------------------------------------------------------LOGO LOGO LOGO----------------------------------------------- */}
-                <div className='flex flex-row ' >
-                    <div className=' h-full flex flex-row justify-center items-center '>
-                        <div id='logo' className='h-[60px] w-[60px] lg:h-[80px] lg:w-[80px] '>
+                <div className='flex flex-col lg:flex-row ' >
+                    <div className=' h-full flex flex-row justify-center items-center'>
+                        <div id='logo' className='h-[60px] w-[60px] lg:h-[80px] lg:w-[80px]'>
                             <img src={EasyLearn} alt="" />
                         </div>
                     </div>
-                    <div id='pageName' className='h-[80px] w-[150px]  flex flex-row ml-[5px] lg:ml-[0px] lg:justify-center items-center'>
-                        <h1 className='text-[22px] lg:text-[27px] text-[#efb071]'>EASYLEARN</h1>
+                    <div id='pageName' className='h-[80px] lg:w-[150px]  flex flex-row  lg:ml-[0px] lg:justify-center items-center '>
+                        <h1 className='text-[20px] lg:text-[27px] text-[#efb071]'>EASYLEARN</h1>
                     </div>
                 </div>
                 {/* --------------------------------------------------------------------LOGO LOGO LOGO----------------------------------------------- */}
@@ -43,14 +43,14 @@ function Nav() {
 
                 {userInformationLocalStorage && userInformationLocalStorage.rol === "ADMIN" ?
                     <>
-                        <div className='flex flex-row gap-10'>
+                        <div className='flex flex-col justify-center items-center lg:flex-row gap-4 lg:gap-10 '>
                             <button>
                                 {/* color button is selected: #db9854 */}
-                                <h1 className={` w-[133px] text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[10px] text-[#000000af]`}>SUBJECTS</h1>
+                                <h1 className={` w-[70px] lg:w-[133px] text-[12px] lg:text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[6px] lg:rounded-[10px] text-[#000000af]`}>SUBJECTS</h1>
                             </button>
 
                             <button>
-                                <h1 className={`w-[133px] text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[10px] text-[#000000af]`}>USERS</h1>
+                                <h1 className={`w-[70px] lg:w-[133px] text-[12px] lg:text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[6px] lg:rounded-[10px] text-[#000000af]`}>USERS</h1>
                             </button>
                         </div>
                     </> : <></>}
