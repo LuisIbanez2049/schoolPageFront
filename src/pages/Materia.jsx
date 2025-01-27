@@ -230,7 +230,8 @@ function Materia() {
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
-                <ConfirmationPopUpAlert isShow={viewConfirmationComponent} handleOnConfirmFunction={handleOnConfirmFuntionPopUpComponent} handleOnCancelFunction={handleOnCancelFuntionPopUpComponent} />
+                <ConfirmationPopUpAlert isShow={viewConfirmationComponent} handleOnConfirmFunction={handleOnConfirmFuntionPopUpComponent} handleOnCancelFunction={handleOnCancelFuntionPopUpComponent} 
+                   message={"Do you want to leave this subject?"}/>
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
 
@@ -252,11 +253,8 @@ function Materia() {
                         <h1 className='text-[35px] lg:text-[45px] font-bold text-gray-600'> {subject && subject.nombre} </h1>
                     </div>
 
-                    {/* <div className={`relative z-10 w-[450px] h-[41px] rounded-br-[100px] bg-[${subject && subject.color}] `}></div> */}
 
                     <div className=' relative w-full flex flex-col gap-10 justify-center '>
-
-
 
 
                         {/* --------------------------------------------------------------------------------------------------BANNER PORTADA MATERIA------------------------------------------------------------------------ */}

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import Materia from './pages/Materia'
 import Configuration from './pages/Configuration'
 import AdminViewSubjects from './components/admin/AdminViewSubjects'
+import SubjectAdmin from './components/admin/SubjectAdmin'
 
 function App() {
   const isLogged = localStorage.getItem("userToken")
@@ -25,6 +26,7 @@ function App() {
                 <Route path='/materia/:id' element={<Materia/>}></Route>
                 <Route path='/configuration' element={<Configuration/>}></Route>
                 <Route path='/adminViewSubjects' element={<AdminViewSubjects/>}/>
+                <Route path='/subjectAdmin/:id' element={<SubjectAdmin/>}></Route>
                 <Route path='*' element={<Navigate to="/materias" replace />} />
               </>
             ) : (

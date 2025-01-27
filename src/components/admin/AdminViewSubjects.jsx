@@ -43,7 +43,7 @@ function AdminViewSubjects() {
     <div className='flex flex-col min-h-screen'>
 
       <div className=' flex flex-row justify-center'>
-        <div className='border border-black w-[95%] mt-[50px]'>
+        <div className=' w-[95%] mt-[50px]'>
 
           {/* -------------------------------------------------BUTTONS "AVAILABLE" AND "DISABLED" SUBJECTS----------------------------------- */}
           <div className=' relative flex flex-row justify-center gap-10 mb-[50px]'>
@@ -60,10 +60,11 @@ function AdminViewSubjects() {
 
 
 
+          {/* -------------------------------------------------AVAILABLE SUBJECTS----------------------------------- */}
           <div className={`${isOnClickAvailableSubjects ? "show" : "hidden"} flex flex-col gap-8`}>
             {subjectsAvailable && subjectsAvailable.length > 0 && subjectsAvailable.map(subject => {
               return <>
-                <SubjectCardAdmin key={subject.id} nombre={subject.nombre} color={subject.color} />
+                <SubjectCardAdmin key={subject.id} idSubject={subject.id} nombre={subject.nombre} color={subject.color} />
               </>
             })}
 
@@ -73,15 +74,17 @@ function AdminViewSubjects() {
             </div>
 
           </div>
+          {/* -------------------------------------------------AVAILABLE SUBJECTS----------------------------------- */}
 
 
 
 
-
+          
+          {/* -------------------------------------------------DISABLED SUBJECTS----------------------------------- */}
           <div className={`${isOnClickAvailableSubjects ? "hidden" : "show"} flex flex-col gap-8`}>
             {subjectsDisabled && subjectsDisabled.length > 0 && subjectsDisabled.map(subject => {
               return <>
-                <SubjectCardAdmin key={subject.id} nombre={subject.nombre} color={subject.color} />
+                <SubjectCardAdmin key={subject.id} idSubject={subject.id} nombre={subject.nombre} color={subject.color} />
               </>
             })}
 
@@ -89,7 +92,9 @@ function AdminViewSubjects() {
               <h1 className='font-extrabold text-[40px] text-[#00000075] text-center'>NO RESULTS</h1>
             </div>
           </div>
+          {/* -------------------------------------------------DISABLED SUBJECTS----------------------------------- */}
 
+          
 
         </div>
       </div>
