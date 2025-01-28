@@ -8,6 +8,7 @@ import Materia from './pages/Materia'
 import Configuration from './pages/Configuration'
 import AdminViewSubjects from './components/admin/AdminViewSubjects'
 import SubjectAdmin from './components/admin/SubjectAdmin'
+import ContentAdmin from './components/admin/ContentAdmin'
 
 function App() {
   const isLogged = localStorage.getItem("userToken")
@@ -27,6 +28,7 @@ function App() {
                 <Route path='/configuration' element={<Configuration/>}></Route>
                 <Route path='/adminViewSubjects' element={<AdminViewSubjects/>}/>
                 <Route path='/subjectAdmin/:id' element={<SubjectAdmin/>}></Route>
+                <Route path='/contentAdmin/:id' element={<ContentAdmin/>}></Route>
                 <Route path='*' element={<Navigate to="/materias" replace />} />
               </>
             ) : (
