@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import LoadingView from '../LoadingView'
 import axios from 'axios'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CommentUserCardAdmin from './CommentUserCardAdmin';
 import { CalendarDays } from 'lucide-react';
+import ConfirmationPopUpAlert from '../ConfirmationPopUpAlert';
 
 function ContentAdmin() {
 
@@ -32,7 +33,9 @@ function ContentAdmin() {
     const [showInputFile, setShowInputFile] = useState(false)
     const [isDisabledInputFile, setIsDisabledInputFile] = useState(true)
 
+    const [viewConfirmationComponent, setViewConfirmationComponent] = useState(false);
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
+
 
 
     const [selectValue, setselectValue] = useState("all")
@@ -117,11 +120,79 @@ function ContentAdmin() {
         }
     }, [selectValue])
 
+
+
+    const handleOnConfirmFuntionPopUpComponent = () => {
+        setViewConfirmationComponent(false)
+        setViewLoadingComponent(true);
+        if (content && content.asset) {
+            axios
+                .delete(`http://localhost:8080/api/contenido/desactivar/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${tokenSinComillas}`,
+                    },
+                })
+                .then((response) => {
+                    setViewLoadingComponent(false);
+                    console.log(response.data);
+                    //------------------------------------------------
+                    window.location.reload();
+                    //------------------------------------------------
+                })
+                .catch((error) => {
+                    setViewLoadingComponent(false);
+                    console.log(error);
+                });
+        } else {
+            axios
+                .patch(
+                    `http://localhost:8080/api/contenido/activar/${id}`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${tokenSinComillas}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    setViewLoadingComponent(false);
+                    console.log(response.data);
+                    //------------------------------------------------
+                    window.location.reload();
+                    //------------------------------------------------
+                })
+                .catch((error) => {
+                    setViewLoadingComponent(false);
+                    console.log(error);
+                });
+        }
+    };
+
+    const handleOnCancelFuntionPopUpComponent = () => {
+        setViewConfirmationComponent(false);
+    };
+
+
+
+
     return (
         <div>
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
             <LoadingView show={viewLoadingComponent} />
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+
+
+            {/* ------------------------------------------------------------CONFIRMATION COMPONENT------------------------------------------------------------ */}
+            <ConfirmationPopUpAlert
+                isShow={viewConfirmationComponent}
+                handleOnConfirmFunction={handleOnConfirmFuntionPopUpComponent}
+                handleOnCancelFunction={handleOnCancelFuntionPopUpComponent}
+                message={` ${content && content.asset
+                    ? "Do you want to disable this content?"
+                    : "Do you want to enable this content?"
+                    } `}
+            />
+            {/* ------------------------------------------------------------CONFIRMATION COMPONENT------------------------------------------------------------ */}
 
 
             <div className=' relative flex flex-row justify-center'>
@@ -241,11 +312,28 @@ function ContentAdmin() {
                     </div>
 
 
+                    <div className={` ${content && content.asset === true ? "show" : "hidden"} flex flex-row justify-center mt-[20px]`}>
+                        <button onClick={() => setViewConfirmationComponent(true)}>
+                            <h1 className="font-bold bg-[#ff0000af] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] shadow-md">
+                                DESIBLE CONTENT
+                            </h1>
+                        </button>
+                    </div>
+
+                    <div className={`${content && content.asset === false ? "show" : "hidden"} flex flex-row justify-center mt-[20px]`}>
+                        <button onClick={() => setViewConfirmationComponent(true)}>
+                            <h1 className="font-bold bg-[#29e929c5] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] text-[#000000c2] shadow-md">
+                                ENABLE CONTENT
+                            </h1>
+                        </button>
+                    </div>
+
+
 
                     <div className='mt-[30px]'>
 
-                        <div className=''>
-                            <select name="opciones" className='bg-slate-200 p-2 rounded-[10px] text-[16px]' onChange={(e) => {
+                        <div className='mb-[30px]'>
+                            <select name="opciones" className='bg-slate-200 p-2 rounded-[10px] text-[16px] shadow-sm' onChange={(e) => {
                                 setselectValue(e.target.value)
                             }}>
                                 <option value="all">All comments</option>
@@ -259,7 +347,7 @@ function ContentAdmin() {
                             <div className="flex flex-col gap-8">
                                 {comments && comments.length > 0 && comments.map(comment => {
                                     return (<>
-                                        <CommentUserCardAdmin commentId={comment && comment.id}/>
+                                        <CommentUserCardAdmin commentId={comment && comment.id} />
                                     </>)
                                 })}
                             </div>
@@ -275,7 +363,7 @@ function ContentAdmin() {
                             <div className="flex flex-col gap-8">
                                 {availableComments && availableComments.length > 0 && availableComments.map(comment => {
                                     return (<>
-                                        <CommentUserCardAdmin />
+                                        <CommentUserCardAdmin commentId={comment && comment.id}/>
                                     </>)
                                 })}
                             </div>
@@ -292,7 +380,7 @@ function ContentAdmin() {
                             <div className="flex flex-col gap-8">
                                 {disableComments && disableComments.length > 0 && disableComments.map(comment => {
                                     return (<>
-                                        <CommentUserCardAdmin />
+                                        <CommentUserCardAdmin commentId={comment && comment.id}/>
                                     </>)
                                 })}
                             </div>

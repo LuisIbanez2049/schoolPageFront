@@ -11,8 +11,7 @@ function SubjectAdmin() {
     const token = localStorage.getItem("userToken");
     let tokenSinComillas = token.replace(/"/g, "");
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false);
-    const [viewConfirmationComponent, setViewConfirmationComponent] =
-        useState(false);
+    const [viewConfirmationComponent, setViewConfirmationComponent] = useState(false);
 
     const [subject, setSubject] = useState({});
     const [contents, setContents] = useState([]);
@@ -25,14 +24,12 @@ function SubjectAdmin() {
     const [isDisabledInputTitle, setIsDisabledInputTitle] = useState(true);
 
     const [showInputDescription, setShowInputDescription] = useState(false);
-    const [isDisabledInputDescription, setIsDisabledInputDescription] =
-        useState(true);
+    const [isDisabledInputDescription, setIsDisabledInputDescription] = useState(true);
 
     const [showInputPortada, setShowInputPortada] = useState(false);
     const [isDisabledInputPortada, setIsDisabledInputPortada] = useState(true);
 
-    const [isOnClickAvailableContent, setIsOnClickAvailableContent] =
-        useState(true);
+    const [isOnClickAvailableContent, setIsOnClickAvailableContent] = useState(true);
     const [contentAvailable, setContentAvailable] = useState([]);
     const [contentDisabled, setContentDisabled] = useState([]);
 
@@ -326,7 +323,7 @@ function SubjectAdmin() {
                             } flex flex-row justify-center mt-[20px]`}
                     >
                         <button onClick={() => setViewConfirmationComponent(true)}>
-                            <h1 className="font-bold bg-[#ff0000af] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px]">
+                            <h1 className="font-bold bg-[#ff0000af] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] shadow-md">
                                 DESIBLE SUBJECT
                             </h1>
                         </button>
@@ -334,7 +331,7 @@ function SubjectAdmin() {
 
                     <div className={`${subject && subject.asset === false ? "show" : "hidden"} flex flex-row justify-center mt-[20px]`}>
                         <button onClick={() => setViewConfirmationComponent(true)}>
-                            <h1 className="font-bold bg-[#29e929c5] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] text-[#000000c2]">
+                            <h1 className="font-bold bg-[#29e929c5] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] text-[#000000c2] shadow-md">
                                 ENABLE SUBJECT
                             </h1>
                         </button>
