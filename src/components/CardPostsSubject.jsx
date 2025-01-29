@@ -206,17 +206,12 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
 
 
-
-
-                    {/* <div className='abso'> <i class="fa-solid fa-pen"></i> </div>  */}
                 </div>
                 <div className="mb-4 flex items-center text-[12px] lg:text-sm text-gray-500 dark:text-gray-400">
                     <CalendarDays className="mr-2 h-4 w-4" />
                     <time >{dateDate} | {dateHour}</time>
                 </div>
-                {/* <p className=" h-auto mb-6 text-base text-gray-700 dark:text-gray-300">
-                    {description}
-                </p> */}
+
 
 
                 {/* ---------------------------------------------------------------- DESCRIPTION DESCRIPTION DESCRIPTION -------------------------------------------------- */}

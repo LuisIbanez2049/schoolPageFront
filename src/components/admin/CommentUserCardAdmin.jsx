@@ -20,10 +20,16 @@ function CommentUserCardAdmin({ commentId }) {
     const [viewConfirmationComponent, setViewConfirmationComponent] = useState(false);
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
 
-    const [selectValue, setselectValue] = useState("all")
+    const [viewAnswers, setViewAnswers] = useState(false)
+
+    const [availableAnswers, setAvailableAnswers] = useState([])
+    const [disabledAnswers, setDisabledAnswers] = useState([])
+    const [selectValue, setSelectValue] = useState("allAnswers")
     const [viewAllAnswers, setViewAllAnswers] = useState(true)
     const [viewAvailableAnswers, setViewAvailableAnswers] = useState(false)
     const [viewDisabledAnswers, setViewDisabledAnswers] = useState(false)
+
+
 
     useEffect(() => {
         axios
@@ -100,6 +106,30 @@ function CommentUserCardAdmin({ commentId }) {
         setViewConfirmationComponent(false);
     };
 
+    useEffect(() => {
+        let auxAvailbaleAnswers = answers && answers.filter(answer => answer.asset === true)
+        setAvailableAnswers(auxAvailbaleAnswers)
+
+        let auxDisableAnswers = answers && answers.filter(answer => answer.asset === false)
+        setDisabledAnswers(auxDisableAnswers)
+    }, [answers])
+
+    useEffect(() => {
+        if (selectValue == "allAnswers") {
+            setViewAllAnswers(true)
+            setViewAvailableAnswers(false)
+            setViewDisabledAnswers(false)
+        } else if (selectValue == "availableAnswers") {
+            setViewAllAnswers(false)
+            setViewAvailableAnswers(true)
+            setViewDisabledAnswers(false)
+        } else {
+            setViewAllAnswers(false)
+            setViewAvailableAnswers(false)
+            setViewDisabledAnswers(true)
+        }
+    }, [selectValue, answers])
+
 
 
 
@@ -156,17 +186,95 @@ function CommentUserCardAdmin({ commentId }) {
 
                 <textarea name="" id="" className='w-full h-[70px] lg:h-[100px] bg-slate-200 p-1 rounded-[10px] text-[14px] lg:text-[16px] focus:outline-none focus:border-transparent' value={comment.texto}></textarea>
 
-                <h1>Hola</h1>
 
-                <div className='flex flex-row justify-end'>
-                    <div className='w-[98%] flex flex-col p-3 gap-8 border border-black'>
-                        {answers && answers.length > 0 && answers.map(answer => {
-                            return (<>
-                                <AnswerUserCardAdmin answerId={answer.id} />
-                            </>)
-                        })}
+
+                <button className={`block mt-1 lg:mt-4 `} onClick={() => {
+                    if (viewAnswers) {
+                        setViewAnswers(false)
+                    } else { setViewAnswers(true) }
+                }}>
+                    <h1 className={`text-[13px] lg:text-[16px] text-[${`color`}] font-bold `}>
+                        <span className=' font-semibold'> Answers </span>
+                        <span className=' '>
+                            <i className={`fa-solid fa-arrow-turn-down transition-all duration-700 transform ${viewAnswers ? "rotate-180" : "rotate-0"}`}></i>
+                        </span>
+                    </h1>
+                </button>
+
+
+                <div className={` ${viewAnswers ? "show" : "hidden"} mt-[30px] pl-4 lg:pl-8`}>
+
+                    <div className=' bg-slate-300 px-2 py-4 rounded-[10px]'>
+                        <div className='mb-[30px]'>
+                            <select name="opciones" className='bg-slate-100 p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[14px] lg:text-[16px] shadow-sm' onChange={(e) => {
+                                setSelectValue(e.target.value)
+                            }}>
+                                <option value="allAnswers">All answers</option>
+                                <option value="availableAnswers">Available answers</option>
+                                <option value="disabledAnswers">Disabled answers</option>
+                            </select>
+                        </div>
+
+
+                        <div className={`${viewAllAnswers ? "show" : "hidden"}`}>
+                            <div className="flex flex-col gap-8">
+                                {answers && answers.length > 0 && answers.map(answer => {
+                                    return (<>
+                                        <AnswerUserCardAdmin answerId={answer.id} />
+                                    </>)
+                                })}
+                            </div>
+
+                            <div className={`${answers && answers.length == 0 ? "show" : "hidden"} `}>
+                                <h1 className="font-extrabold text-[40px] text-[#00000075] text-center">
+                                    NO RESULTS
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div className={`${viewAvailableAnswers ? "show" : "hidden"}`}>
+                            <div className="flex flex-col gap-8">
+                                {availableAnswers && availableAnswers.length > 0 && availableAnswers.map(answer => {
+                                    return (<>
+                                        <AnswerUserCardAdmin answerId={answer.id} />
+                                    </>)
+                                })}
+                            </div>
+
+                            <div className={`${availableAnswers && availableAnswers.length == 0 ? "show" : "hidden"} `}>
+                                <h1 className="font-extrabold text-[40px] text-[#00000075] text-center">
+                                    NO RESULTS
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div className={`${viewDisabledAnswers ? "show" : "hidden"}`}>
+
+                            <div className="flex flex-col gap-8">
+                                {disabledAnswers && disabledAnswers.length > 0 && disabledAnswers.map(answer => {
+                                    return (<>
+                                        <AnswerUserCardAdmin answerId={answer.id} />
+                                    </>)
+                                })}
+                            </div>
+
+                            <div className={`${disabledAnswers && disabledAnswers.length == 0 ? "show" : "hidden"} `}>
+                                <h1 className="font-extrabold text-[40px] text-[#00000075] text-center">
+                                    NO RESULTS
+                                </h1>
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
+
+
+
+
+
+
+
             </div>
         </div>
     )

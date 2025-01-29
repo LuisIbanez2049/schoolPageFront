@@ -112,6 +112,7 @@ function AnswerUserCardAdmin({ answerId }) {
                     } `}
             />
             {/* ------------------------------------------------------------CONFIRMATION COMPONENT------------------------------------------------------------ */}
+            
 
             <div className=' relative bg-slate-100 p-1 rounded-[10px] border border-slate-300 shadow-md'>
 
@@ -139,13 +140,16 @@ function AnswerUserCardAdmin({ answerId }) {
 
                         <div className={`${answer.asset == false ? "show" : "hidden"} w-full flex flex-row justify-center`}>
                             <button onClick={() => setViewConfirmationComponent(true)}>
-                                <i className="fa-solid fa-trash-can-arrow-up text-[25px] lg:text-[30px] text-[#008000e5] shadow-sm"></i>
+                                <i className="fa-solid fa-trash-can-arrow-up text-[22px] lg:text-[27px] text-[#008000e5] shadow-sm"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <textarea name="" id="" className='w-full h-[70px] lg:h-[100px] bg-slate-200 p-1 rounded-[10px] text-[14px] lg:text-[16px] focus:outline-none focus:border-transparent' value={answer.texto}></textarea>
+                <h1 className='text-[12px] lg:text-[14px]'>
+                    <span className=' font-semibold text-[#0000ffc0] '> <i className="fa-brands fa-threads"></i>{answer.respuestaPara} </span>
+                </h1>
+                <textarea name="" id="" className='w-full h-[70px] lg:h-[100px] bg-slate-200 p-1 rounded-[10px] text-[13px] lg:text-[16px] focus:outline-none focus:border-transparent' value={answer.texto}></textarea>
 
             </div>
         </div>

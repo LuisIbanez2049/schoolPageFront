@@ -197,114 +197,119 @@ function ContentAdmin() {
 
             <div className=' relative flex flex-row justify-center'>
                 <div className='w-[95%]'>
+ 
+                    {/* ------------------------------------------------------------------------------------EDIT CONTENT------------------------------------------------------------------------------------ */}
+                    <div>
+                        {/* --------------------------------------------------------------------------------------------------------------EDIT TITLE CONTENT--------------------------------------------------------------------  */}
+                        <div className='mt-[20px]'>
+                            <div className='flex flex-row'>
 
-                    {/* --------------------------------------------------------------------------------------------------------------EDIT TITLE CONTENT--------------------------------------------------------------------  */}
-                    <div className='mt-[20px]'>
-                        <div className='flex flex-row'>
+                                <input disabled={isDisabledInputTitle} type="text" value={titleContent} className='w-[95%] text-[16px] lg:text-[20px] bg-slate-200 p-1 lg:p-2 rounded-[10px] font-bold text-[#000000cc]'
+                                    onChange={(e) => setTitleContent(e.target.value)} />
 
-                            <input disabled={isDisabledInputTitle} type="text" value={titleContent} className='w-[95%] text-[16px] lg:text-[20px] bg-slate-200 p-1 lg:p-2 rounded-[10px] font-bold text-[#000000cc]'
-                                onChange={(e) => setTitleContent(e.target.value)} />
+                                <button className='ml-[10px]' onClick={() => {
+                                    setShowInputTitle(true)
+                                    setIsDisabledInputTitle(false)
+                                }}>
+                                    <i className="fa-solid fa-pen text-[22px] lg:text-[25px]"></i>
+                                </button>
+                            </div>
 
-                            <button className='ml-[10px]' onClick={() => {
-                                setShowInputTitle(true)
-                                setIsDisabledInputTitle(false)
-                            }}>
-                                <i className="fa-solid fa-pen text-[22px] lg:text-[25px]"></i>
-                            </button>
+                            <div className={`${showInputTitle ? "show" : "hidden"} flex flex-row justify-end gap-4 mr-[40px] lg:mr-[70px] py-1 lg:py-2`}>
+                                <button onClick={() => {
+                                    const upDateBody = { idContenido: id, titulo: titleContent, detalleContenido: "", archivo: "" }
+                                    editContent(upDateBody)
+                                }}>
+                                    <i className="fa-solid fa-circle-check text-[green] text-[26px]"></i>
+                                </button>
+
+                                <button onClick={() => {
+                                    setShowInputTitle(false)
+                                    setTitleContent(content && content.titulo)
+                                    setIsDisabledInputTitle(true)
+                                }}>
+                                    <i className="fa-solid fa-circle-xmark text-[red] text-[26px]"></i>
+                                </button>
+                            </div>
                         </div>
+                        {/* --------------------------------------------------------------------------------------------------------------EDIT TITLE CONTENT--------------------------------------------------------------------  */}
 
-                        <div className={`${showInputTitle ? "show" : "hidden"} flex flex-row justify-end gap-4 mr-[40px] lg:mr-[70px] py-1 lg:py-2`}>
-                            <button onClick={() => {
-                                const upDateBody = { idContenido: id, titulo: titleContent, detalleContenido: "", archivo: "" }
-                                editContent(upDateBody)
-                            }}>
-                                <i className="fa-solid fa-circle-check text-[green] text-[26px]"></i>
-                            </button>
 
-                            <button onClick={() => {
-                                setShowInputTitle(false)
-                                setTitleContent(content && content.titulo)
-                                setIsDisabledInputTitle(true)
-                            }}>
-                                <i className="fa-solid fa-circle-xmark text-[red] text-[26px]"></i>
-                            </button>
+
+
+                        {/* --------------------------------------------------------------------------------------------------------------EDIT FILE CONTENT--------------------------------------------------------------------  */}
+                        <div className='mt-[20px]'>
+                            <div className='flex flex-row'>
+
+                                <input disabled={isDisabledInputFile} type="text" value={fileContent} className='w-[95%] text-[14px] lg:text-[18px] bg-slate-200 p-1 lg:p-2 rounded-[10px] text-[#000000cc]'
+                                    onChange={(e) => setFileContent(e.target.value)} />
+
+                                <button className='ml-[10px]' onClick={() => {
+                                    setShowInputFile(true)
+                                    setIsDisabledInputFile(false)
+                                }}>
+                                    <i className="fa-solid fa-pen text-[22px] lg:text-[25px]"></i>
+                                </button>
+                            </div>
+
+                            <div className={`${showInputFile ? "show" : "hidden"} flex flex-row justify-end gap-4 mr-[40px] lg:mr-[70px] py-1 lg:py-2`}>
+                                <button onClick={() => {
+                                    const upDateBody = { idContenido: id, titulo: "", detalleContenido: "", archivo: fileContent }
+                                    editContent(upDateBody)
+                                }}>
+                                    <i className="fa-solid fa-circle-check text-[green] text-[26px]"></i>
+                                </button>
+
+                                <button onClick={() => {
+                                    setShowInputFile(false)
+                                    setFileContent(content && content.archivo)
+                                    setIsDisabledInputFile(true)
+                                }}>
+                                    <i className="fa-solid fa-circle-xmark text-[red] text-[26px]"></i>
+                                </button>
+                            </div>
                         </div>
+                        {/* --------------------------------------------------------------------------------------------------------------EDIT FILE CONTENT--------------------------------------------------------------------  */}
+
+
+
+
+                        {/* --------------------------------------------------------------------------------------------------------------EDIT DESCRIPTION CONTENT--------------------------------------------------------------------  */}
+                        <div className='mt-[20px]'>
+                            <div className='flex flex-row'>
+
+                                <textarea disabled={isDisabledInputDescription} type="text" value={descriptionContent} className='w-[95%] h-[150px] text-[14px] lg:text-[18px] bg-slate-200 p-1 lg:p-2 rounded-[10px] text-[#000000cc]'
+                                    onChange={(e) => setDescriptionContent(e.target.value)} />
+
+                                <button className='ml-[10px]' onClick={() => {
+                                    setShowInputDescription(true)
+                                    setIsDisabledInputDescription(false)
+                                }}>
+                                    <i className="fa-solid fa-pen text-[22px] lg:text-[25px]"></i>
+                                </button>
+                            </div>
+
+                            <div className={`${showInputDescription ? "show" : "hidden"} flex flex-row justify-end gap-4 mr-[40px] lg:mr-[70px] py-1 lg:py-2`}>
+                                <button onClick={() => {
+                                    const upDateBody = { idContenido: id, titulo: "", detalleContenido: descriptionContent, archivo: "" }
+                                    editContent(upDateBody)
+                                }}>
+                                    <i className="fa-solid fa-circle-check text-[green] text-[26px]"></i>
+                                </button>
+
+                                <button onClick={() => {
+                                    setShowInputDescription(false)
+                                    setDescriptionContent(content && content.detalleDelContenido)
+                                    setIsDisabledInputDescription(true)
+                                }}>
+                                    <i className="fa-solid fa-circle-xmark text-[red] text-[26px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {/* --------------------------------------------------------------------------------------------------------------EDIT DESCRIPTION CONTENT--------------------------------------------------------------------  */}
                     </div>
-                    {/* --------------------------------------------------------------------------------------------------------------EDIT TITLE CONTENT--------------------------------------------------------------------  */}
-
-
-
-
-                    {/* --------------------------------------------------------------------------------------------------------------EDIT FILE CONTENT--------------------------------------------------------------------  */}
-                    <div className='mt-[20px]'>
-                        <div className='flex flex-row'>
-
-                            <input disabled={isDisabledInputFile} type="text" value={fileContent} className='w-[95%] text-[14px] lg:text-[18px] bg-slate-200 p-1 lg:p-2 rounded-[10px] text-[#000000cc]'
-                                onChange={(e) => setFileContent(e.target.value)} />
-
-                            <button className='ml-[10px]' onClick={() => {
-                                setShowInputFile(true)
-                                setIsDisabledInputFile(false)
-                            }}>
-                                <i className="fa-solid fa-pen text-[22px] lg:text-[25px]"></i>
-                            </button>
-                        </div>
-
-                        <div className={`${showInputFile ? "show" : "hidden"} flex flex-row justify-end gap-4 mr-[40px] lg:mr-[70px] py-1 lg:py-2`}>
-                            <button onClick={() => {
-                                const upDateBody = { idContenido: id, titulo: "", detalleContenido: "", archivo: fileContent }
-                                editContent(upDateBody)
-                            }}>
-                                <i className="fa-solid fa-circle-check text-[green] text-[26px]"></i>
-                            </button>
-
-                            <button onClick={() => {
-                                setShowInputFile(false)
-                                setFileContent(content && content.archivo)
-                                setIsDisabledInputFile(true)
-                            }}>
-                                <i className="fa-solid fa-circle-xmark text-[red] text-[26px]"></i>
-                            </button>
-                        </div>
-                    </div>
-                    {/* --------------------------------------------------------------------------------------------------------------EDIT FILE CONTENT--------------------------------------------------------------------  */}
-
-
-
-
-                    {/* --------------------------------------------------------------------------------------------------------------EDIT DESCRIPTION CONTENT--------------------------------------------------------------------  */}
-                    <div className='mt-[20px]'>
-                        <div className='flex flex-row'>
-
-                            <textarea disabled={isDisabledInputDescription} type="text" value={descriptionContent} className='w-[95%] h-[150px] text-[14px] lg:text-[18px] bg-slate-200 p-1 lg:p-2 rounded-[10px] text-[#000000cc]'
-                                onChange={(e) => setDescriptionContent(e.target.value)} />
-
-                            <button className='ml-[10px]' onClick={() => {
-                                setShowInputDescription(true)
-                                setIsDisabledInputDescription(false)
-                            }}>
-                                <i className="fa-solid fa-pen text-[22px] lg:text-[25px]"></i>
-                            </button>
-                        </div>
-
-                        <div className={`${showInputDescription ? "show" : "hidden"} flex flex-row justify-end gap-4 mr-[40px] lg:mr-[70px] py-1 lg:py-2`}>
-                            <button onClick={() => {
-                                const upDateBody = { idContenido: id, titulo: "", detalleContenido: descriptionContent, archivo: "" }
-                                editContent(upDateBody)
-                            }}>
-                                <i className="fa-solid fa-circle-check text-[green] text-[26px]"></i>
-                            </button>
-
-                            <button onClick={() => {
-                                setShowInputDescription(false)
-                                setDescriptionContent(content && content.detalleDelContenido)
-                                setIsDisabledInputDescription(true)
-                            }}>
-                                <i className="fa-solid fa-circle-xmark text-[red] text-[26px]"></i>
-                            </button>
-                        </div>
-                    </div>
-                    {/* --------------------------------------------------------------------------------------------------------------EDIT DESCRIPTION CONTENT--------------------------------------------------------------------  */}
+                    {/* ------------------------------------------------------------------------------------EDIT CONTENT------------------------------------------------------------------------------------ */}
+                    
 
                     <div className="mb-4 flex items-center text-[12px] mt-[15px] lg:text-sm text-gray-500 dark:text-gray-400">
                         <CalendarDays className="mr-2 h-4 w-4" />
@@ -312,28 +317,33 @@ function ContentAdmin() {
                     </div>
 
 
-                    <div className={` ${content && content.asset === true ? "show" : "hidden"} flex flex-row justify-center mt-[20px]`}>
-                        <button onClick={() => setViewConfirmationComponent(true)}>
-                            <h1 className="font-bold bg-[#ff0000af] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] shadow-md">
-                                DESIBLE CONTENT
-                            </h1>
-                        </button>
+                    {/* ---------------------------------------------------------------------------------BUTTON TO ENABLE OR DISABLE CONTENT---------------------------------------------------------------------------- */}
+                    <div>
+                        <div className={` ${content && content.asset === true ? "show" : "hidden"} flex flex-row justify-center mt-[20px]`}>
+                            <button onClick={() => setViewConfirmationComponent(true)}>
+                                <h1 className="font-bold bg-[#ff0000af] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] shadow-md">
+                                    DESIBLE CONTENT
+                                </h1>
+                            </button>
+                        </div>
+
+                        <div className={`${content && content.asset === false ? "show" : "hidden"} flex flex-row justify-center mt-[20px]`}>
+                            <button onClick={() => setViewConfirmationComponent(true)}>
+                                <h1 className="font-bold bg-[#29e929c5] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] text-[#000000c2] shadow-md">
+                                    ENABLE CONTENT
+                                </h1>
+                            </button>
+                        </div>
                     </div>
-
-                    <div className={`${content && content.asset === false ? "show" : "hidden"} flex flex-row justify-center mt-[20px]`}>
-                        <button onClick={() => setViewConfirmationComponent(true)}>
-                            <h1 className="font-bold bg-[#29e929c5] p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[13px] lg:text-[16px] text-[#000000c2] shadow-md">
-                                ENABLE CONTENT
-                            </h1>
-                        </button>
-                    </div>
+                    {/* ---------------------------------------------------------------------------------BUTTON TO ENABLE OR DISABLE CONTENT---------------------------------------------------------------------------- */}
 
 
 
+                    {/* ----------------------------------------------------------------------------COMMENT CARDS---------------------------------------------------------------------------- */}
                     <div className='mt-[30px]'>
 
                         <div className='mb-[30px]'>
-                            <select name="opciones" className='bg-slate-200 p-2 rounded-[10px] text-[16px] shadow-sm' onChange={(e) => {
+                            <select name="opciones" className='bg-slate-200 p-1 lg:p-2 rounded-[5px] lg:rounded-[10px] text-[14px] lg:text-[16px] shadow-sm' onChange={(e) => {
                                 setselectValue(e.target.value)
                             }}>
                                 <option value="all">All comments</option>
@@ -363,7 +373,7 @@ function ContentAdmin() {
                             <div className="flex flex-col gap-8">
                                 {availableComments && availableComments.length > 0 && availableComments.map(comment => {
                                     return (<>
-                                        <CommentUserCardAdmin commentId={comment && comment.id}/>
+                                        <CommentUserCardAdmin commentId={comment && comment.id} />
                                     </>)
                                 })}
                             </div>
@@ -380,7 +390,7 @@ function ContentAdmin() {
                             <div className="flex flex-col gap-8">
                                 {disableComments && disableComments.length > 0 && disableComments.map(comment => {
                                     return (<>
-                                        <CommentUserCardAdmin commentId={comment && comment.id}/>
+                                        <CommentUserCardAdmin commentId={comment && comment.id} />
                                     </>)
                                 })}
                             </div>
@@ -394,6 +404,8 @@ function ContentAdmin() {
 
 
                     </div>
+                    {/* ----------------------------------------------------------------------------COMMENT CARDS---------------------------------------------------------------------------- */}
+
 
 
                 </div>
