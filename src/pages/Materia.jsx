@@ -325,10 +325,10 @@ function Materia() {
 
 
 
-                        <div className='w-full overflow-hidden flex flex-col justify-center items-center '>
+                        <div className=' relative w-full overflow-hidden flex flex-col justify-center items-center '>
 
-                            <div className={` ${isMobileView ? "show" : "hidden"} relative w-full lg:w-[95%]`}>
-                                <div className=' relative p-2'>
+                            <div className={` relative ${isMobileView ? "show" : "hidden"} relative w-full lg:w-[95%]`}>
+                                <div className={` ${isDesplegable ? "hidden" : "show"} absolute top-[6px] z-50 p-2 `}>
                                     <button onClick={() => { setIsDesplegable(true) }}>
                                         <i className="fa-solid fa-bars text-[20px]"></i>
                                     </button>
@@ -337,10 +337,12 @@ function Materia() {
 
 
 
-                                <div className={` transition-all duration-500 transform ${isDesplegable ? "translate-x-[0%]" : "translate-x-[-100%]"} w-full min-h-screen absolute z-20 top-0 bg-[#00000086]`}
+                                <div className={` transition-all duration-500 transform ${isDesplegable ? "bg-[#00000086] z-20" : "bg-transparent z-0"} w-full min-h-screen absolute  top-0 `}
                                     onClick={() => { setIsDesplegable(false) }}>
 
-                                    <div className={` w-[240px] h-[100vh] border-r-4 border-t-4 border-b-4 border-[${subject && subject.color}] rounded-r-[15px] p-2 bg-gray-100`}>
+                                    <div className={` relative w-[240px] h-[100vh] transition-all duration-500 transform ${isDesplegable ? "translate-x-[0%]" : "translate-x-[-100%]"} 
+                                         border-r-4 border-t-4 border-b-4 border-[${subject && subject.color}] rounded-r-[15px] p-2 bg-gray-100`}>
+
                                         <h1 className={`font-bold text-[20px] text-[#2c2c2c]`}>STUDENTS</h1>
                                         <ul className=' pl-1 '>
 
@@ -533,7 +535,7 @@ function Materia() {
                                     </div>
                                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
 
-                                    <div className=' relative w-[95%] lg:w-[1310px] p-2'
+                                    <div className=' relative w-[95%] lg:w-[1310px] p-2 mt-[40px] lg:mt-[0px]'
                                         onMouseEnter={() => { setViewDescriptionSubjectPen(true) }} onMouseLeave={() => { setViewDescriptionSubjectPen(false) }}>
                                         <textarea name="" id="" className={` w-[100%] lg:w-[1290px] h-[120px] lg:h-[160px] text-gray-800 font-normal shadow-md bg-[#f3f2f2] p-1 text-[13px] lg:text-[18px] lg:p-2 rounded-[5px] lg:rounded-md focus:border focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
                                             disabled={isDesabledDescriptionInputSubject} value={valueInputDescriptionSubject} onChange={(e) => { setValueInputDescriptionSubject(e.target.value) }}></textarea>

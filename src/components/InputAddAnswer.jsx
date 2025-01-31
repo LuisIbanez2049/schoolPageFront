@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import SendButton from "../assets/sendButton.png"
 import axios from 'axios'
 
-function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunction, onChangeFunction, valueInput}) {
+function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunction, onChangeFunction, valueInput }) {
 
     const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
 
@@ -20,14 +20,12 @@ function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunctio
                         <div className=' w-full flex flex-row p-1 lg:p-2 justify-around '>
                             <div>
 
-                                <div className=' flex flex-row'>
-                                    <div className='flex flex-row px-1 lg:px-2'> 
-                                        <span className=' font-semibold text-[#0000ffc0] text-[8px] lg:text-[16px]'> <i className="fa-brands fa-threads"></i>{userName} </span> 
+                                <div className=' flex flex-col lg:flex-row'>
+                                    <div className='flex flex-row px-0 lg:px-2'>
+                                        <span className=' font-semibold text-[#0000ffc0] text-[8px] lg:text-[16px]'> <i className="fa-brands fa-threads"></i>{userName} </span>
                                     </div>
-                                    {/* <input className={`h-[50px] w-[750px] text-pretty font-light pr-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
-                                        type="text" placeholder='Add answer...' value={valueInput} onChange={onChangeFunction}/> */}
 
-                                        <textarea name="" id="" className={`h-[25px] lg:h-[50px] w-[130px] lg:w-[750px] text-pretty font-light pr-1 lg:pr-2 bg-transparent text-[10px] lg:text-[16px] border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
+                                    <textarea name="" id="" className={`h-[25px] lg:h-[50px] w-[170px] lg:w-[750px] text-pretty font-light pr-1 lg:pr-2 bg-transparent text-[10px] lg:text-[16px] border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
                                         placeholder='Add answer...' value={valueInput} onChange={onChangeFunction}></textarea>
                                 </div>
 

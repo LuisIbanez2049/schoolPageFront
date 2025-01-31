@@ -412,48 +412,50 @@ function SubjectAdmin() {
 
 
                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
-                    <div className={` w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2] mb-[30px]`}>
-                        <form action="" onSubmit={handleCreateAContent}>
-                            <h1 className={`text-[16px] lg:text-[25px] font-bold bg-[${subject && subject.color}] p-2 rounded-[8px] text-center`}>CREATE CONTENT</h1>
+                    <div className="flex flex-row justify-center">
+                        <div className={` w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2] mb-[30px]`}>
+                            <form action="" onSubmit={handleCreateAContent}>
+                                <h1 className={`text-[16px] lg:text-[25px] font-bold bg-[${subject && subject.color}] p-2 rounded-[8px] text-center`}>CREATE CONTENT</h1>
 
-                            <div className='flex flex-col gap-4'>
-                                <input type="text"
-                                    className={`h-[40px] lg:h-[50px] text-[15px] lg:text-[20px] w-full text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
-                                    placeholder='Title'
-                                    value={title}
-                                    onChange={(e) => {
-                                        setTitle(e.target.value)
-                                    }} />
+                                <div className='flex flex-col gap-4'>
+                                    <input type="text"
+                                        className={`h-[40px] lg:h-[50px] text-[15px] lg:text-[20px] w-full text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
+                                        placeholder='Title'
+                                        value={title}
+                                        onChange={(e) => {
+                                            setTitle(e.target.value)
+                                        }} />
 
-                                <textarea rows="4" cols="90" placeholder="Description..."
-                                    className={`w-full text-pretty text-[15px] lg:text-[20px] font-light px-2 bg-transparent border border-[#00000071] rounded-md focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
-                                    value={description}
-                                    onChange={(e) => {
-                                        setDescription(e.target.value)
-                                    }} ></textarea>
+                                    <textarea rows="4" cols="90" placeholder="Description..."
+                                        className={`w-full text-pretty text-[15px] lg:text-[20px] font-light px-2 bg-transparent border border-[#00000071] rounded-md focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
+                                        value={description}
+                                        onChange={(e) => {
+                                            setDescription(e.target.value)
+                                        }} ></textarea>
 
-                                <input type="text"
-                                    className={`h-[40px] lg:h-[50px] w-full text-[15px] lg:text-[20px] text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
-                                    placeholder='File URL'
-                                    value={fileURL}
-                                    onChange={(e) => {
-                                        setFileURL(e.target.value)
-                                    }} />
+                                    <input type="text"
+                                        className={`h-[40px] lg:h-[50px] w-full text-[15px] lg:text-[20px] text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
+                                        placeholder='File URL'
+                                        value={fileURL}
+                                        onChange={(e) => {
+                                            setFileURL(e.target.value)
+                                        }} />
 
-                                <div className='w-full flex flex-row justify-end'>
-                                    <div className='p-3 flex flex-row gap-8 '>
-                                        <button onClick={() => {
-                                            setTitle("")
-                                            setDescription("")
-                                            setFileURL("")
-                                        }}>
-                                            <h1 className='rounded-[5px] p-1 lg:p-2 text-[16px] lg:text-[20px] bg-[#ff00007a] font-semibold'>CANCEL</h1>
-                                        </button>
-                                        <button> <h1 className='rounded-[5px] p-1 lg:p-2 text-[16px] lg:text-[20px] bg-[#00800094] font-semibold'>SUBMIT</h1> </button>
+                                    <div className='w-full flex flex-row justify-end'>
+                                        <div className='p-3 flex flex-row gap-8 '>
+                                            <button onClick={() => {
+                                                setTitle("")
+                                                setDescription("")
+                                                setFileURL("")
+                                            }}>
+                                                <h1 className='rounded-[5px] p-1 lg:p-2 text-[16px] lg:text-[20px] bg-[#ff00007a] font-semibold'>CANCEL</h1>
+                                            </button>
+                                            <button> <h1 className='rounded-[5px] p-1 lg:p-2 text-[16px] lg:text-[20px] bg-[#00800094] font-semibold'>SUBMIT</h1> </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
 

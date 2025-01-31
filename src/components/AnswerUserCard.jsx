@@ -201,12 +201,12 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                         </div>
                         {/* --------------------------------------------POPUP ERROR MESAGGE-------------------------------------------- */}
 
-                        <div className='text-[11px] lg:text-[15px] flex flex-row font-light'>
+                        <div className='text-[11px] lg:text-[15px] flex flex-col lg:flex-row font-light'>
                             <div className=' inline-block py-2 '>
-                                <span className=' font-semibold text-[#0000ffc0] '> <i className="fa-brands fa-threads"></i>{receptorFullName} </span>
+                                <span className=' font-semibold text-[#0000ffc0] text-[11px] lg:text-[17px]'> <i className="fa-brands fa-threads"></i>{receptorFullName} </span>
                             </div>
 
-                            <textarea disabled={isDisabledTextArea} className={` relative w-[85%] ${showEditInputText ? "border border-gray-400 bg-gray-300 rounded-[5px]" : "bg-transparent"} p-2 focus:outline-none focus:border-gray-400`}
+                            <textarea disabled={isDisabledTextArea} className={` relative w-[100%] lg:w-[85%] text-[12px] lg:text-[17px] ${showEditInputText ? "border border-gray-400 bg-gray-300 rounded-[5px]" : "bg-transparent"}  px-0 py-0 lg:px-2 lg:py-2 focus:outline-none focus:border-gray-400`}
                                 name="" id="" value={valueInputText} onChange={(e) => { setValueInputText(e.target.value) }}> </textarea>
 
                         </div>
@@ -235,13 +235,13 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
 
 
-                    <div className='w-full flex flex-row justify-end'>
+                    <div className='w-full flex flex-row justify-end mt-[10px]'>
                         <button onClick={() => {
                             if (showInputAnswer) {
                                 setShowInputAnswer(false)
                             } else { setShowInputAnswer(true) }
                         }}>
-                            <h1 className='text-[12px] lg:text-[14px] font-semibold'>REPLY</h1>
+                            <h1 className='text-[11px] lg:text-[14px] font-semibold'>REPLY</h1>
                         </button>
                     </div>
                     <div className={` transition-all transform duration-500 ${showInputAnswer ? "h-[100px]" : "h-[0px]"} overflow-hidden`}>
