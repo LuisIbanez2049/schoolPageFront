@@ -52,11 +52,16 @@ function Materia() {
     const [isMobileView, setIsMobileView] = useState(window.innerWidth < 450);
 
     useEffect(() => {
-        console.log(window.innerWidth)
-        if (window.innerWidth < 450) {
-            setIsMobileView(true)
-        } else { setIsMobileView(false) }
-    }, [window.innerWidth])
+        const handleResize = () => {
+            // console.log(window.innerWidth);
+            setIsMobileView(window.innerWidth < 450);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        // Cleanup function para evitar memory leaks
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
 
     const token = localStorage.getItem("userToken")
@@ -230,8 +235,8 @@ function Materia() {
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
-                <ConfirmationPopUpAlert isShow={viewConfirmationComponent} handleOnConfirmFunction={handleOnConfirmFuntionPopUpComponent} handleOnCancelFunction={handleOnCancelFuntionPopUpComponent} 
-                   message={"Do you want to leave this subject?"}/>
+                <ConfirmationPopUpAlert isShow={viewConfirmationComponent} handleOnConfirmFunction={handleOnConfirmFuntionPopUpComponent} handleOnCancelFunction={handleOnCancelFuntionPopUpComponent}
+                    message={"Do you want to leave this subject?"} />
                 {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
 
@@ -320,13 +325,9 @@ function Materia() {
 
 
 
-
-
-
-
-
                         <div className=' relative w-full overflow-hidden flex flex-col justify-center items-center '>
 
+                            {/* ----------------------------------------------NOMBRE DE ALUMNOS Y PROFESORES VERSION MOVILE---------------------------------------------- */}
                             <div className={` relative ${isMobileView ? "show" : "hidden"} relative w-full lg:w-[95%]`}>
                                 <div className={` ${isDesplegable ? "hidden" : "show"} absolute top-[6px] z-50 p-2 `}>
                                     <button onClick={() => { setIsDesplegable(true) }}>
@@ -400,9 +401,9 @@ function Materia() {
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
+                            {/* ----------------------------------------------NOMBRE DE ALUMNOS Y PROFESORES VERSION MOVILE---------------------------------------------- */}
+
 
 
 

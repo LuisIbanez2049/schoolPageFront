@@ -162,7 +162,8 @@ duration-300 transform ${mouseIn ? "top-[-40px]" : "top-[-34px]"} z-0`}>
                             ></div>
                         </div>
                         <div className={`p-3 lg:p-2 w-full h-[140px] lg:h-[149px] overflow-hidden rounded-br-[30px] bg-[${bg}]`}>
-                            <p className='text-justify font-light text-[16px] lg:text-[18px]'> {descripcion} </p>
+                            <textarea name="" id="" className={`text-justify font-light text-[16px] lg:text-[18px] w-full h-full overflow-hidden bg-transparent cursor-pointer focus:outline-none transition-colors peer`}
+                             value={descripcion}></textarea>
                         </div>
                     </div>
                 </button>

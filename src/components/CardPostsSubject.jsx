@@ -315,7 +315,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                         setViewComments(false)
                     } else { setViewComments(true) }
                 }}>
-                    <h1 className={`text-[18px] lg:text-[20px] text-[${color}] font-bold `}>
+                    <h1 className={`text-[15px] lg:text-[20px] text-[${color}] font-bold `}>
                         <span style={textStyle}> Comments </span>
                         <span className=' '>
                             <i className={`fa-solid fa-arrow-turn-down transition-all duration-700 transform ${viewComments ? "rotate-180" : "rotate-0"}`}></i>

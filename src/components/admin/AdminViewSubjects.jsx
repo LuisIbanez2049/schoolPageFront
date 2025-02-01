@@ -88,20 +88,6 @@ function AdminViewSubjects() {
       <div className=' flex flex-row justify-center'>
         <div className=' w-[95%] mt-[50px]'>
 
-          {/* -------------------------------------------------BUTTONS "AVAILABLE" AND "DISABLED" SUBJECTS----------------------------------- */}
-          <div className=' relative flex flex-row justify-center gap-10 mb-[50px]'>
-            <button onClick={() => { setisOnClickAvailableSubjects(true) }}>
-              {/* color button is selected: #db9854 */}
-              <h1 className={` w-[135px] text-[22px] lg:w-[145px] lg:text-[25px] font-bold ${isOnClickAvailableSubjects ? "bg-[#db9854]" : "bg-[#efb071]"}  py-1 px-2 rounded-[10px] text-[#000000af]`}>AVAILABLE</h1>
-            </button>
-
-            <button onClick={() => { setisOnClickAvailableSubjects(false) }}>
-              <h1 className={`w-[135px] text-[22px] lg:w-[145px] lg:text-[25px] font-bold ${isOnClickAvailableSubjects ? "bg-[#efb071]" : "bg-[#db9854]"} py-1 px-2 rounded-[10px] text-[#000000af]`}>DISABLED</h1>
-            </button>
-          </div>
-          {/* -------------------------------------------------BUTTONS "AVAILABLE" AND "DISABLED" SUBJECTS----------------------------------- */}
-
-
 
           {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
           <div className="flex flex-row justify-center">
@@ -159,6 +145,22 @@ function AdminViewSubjects() {
             </div>
           </div>
           {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
+
+          
+
+
+          {/* -------------------------------------------------BUTTONS "AVAILABLE" AND "DISABLED" SUBJECTS----------------------------------- */}
+          <div className=' relative flex flex-row justify-center gap-10 mb-[50px]'>
+            <button onClick={() => { setisOnClickAvailableSubjects(true) }}>
+              {/* color button is selected: #db9854 */}
+              <h1 className={` w-[135px] text-[22px] lg:w-[145px] lg:text-[25px] font-bold ${isOnClickAvailableSubjects ? "bg-[#db9854]" : "bg-[#efb071]"}  py-1 px-2 rounded-[10px] text-[#000000af]`}>AVAILABLE</h1>
+            </button>
+
+            <button onClick={() => { setisOnClickAvailableSubjects(false) }}>
+              <h1 className={`w-[135px] text-[22px] lg:w-[145px] lg:text-[25px] font-bold ${isOnClickAvailableSubjects ? "bg-[#efb071]" : "bg-[#db9854]"} py-1 px-2 rounded-[10px] text-[#000000af]`}>DISABLED</h1>
+            </button>
+          </div>
+          {/* -------------------------------------------------BUTTONS "AVAILABLE" AND "DISABLED" SUBJECTS----------------------------------- */}
 
 
 
