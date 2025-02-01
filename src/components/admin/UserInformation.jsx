@@ -1,12 +1,14 @@
+
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { logOutAction } from '../redux/actions/authenticationAction'
-import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction'
-import LoadingView from '../components/LoadingView'
+import LoadingView from '../LoadingView'
+// import { logOutAction } from '../redux/actions/authenticationAction'
+// import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction'
 
-function Configuration() {
+
+function UserInformation() {
 
     const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
 
@@ -83,28 +85,6 @@ function Configuration() {
 
     }
 
-    useEffect(() => {
-        axios.get("http://localhost:8080/api/auth/current", {
-            headers: {
-                Authorization: `Bearer ${tokenSinComillas}`
-            }
-        })
-            .then((response) => {
-                let objectAux = response.data;
-                let user = JSON.parse(localStorage.getItem("userInformation"));
-                user = objectAux;
-                localStorage.setItem("userInformation", JSON.stringify(user));
-                setInputValueName(user.name)
-                setInputValueLastName(user.lastName)
-                setInputValueDni(user.dni)
-                setInputValueEmail(user.mail)
-                setInputValueProfileImg(user.userProfileImg)
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-    }, [])
-
     function editUserParemeters(body) {
         setViewLoadingComponent(true)
         console.log(body)
@@ -118,9 +98,9 @@ function Configuration() {
                 console.log(response.data)
                 updateLocalStorage()
                 if (response.data.includes("Email")) {
-                    dispatch(logOutAction())
-                    dispatchUser(logOutUserAction())
-                    navigate("/")
+                    // dispatch(logOutAction())
+                    // dispatchUser(logOutUserAction())
+                    // navigate("/")
                     //------------------------------------------------
                     window.location.reload()
                     //------------------------------------------------
@@ -456,4 +436,4 @@ function Configuration() {
     )
 }
 
-export default Configuration
+export default UserInformation

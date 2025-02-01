@@ -9,6 +9,8 @@ function Nav() {
     const [isVisible, setIsVisible] = useState(false)
     const [isOnclick, setIsOnclick] = useState(false)
 
+    const [isOnclickSubjectsAdmin, setIsOnclickSubjectsAdmin] = useState(true)
+
     const dispatch = useDispatch();
     const dispatchUser = useDispatch();
     const navigate = useNavigate();
@@ -44,13 +46,19 @@ function Nav() {
                 {userInformationLocalStorage && userInformationLocalStorage.rol === "ADMIN" ?
                     <>
                         <div className='flex flex-col justify-center items-center lg:flex-row gap-4 lg:gap-10 '>
-                            <button>
+                            <button onClick={() => {
+                                setIsOnclickSubjectsAdmin(true)
+                                navigate("/adminViewSubjects")
+                            }}>
                                 {/* color button is selected: #db9854 */}
-                                <h1 className={` w-[70px] lg:w-[133px] text-[12px] lg:text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[6px] lg:rounded-[10px] text-[#000000af]`}>SUBJECTS</h1>
+                                <h1 className={` w-[70px] lg:w-[133px] text-[12px] lg:text-[25px] font-bold ${isOnclickSubjectsAdmin ? "bg-[#a1764a] text-[#ffffffe5]" : "bg-[#efb071] text-[#000000af]"} py-1 px-2 rounded-[6px] lg:rounded-[10px]`}>SUBJECTS</h1>
                             </button>
 
-                            <button>
-                                <h1 className={`w-[70px] lg:w-[133px] text-[12px] lg:text-[25px] font-bold bg-[#efb071] py-1 px-2 rounded-[6px] lg:rounded-[10px] text-[#000000af]`}>USERS</h1>
+                            <button onClick={() => {
+                                setIsOnclickSubjectsAdmin(false)
+                                navigate("/adminViewUsers")
+                            }}>
+                                <h1 className={`w-[70px] lg:w-[133px] text-[12px] lg:text-[25px] font-bold ${isOnclickSubjectsAdmin ? "bg-[#efb071] text-[#000000af]" : "bg-[#a1764a] text-[#ffffffe5]"} py-1 px-2 rounded-[6px] lg:rounded-[10px] text-[#000000af]`}>USERS</h1>
                             </button>
                         </div>
                     </> : <></>}
