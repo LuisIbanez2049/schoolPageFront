@@ -1,12 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useActionData } from 'react-router-dom'
 
-function UserCardAdmin(userId) {
+function UserCardAdmin({ userId, nombre, dni, rol }) {
     return (
         <div>
-            <Link to={`/subjectAdmin/${idSubject}`}>
-                <div className={`w-full bg-slate-200 rounded-[12px] text-[#000000af]`}>
-                    <h1 className='font-extrabold text-[30px] text-center px-1 py-3'>{nombre}</h1>
+            <Link to={`/userInformation/${userId}`}>
+                <div className={`w-full bg-slate-200 rounded-[12px] text-[#000000af] px-3`}>
+                    <h1 className='font-extrabold text-[30px] text-center py-3'>{nombre}</h1>
+                    <h1 className='font-extrabold text-[24px] py-3'> DNI: {dni}</h1>
+                    <h1 className='font-extrabold text-[24px] py-3'>ROL: {rol}</h1>
                 </div>
             </Link>
         </div>
