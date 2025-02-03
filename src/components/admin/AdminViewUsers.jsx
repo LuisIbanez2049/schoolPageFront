@@ -102,9 +102,9 @@ function AdminViewUsers() {
       setUsers(originalUsers); // Restaurar los datos originales si el input está vacío
       setAuxOriginalUsers(originalUsers)
     } else {
-      let filteredUsersSelectSubject = originalUsers.filter((user) => 
+      let filteredUsersSelectSubject = originalUsers.filter((user) =>
         user.usuarioMaterias.some(
-          (usuarioMateria) => 
+          (usuarioMateria) =>
             usuarioMateria.nombreMateria === valueInputSelectSubject
         ));
       setUsers(filteredUsersSelectSubject);
@@ -142,12 +142,12 @@ function AdminViewUsers() {
               setValueInputSelectSubject(e.target.value)
               setValueInputSelectRol("all")
               setValueInputSearch("")
-              
+
             }}>
               <option value="all">ALL SUBJECTS</option>
               {subjects && subjects.length > 0 && subjects.map(subject => {
                 return (<>
-                 <option value={subject.nombre}> {(subject.nombre).toUpperCase()} </option>
+                  <option value={subject.nombre}> {(subject.nombre).toUpperCase()} </option>
                 </>)
               })}
             </select>
@@ -158,7 +158,7 @@ function AdminViewUsers() {
           <div className='flex flex-row gap-8'>
             {users && users.length > 0 && users.map(user => {
               return (<>
-                <UserCardAdmin userId={user.id} nombre={user.name + " " + user.lastName} dni={user.dni} rol={user.rol} />
+                <UserCardAdmin key={user.id} userId={user.id} nombre={user.name + " " + user.lastName} dni={user.dni} rol={user.rol} />
               </>)
             })}
           </div>

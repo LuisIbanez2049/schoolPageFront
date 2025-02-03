@@ -6,7 +6,7 @@ import ConfirmationPopUpAlert from '../ConfirmationPopUpAlert';
 import LoadingView from '../LoadingView';
 import AnswerUserCardAdmin from './AnswerUserCardAdmin';
 
-function CommentUserCardAdmin({ commentId }) {
+function CommentUserCardAdmin({ commentId, viewMoreDetailsCommentBoolean }) {
 
     const token = localStorage.getItem("userToken");
     let tokenSinComillas = token.replace(/"/g, "");
@@ -166,6 +166,10 @@ function CommentUserCardAdmin({ commentId }) {
                         <div className="mb-4 flex items-center text-[12px] mt-[15px] lg:text-sm text-gray-500 dark:text-gray-400">
                             <CalendarDays className="mr-2 h-4 w-4" />
                             <time >{dateDate} | {dateHour}</time>
+                        </div>
+
+                        <div className={`${viewMoreDetailsCommentBoolean ? "show" : "hidden"}`}>
+                            <small>Subject: {comment.nombreDeMateria} || Content: {comment.nombreContenido}</small>
                         </div>
                     </div>
 

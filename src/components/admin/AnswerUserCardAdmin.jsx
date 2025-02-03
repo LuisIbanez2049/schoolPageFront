@@ -4,7 +4,7 @@ import ConfirmationPopUpAlert from '../ConfirmationPopUpAlert';
 import axios from 'axios';
 import { CalendarDays } from 'lucide-react';
 
-function AnswerUserCardAdmin({ answerId }) {
+function AnswerUserCardAdmin({ answerId, viewMoreDetailsAnswerBoolean }) {
 
 
     const token = localStorage.getItem("userToken");
@@ -128,6 +128,10 @@ function AnswerUserCardAdmin({ answerId }) {
                         <div className="mb-4 flex items-center text-[12px] mt-[15px] lg:text-sm text-gray-500 dark:text-gray-400">
                             <CalendarDays className="mr-2 h-4 w-4" />
                             <time >{dateDate} | {dateHour}</time>
+                        </div>
+
+                        <div className={`${viewMoreDetailsAnswerBoolean ? "show" : "hidden"}`}>
+                            <small>Subject: {answer.nombreDeMateria} || Content: {answer.nombreDeContenido}</small>
                         </div>
                     </div>
 
