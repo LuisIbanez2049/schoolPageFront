@@ -50,29 +50,6 @@ function AdminViewUsers() {
       })
   }, [])
 
-  // useEffect(() => {
-  //   if (valueInputSearch.trim() === "") {
-  //     setUsers(auxOriginalUsers); // Restaurar los datos originales si el input está vacío
-  //   } else {
-  //     let filteredUsers = auxOriginalUsers.filter(user =>
-  //       (user.name + " " + user.lastName).toLowerCase().includes(valueInputSearch.toLowerCase()) || (user.dni).toLowerCase().includes(valueInputSearch.toLowerCase())) // Filtra por nombre y apellido;
-  //     setUsers(filteredUsers);
-  //   }
-  // }, [valueInputSearch, originalUsers]);
-
-  // useEffect(() => {
-  //   if (valueInputSelectRol === "all") {
-  //     setUsers(originalUsers); // Restaurar los datos originales si el input está vacío
-  //     setAuxOriginalUsers(originalUsers)
-  //   } else {
-  //     let filteredUsersSelect = originalUsers.filter(user =>
-  //       (user.rol).toLowerCase().includes(valueInputSelectRol.toLowerCase()) // Filtra por nombre y apellido
-  //     );
-  //     setUsers(filteredUsersSelect);
-  //     setAuxOriginalUsers(filteredUsersSelect)
-  //   }
-  // }, [valueInputSelectRol, originalUsers]);
-
 
   useEffect(() => {
     if (valueInputSearch.trim() === "") {
@@ -115,14 +92,14 @@ function AdminViewUsers() {
   return (
     <div className='flex flex-col min-h-screen'>
       <div className='flex flex-row justify-center'>
-        <div className=' relative w-[95%] flex flex-col items-center border border-black'>
+        <div className=' relative w-[95%] flex flex-col items-center'>
 
 
           <h1 className='font-bold text-[30px]'>USERS</h1>
 
 
           {/* ----------------------------------------------------FILTROS---------------------------------------------------- */}
-          <div className='flex flex-row justify-center items-center gap-6 border border-black' >
+          <div className='flex flex-row justify-center items-center gap-6 mb-[50px]' >
 
             <input value={valueInputSearch} type="text" placeholder='Search by name or DNI...' className='bg-slate-200 p-2 rounded-md my-[20px]' onChange={(e) => setValueInputSearch(e.target.value)} />
 

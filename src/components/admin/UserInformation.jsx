@@ -259,7 +259,7 @@ function UserInformation() {
             {/* ------------------------------------------------------------CONFIRMATION POPOUP MESSAGE------------------------------------------------------------ */}
 
 
-            <div className=' relative w-full min-h-screen flex flex-col items-center bg-gray-200'>
+            <div className=' relative w-full min-h-screen flex flex-col items-center bg-gray-200 mb-[80px] pb-[60px]'>
 
                 {/* ------------------------------------------------------------FLECHA VOLVER ATRAS------------------------------------------------------------ */}
                 {/* userInformationLocalStorage && userInformationLocalStorage.rol */}

@@ -187,7 +187,7 @@ function SubjectAdmin() {
 
 
             <div className="w-full flex flex-row justify-center">
-                <div className="w-[95%]">
+                <div className="w-[95%] mb-[80px]">
                     <div className="h-[200px] lg:h-[400px]"
                         style={{
                             backgroundImage: `url('${portadaSubject}')`,

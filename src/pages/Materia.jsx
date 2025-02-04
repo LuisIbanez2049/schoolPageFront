@@ -488,7 +488,7 @@ function Materia() {
 
 
 
-                                <div className='w-full flex flex-col items-center gap-12 '>
+                                <div className='w-full flex flex-col items-center gap-12  pb-[40px]'>
 
                                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
                                     <div className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2]`}>

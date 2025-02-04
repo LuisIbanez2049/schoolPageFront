@@ -196,7 +196,7 @@ function ContentAdmin() {
 
 
             <div className=' relative flex flex-row justify-center'>
-                <div className='w-[95%]'>
+                <div className='w-[95%] mb-[80px]'>
  
                     {/* ------------------------------------------------------------------------------------EDIT CONTENT------------------------------------------------------------------------------------ */}
                     <div>
