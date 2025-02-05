@@ -172,6 +172,37 @@ function SubjectAdmin() {
     }
 
 
+    //-------------------------------------------------------------------------------------------------------------------PARA ABAJO ES TODO PRUEBA-----------------------------------------------------------------------
+    const [forms, setForms] = useState([{ id: Date.now(), values: { field1: "", field2: "", field3: "" } }]);
+    const [data, setData] = useState([]);
+
+    const handleChange = (id, event) => {
+        const { name, value } = event.target;
+        setForms((prevForms) =>
+            prevForms.map((form) =>
+                form.id === id ? { ...form, values: { ...form.values, [name]: value } } : form
+            )
+        );
+    };
+
+    const addForm = () => {
+        setForms([...forms, { id: Date.now(), values: { field1: "", field2: "", field3: "" } }]);
+    };
+
+    const removeForm = (id) => {
+        setForms(forms.filter((form) => form.id !== id));
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setData(forms.map((form) => form.values));
+        // console.log("Array de objetos:", data);
+    };
+    useEffect(() => {
+        console.log("Array de objetos:", data);
+    }, [data])
+
+
 
     return (
         <div className=" relative flex flex-col min-h-screen">
@@ -458,6 +489,74 @@ function SubjectAdmin() {
                         </div>
                     </div>
                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
+
+
+
+                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PRUEBA---------------------------------------------- */}
+                    <div>
+                        <div className="p-4">
+                            <h2 className="text-xl font-bold mb-4">Formulario Dinámico</h2>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                {forms.map((form) => (
+                                    <div key={form.id} className="border p-4 rounded-lg relative">
+                                        <input
+                                            type="text"
+                                            name="field1"
+                                            placeholder="Campo 1"
+                                            value={form.values.field1}
+                                            onChange={(e) => handleChange(form.id, e)}
+                                            className="block p-2 border rounded mb-2"
+                                        />
+                                        <input
+                                            type="text"
+                                            name="field2"
+                                            placeholder="Campo 2"
+                                            value={form.values.field2}
+                                            onChange={(e) => handleChange(form.id, e)}
+                                            className="block p-2 border rounded mb-2"
+                                        />
+                                        <select
+                                            name="field3"
+                                            value={form.values.field3}
+                                            onChange={(e) => handleChange(form.id, e)}
+                                            className="block p-2 border rounded"
+                                        >
+                                            <option value="">Seleccione una opción</option>
+                                            <option value="Opción 1">Opción 1</option>
+                                            <option value="Opción 2">Opción 2</option>
+                                            <option value="Opción 3">Opción 3</option>
+                                        </select>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeForm(form.id)}
+                                            className="bg-red-500 text-white px-2 py-1 rounded mt-2"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                ))}
+                                <button
+                                    type="button"
+                                    onClick={addForm}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                                >
+                                    Agregar Formulario
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-green-500 text-white px-4 py-2 rounded ml-2"
+                                >
+                                    Guardar Datos
+                                </button>
+                            </form>
+                            <div className="mt-4">
+                                <h3 className="text-lg font-semibold">Datos almacenados:</h3>
+                                <pre className="bg-gray-100 p-2 rounded">{JSON.stringify(data, null, 2)}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PRUEBA---------------------------------------------- */}
+
 
 
 
