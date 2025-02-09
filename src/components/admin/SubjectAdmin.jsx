@@ -173,7 +173,9 @@ function SubjectAdmin() {
 
 
     //-------------------------------------------------------------------------------------------------------------------PARA ABAJO ES TODO PRUEBA-----------------------------------------------------------------------
-    const [forms, setForms] = useState([{ id: Date.now(), values: { field1: "", field2: "", field3: "" } }]);
+    const [forms, setForms] = useState([
+        { id: Date.now(), values: { field1: "", field2: "", selectedIcon: "pdf", valueSelectedIcon: "fa-solid fa-file-pdf" } }
+    ]);
     const [data, setData] = useState([]);
 
     const handleChange = (id, event) => {
@@ -185,8 +187,21 @@ function SubjectAdmin() {
         );
     };
 
+    const handleChangeIcon = (id, iconType, iconClass) => {
+        setForms((prevForms) =>
+            prevForms.map((form) =>
+                form.id === id
+                    ? { ...form, values: { ...form.values, selectedIcon: iconType, valueSelectedIcon: iconClass } }
+                    : form
+            )
+        );
+    };
+
     const addForm = () => {
-        setForms([...forms, { id: Date.now(), values: { field1: "", field2: "", field3: "" } }]);
+        setForms([
+            ...forms,
+            { id: Date.now(), values: { field1: "", field2: "", selectedIcon: "pdf", valueSelectedIcon: "fa-solid fa-file-pdf" } }
+        ]);
     };
 
     const removeForm = (id) => {
@@ -196,12 +211,11 @@ function SubjectAdmin() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setData(forms.map((form) => form.values));
-        // console.log("Array de objetos:", data);
+        console.log("Array de objetos:", data);
     };
     useEffect(() => {
         console.log("Array de objetos:", data);
     }, [data])
-
 
 
     return (
@@ -493,66 +507,80 @@ function SubjectAdmin() {
 
 
                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PRUEBA---------------------------------------------- */}
-                    <div>
-                        <div className="p-4">
-                            <h2 className="text-xl font-bold mb-4">Formulario Dinámico</h2>
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                {forms.map((form) => (
-                                    <div key={form.id} className="border p-4 rounded-lg relative">
-                                        <input
-                                            type="text"
-                                            name="field1"
-                                            placeholder="Campo 1"
-                                            value={form.values.field1}
-                                            onChange={(e) => handleChange(form.id, e)}
-                                            className="block p-2 border rounded mb-2"
-                                        />
-                                        <input
-                                            type="text"
-                                            name="field2"
-                                            placeholder="Campo 2"
-                                            value={form.values.field2}
-                                            onChange={(e) => handleChange(form.id, e)}
-                                            className="block p-2 border rounded mb-2"
-                                        />
-                                        <select
-                                            name="field3"
-                                            value={form.values.field3}
-                                            onChange={(e) => handleChange(form.id, e)}
-                                            className="block p-2 border rounded"
-                                        >
-                                            <option value="">Seleccione una opción</option>
-                                            <option value="Opción 1">Opción 1</option>
-                                            <option value="Opción 2">Opción 2</option>
-                                            <option value="Opción 3">Opción 3</option>
-                                        </select>
+                    <div className="p-4">
+                        <h2 className="text-xl font-bold mb-4">Formulario Dinámico</h2>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            {forms.map((form) => (
+                                <div key={form.id} className="border p-4 rounded-lg relative">
+                                    <input
+                                        type="text"
+                                        name="field1"
+                                        placeholder="Title"
+                                        value={form.values.field1}
+                                        onChange={(e) => handleChange(form.id, e)}
+                                        className="block p-2 border rounded mb-2"
+                                    />
+                                    <input
+                                        type="text"
+                                        name="field2"
+                                        placeholder="Link"
+                                        value={form.values.field2}
+                                        onChange={(e) => handleChange(form.id, e)}
+                                        className="block p-2 border rounded mb-2"
+                                    />
+
+                                    {/* Selector de íconos */}
+                                    <div name="field3" className="ml-[15px] flex flex-row gap-2">
                                         <button
                                             type="button"
-                                            onClick={() => removeForm(form.id)}
-                                            className="bg-red-500 text-white px-2 py-1 rounded mt-2"
+                                            onClick={() => handleChangeIcon(form.id, "pdf", "fa-solid fa-file-pdf")}
                                         >
-                                            Eliminar
+                                            <i className={`fa-solid fa-file-pdf p-2 text-[24px] rounded-md ${form.values.selectedIcon === "pdf" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => handleChangeIcon(form.id, "img", "fa-solid fa-image")}
+                                        >
+                                            <i className={`fa-solid fa-image p-2 text-[24px] rounded-md ${form.values.selectedIcon === "img" ? "text-[#0000ffd7] bg-gray-200" : "text-black"} hover:text-[#0000ffd7] hover:bg-gray-200`}></i>
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => handleChangeIcon(form.id, "video", "fa-brands fa-youtube")}
+                                        >
+                                            <i className={`fa-brands fa-youtube p-2 text-[24px] rounded-md ${form.values.selectedIcon === "video" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
                                         </button>
                                     </div>
-                                ))}
-                                <button
-                                    type="button"
-                                    onClick={addForm}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                                >
-                                    Agregar Formulario
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="bg-green-500 text-white px-4 py-2 rounded ml-2"
-                                >
-                                    Guardar Datos
-                                </button>
-                            </form>
-                            <div className="mt-4">
-                                <h3 className="text-lg font-semibold">Datos almacenados:</h3>
-                                <pre className="bg-gray-100 p-2 rounded">{JSON.stringify(data, null, 2)}</pre>
-                            </div>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => removeForm(form.id)}
+                                        className="bg-red-500 text-white px-2 py-1 rounded mt-2"
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
+                            ))}
+
+                            <button
+                                type="button"
+                                onClick={addForm}
+                                className="bg-blue-500 text-white px-4 py-2 rounded"
+                            >
+                                Agregar Formulario
+                            </button>
+                            <button
+                                type="submit"
+                                className="bg-green-500 text-white px-4 py-2 rounded ml-2"
+                            >
+                                Guardar Datos
+                            </button>
+                        </form>
+
+                        <div className="mt-4">
+                            <h3 className="text-lg font-semibold">Datos almacenados:</h3>
+                            <pre className="bg-gray-100 p-2 rounded">{JSON.stringify(data, null, 2)}</pre>
                         </div>
                     </div>
                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PRUEBA---------------------------------------------- */}
