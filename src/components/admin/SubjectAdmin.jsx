@@ -76,7 +76,7 @@ function SubjectAdmin() {
                 setViewLoadingComponent(false);
                 console.log(response.data);
                 //------------------------------------------------
-                window.location.reload();
+                // window.location.reload();
                 //------------------------------------------------
             })
             .catch((error) => {
@@ -144,6 +144,8 @@ function SubjectAdmin() {
 
 
     const handleCreateAContent = async (event) => {
+        handleSubmit()
+
         setViewLoadingComponent(true)
         event.preventDefault()
         let bodyCreateContent = {
@@ -151,6 +153,7 @@ function SubjectAdmin() {
             titulo: title,
             detalleContenido: description,
             archivo: fileURL,
+            fileObjectList: data
         }
         console.log(bodyCreateContent)
         axios.post("http://localhost:8080/api/contenido/create", bodyCreateContent, {
@@ -162,7 +165,7 @@ function SubjectAdmin() {
                 setViewLoadingComponent(false)
                 console.log(response.data)
                 //------------------------------------------------
-                window.location.reload()
+                // window.location.reload()
                 //------------------------------------------------
             })
             .catch((error) => {
@@ -172,13 +175,23 @@ function SubjectAdmin() {
     }
 
 
+
+    const [openAddFilesForm, setOpenAddFilesForm] = useState(false)
+
+
     //-------------------------------------------------------------------------------------------------------------------PARA ABAJO ES TODO PRUEBA-----------------------------------------------------------------------
+    // const [forms, setForms] = useState([
+    //     { id: Date.now(), values: { field1: "", field2: "", selectedIcon: "pdf", valueSelectedIcon: "fa-solid fa-file-pdf" } }
+    // ]);
+
     const [forms, setForms] = useState([
-        { id: Date.now(), values: { field1: "", field2: "", selectedIcon: "pdf", valueSelectedIcon: "fa-solid fa-file-pdf" } }
+        { id: Date.now(), values: { title: "", link: "", typeFile: "pdf", fileLogo: "fa-solid fa-file-pdf" } }
     ]);
+
     const [data, setData] = useState([]);
 
     const handleChange = (id, event) => {
+        // setData(forms.map((form) => form.values));
         const { name, value } = event.target;
         setForms((prevForms) =>
             prevForms.map((form) =>
@@ -200,7 +213,7 @@ function SubjectAdmin() {
     const addForm = () => {
         setForms([
             ...forms,
-            { id: Date.now(), values: { field1: "", field2: "", selectedIcon: "pdf", valueSelectedIcon: "fa-solid fa-file-pdf" } }
+            { id: Date.now(), values: { title: "", link: "", typeFile: "pdf", fileLogo: "fa-solid fa-file-pdf" } }
         ]);
     };
 
@@ -209,13 +222,14 @@ function SubjectAdmin() {
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        //  event.preventDefault();
         setData(forms.map((form) => form.values));
         console.log("Array de objetos:", data);
     };
     useEffect(() => {
-        console.log("Array de objetos:", data);
-    }, [data])
+        // console.log("Array de objetos:", data);
+        setData(forms.map((form) => form.values));
+    }, [forms])
 
 
     return (
@@ -457,7 +471,7 @@ function SubjectAdmin() {
 
 
                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
-                    <div className="flex flex-row justify-center">
+                    {/* <div className="flex flex-row justify-center">
                         <div className={` w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2] mb-[30px]`}>
                             <form action="" onSubmit={handleCreateAContent}>
                                 <h1 className={`text-[16px] lg:text-[25px] font-bold bg-[${subject && subject.color}] p-2 rounded-[8px] text-center`}>CREATE CONTENT</h1>
@@ -501,14 +515,144 @@ function SubjectAdmin() {
                                 </div>
                             </form>
                         </div>
+                    </div> */}
+                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
+
+
+
+                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
+                    <div className="flex flex-row justify-center">
+                        <div className={` w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2] mb-[30px]`}>
+                            <form action="" onSubmit={handleCreateAContent}>
+                                <h1 className={`text-[16px] lg:text-[25px] font-bold bg-[${subject && subject.color}] p-2 rounded-[8px] text-center`}>CREATE CONTENT</h1>
+
+                                <div className='flex flex-col gap-4'>
+                                    <input type="text"
+                                        className={`h-[40px] lg:h-[50px] text-[15px] lg:text-[20px] w-full text-pretty font-light px-2 bg-transparent border-b border-[#00000071] focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
+                                        placeholder='Title'
+                                        value={title}
+                                        onChange={(e) => {
+                                            setTitle(e.target.value)
+                                        }} />
+
+                                    <textarea rows="4" cols="90" placeholder="Description..."
+                                        className={`w-full text-pretty text-[15px] lg:text-[20px] font-light px-2 bg-transparent border border-[#00000071] rounded-md focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
+                                        value={description}
+                                        onChange={(e) => {
+                                            setDescription(e.target.value)
+                                        }} ></textarea>
+
+                                    <div className="">
+
+                                        <button type="button" onClick={() => {
+                                            setOpenAddFilesForm(true)
+                                        }}>
+                                            <h1 className=" font-bold">ADD FILE <i className="fa-solid fa-arrow-turn-down"></i> </h1>
+                                        </button>
+                                    </div>
+
+
+
+                                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO ADD FILES---------------------------------------------- */}
+                                    <div className={` ${openAddFilesForm ? "show" : "hidden"} p-4`}>
+                                        <form onSubmit={handleSubmit} className="space-y-4">
+                                            {forms.map((form) => (
+                                                <div key={form.id} className="border p-4 rounded-lg relative">
+                                                    <input
+                                                        type="text"
+                                                        name="field1"
+                                                        placeholder="Title"
+                                                        value={form.values.field1}
+                                                        onChange={(e) => handleChange(form.id, e)}
+                                                        className="block p-2 border rounded mb-2"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        name="field2"
+                                                        placeholder="Link"
+                                                        value={form.values.field2}
+                                                        onChange={(e) => handleChange(form.id, e)}
+                                                        className="block p-2 border rounded mb-2"
+                                                    />
+
+                                                    {/* Selector de íconos */}
+                                                    <div name="field3" className="ml-[15px] flex flex-row gap-2">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleChangeIcon(form.id, "pdf", "fa-solid fa-file-pdf")}
+                                                        >
+                                                            <i className={`fa-solid fa-file-pdf p-2 text-[24px] rounded-md ${form.values.selectedIcon === "pdf" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
+                                                        </button>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleChangeIcon(form.id, "img", "fa-solid fa-image")}
+                                                        >
+                                                            <i className={`fa-solid fa-image p-2 text-[24px] rounded-md ${form.values.selectedIcon === "img" ? "text-[#0000ffd7] bg-gray-200" : "text-black"} hover:text-[#0000ffd7] hover:bg-gray-200`}></i>
+                                                        </button>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleChangeIcon(form.id, "video", "fa-brands fa-youtube")}
+                                                        >
+                                                            <i className={`fa-brands fa-youtube p-2 text-[24px] rounded-md ${form.values.selectedIcon === "video" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
+                                                        </button>
+                                                    </div>
+
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeForm(form.id)}
+                                                        className="bg-red-500 text-white px-2 py-1 rounded mt-2"
+                                                    >
+                                                        Eliminar
+                                                    </button>
+                                                </div>
+                                            ))}
+
+                                            <button
+                                                type="button"
+                                                onClick={addForm}
+                                                className="bg-blue-500 text-white px-4 py-2 rounded"
+                                            >
+                                                Agregar Formulario
+                                            </button>
+                                            <button onClick={() => handleSubmit()}
+                                                type="button"
+                                                className="bg-green-500 text-white px-4 py-2 rounded ml-2"
+                                            >
+                                                Guardar Datos
+                                            </button>
+                                        </form>
+
+                                        <div className="mt-4">
+                                            <h3 className="text-lg font-semibold">Datos almacenados:</h3>
+                                            <pre className="bg-gray-100 p-2 rounded">{JSON.stringify(data, null, 2)}</pre>
+                                        </div>
+                                    </div>
+                                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO ADD FILES---------------------------------------------- */}
+
+                                    <div className='w-full flex flex-row justify-end'>
+                                        <div className='p-3 flex flex-row gap-8 '>
+                                            <button onClick={() => {
+                                                setTitle("")
+                                                setDescription("")
+                                                setFileURL("")
+                                            }}>
+                                                <h1 className='rounded-[5px] p-1 lg:p-2 text-[16px] lg:text-[20px] bg-[#ff00007a] font-semibold'>CANCEL</h1>
+                                            </button>
+                                            <button> <h1 className='rounded-[5px] p-1 lg:p-2 text-[16px] lg:text-[20px] bg-[#00800094] font-semibold'>SUBMIT</h1> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
 
 
 
-                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PRUEBA---------------------------------------------- */}
-                    <div className="p-4">
-                        <h2 className="text-xl font-bold mb-4">Formulario Dinámico</h2>
+                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO ADD FILES---------------------------------------------- */}
+                    {/* <div className="p-4">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             {forms.map((form) => (
                                 <div key={form.id} className="border p-4 rounded-lg relative">
@@ -529,7 +673,7 @@ function SubjectAdmin() {
                                         className="block p-2 border rounded mb-2"
                                     />
 
-                                    {/* Selector de íconos */}
+                                    
                                     <div name="field3" className="ml-[15px] flex flex-row gap-2">
                                         <button
                                             type="button"
@@ -582,8 +726,8 @@ function SubjectAdmin() {
                             <h3 className="text-lg font-semibold">Datos almacenados:</h3>
                             <pre className="bg-gray-100 p-2 rounded">{JSON.stringify(data, null, 2)}</pre>
                         </div>
-                    </div>
-                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PRUEBA---------------------------------------------- */}
+                    </div> */}
+                    {/* -----------------------------------------------------------------------------------------------------------FORMULARIO ADD FILES---------------------------------------------- */}
 
 
 
