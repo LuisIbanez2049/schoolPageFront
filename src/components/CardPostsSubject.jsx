@@ -9,6 +9,7 @@ import store from '../redux/store';
 import { falseAuxAction, truAuxAction } from '../redux/actions/auxAction';
 import PopUpMessage from './PopUpMessage';
 import LoadingView from './LoadingView';
+import IconFile from './IconFile';
 
 function CardPostsSubject({ color, title, description, date, file, contentId }) {
 
@@ -42,6 +43,8 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
     const [bodyEditContent, setBodyEditContent] = useState({})
 
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
+
+    const [files, setFiles] = useState([])
     
 
     function showPopUpFunction(data) {
@@ -73,6 +76,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
             .then((response) => {
                 setViewLoadingComponent(false)
                 console.log(response.data)
+                setFiles(response.data.archivoDTOS)
             })
             .catch((error) => {
                 setViewLoadingComponent(false)
@@ -258,7 +262,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
 
                 {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
-                <div className=' relative' onMouseEnter={() => { setViewFileUrlPen(true) }} onMouseLeave={() => { setViewFileUrlPen(false) }}>
+                <div className=' relative hidden' onMouseEnter={() => { setViewFileUrlPen(true) }} onMouseLeave={() => { setViewFileUrlPen(false) }}>
                     <a
                         href={`${file}`}
                         target="_blank"
@@ -303,6 +307,17 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                         {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
                     </div>
 
+                </div> 
+                {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
+
+
+                {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
+                <div className='flex flex-row flex-wrap gap-4'>
+                    {files && files.length > 0 && files.map(file => {
+                        return (<>
+                         <IconFile link={file.link} logo={file.tipoArchivo} title={file.name}/>
+                        </>)
+                    })}
                 </div>
                 {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
 

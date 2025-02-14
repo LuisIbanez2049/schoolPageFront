@@ -238,7 +238,7 @@ function ContentAdmin() {
 
 
                         {/* --------------------------------------------------------------------------------------------------------------EDIT FILE CONTENT--------------------------------------------------------------------  */}
-                        <div className='mt-[20px]'>
+                        {/* <div className='mt-[20px]'>
                             <div className='flex flex-row'>
 
                                 <input disabled={isDisabledInputFile} type="text" value={fileContent} className='w-[95%] text-[14px] lg:text-[18px] bg-slate-200 p-1 lg:p-2 rounded-[10px] text-[#000000cc]'
@@ -268,7 +268,7 @@ function ContentAdmin() {
                                     <i className="fa-solid fa-circle-xmark text-[red] text-[26px]"></i>
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
                         {/* --------------------------------------------------------------------------------------------------------------EDIT FILE CONTENT--------------------------------------------------------------------  */}
 
 

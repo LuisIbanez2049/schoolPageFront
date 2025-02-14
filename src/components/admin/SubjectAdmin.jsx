@@ -152,7 +152,7 @@ function SubjectAdmin() {
             idMateria: id,
             titulo: title,
             detalleContenido: description,
-            archivo: fileURL,
+            // archivo: fileURL,
             fileObjectList: data
         }
         console.log(bodyCreateContent)
@@ -165,7 +165,7 @@ function SubjectAdmin() {
                 setViewLoadingComponent(false)
                 console.log(response.data)
                 //------------------------------------------------
-                // window.location.reload()
+                window.location.reload()
                 //------------------------------------------------
             })
             .catch((error) => {
@@ -179,7 +179,7 @@ function SubjectAdmin() {
     const [openAddFilesForm, setOpenAddFilesForm] = useState(false)
 
 
-    //-------------------------------------------------------------------------------------------------------------------PARA ABAJO ES TODO PRUEBA-----------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------PARA ABAJO ES TODO PRUEBA-----------------------------------------------------------------------
     // const [forms, setForms] = useState([
     //     { id: Date.now(), values: { field1: "", field2: "", selectedIcon: "pdf", valueSelectedIcon: "fa-solid fa-file-pdf" } }
     // ]);
@@ -204,7 +204,7 @@ function SubjectAdmin() {
         setForms((prevForms) =>
             prevForms.map((form) =>
                 form.id === id
-                    ? { ...form, values: { ...form.values, selectedIcon: iconType, valueSelectedIcon: iconClass } }
+                    ? { ...form, values: { ...form.values, typeFile: iconType, fileLogo: iconClass } }
                     : form
             )
         );
@@ -560,7 +560,7 @@ function SubjectAdmin() {
                                                 <div key={form.id} className="border p-4 rounded-lg relative">
                                                     <input
                                                         type="text"
-                                                        name="field1"
+                                                        name="title"
                                                         placeholder="Title"
                                                         value={form.values.field1}
                                                         onChange={(e) => handleChange(form.id, e)}
@@ -568,7 +568,7 @@ function SubjectAdmin() {
                                                     />
                                                     <input
                                                         type="text"
-                                                        name="field2"
+                                                        name="link"
                                                         placeholder="Link"
                                                         value={form.values.field2}
                                                         onChange={(e) => handleChange(form.id, e)}
@@ -581,53 +581,55 @@ function SubjectAdmin() {
                                                             type="button"
                                                             onClick={() => handleChangeIcon(form.id, "pdf", "fa-solid fa-file-pdf")}
                                                         >
-                                                            <i className={`fa-solid fa-file-pdf p-2 text-[24px] rounded-md ${form.values.selectedIcon === "pdf" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
+                                                            <i className={`fa-solid fa-file-pdf p-2 text-[24px] rounded-md ${form.values.typeFile === "pdf" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
                                                         </button>
 
                                                         <button
                                                             type="button"
                                                             onClick={() => handleChangeIcon(form.id, "img", "fa-solid fa-image")}
                                                         >
-                                                            <i className={`fa-solid fa-image p-2 text-[24px] rounded-md ${form.values.selectedIcon === "img" ? "text-[#0000ffd7] bg-gray-200" : "text-black"} hover:text-[#0000ffd7] hover:bg-gray-200`}></i>
+                                                            <i className={`fa-solid fa-image p-2 text-[24px] rounded-md ${form.values.typeFile === "img" ? "text-[#0000ffd7] bg-gray-200" : "text-black"} hover:text-[#0000ffd7] hover:bg-gray-200`}></i>
                                                         </button>
 
                                                         <button
                                                             type="button"
                                                             onClick={() => handleChangeIcon(form.id, "video", "fa-brands fa-youtube")}
                                                         >
-                                                            <i className={`fa-brands fa-youtube p-2 text-[24px] rounded-md ${form.values.selectedIcon === "video" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
+                                                            <i className={`fa-brands fa-youtube p-2 text-[24px] rounded-md ${form.values.typeFile === "video" ? "text-[#ff0000d3] bg-gray-200" : "text-black"} hover:text-[#ff0000d3] hover:bg-gray-200`}></i>
                                                         </button>
                                                     </div>
 
                                                     <button
                                                         type="button"
                                                         onClick={() => removeForm(form.id)}
-                                                        className="bg-red-500 text-white px-2 py-1 rounded mt-2"
+                                                        className="rounded mt-2"
                                                     >
-                                                        Eliminar
+                                                        <i className="fa-solid fa-circle-xmark text-red-500 text-[40px]"></i>
                                                     </button>
+
                                                 </div>
                                             ))}
 
                                             <button
                                                 type="button"
                                                 onClick={addForm}
-                                                className="bg-blue-500 text-white px-4 py-2 rounded"
+                                                className={`relative ${forms.length == 0 ? "" : "right-[-120px] top-[-72px]"}  rounded`}
                                             >
-                                                Agregar Formulario
+                                                <i className={`fa-solid fa-circle-plus clas text-green-500 text-[40px]`}></i>
                                             </button>
-                                            <button onClick={() => handleSubmit()}
+
+                                            {/* <button onClick={() => handleSubmit()}
                                                 type="button"
                                                 className="bg-green-500 text-white px-4 py-2 rounded ml-2"
                                             >
                                                 Guardar Datos
-                                            </button>
+                                            </button> */}
                                         </form>
 
-                                        <div className="mt-4">
+                                        {/* <div className="mt-4">
                                             <h3 className="text-lg font-semibold">Datos almacenados:</h3>
                                             <pre className="bg-gray-100 p-2 rounded">{JSON.stringify(data, null, 2)}</pre>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO ADD FILES---------------------------------------------- */}
 
@@ -637,6 +639,10 @@ function SubjectAdmin() {
                                                 setTitle("")
                                                 setDescription("")
                                                 setFileURL("")
+                                                setForms([
+                                                    { id: Date.now(), values: { title: "", link: "", typeFile: "pdf", fileLogo: "fa-solid fa-file-pdf" } }
+                                                ])
+                                                setOpenAddFilesForm(false)
                                             }}>
                                                 <h1 className='rounded-[5px] p-1 lg:p-2 text-[16px] lg:text-[20px] bg-[#ff00007a] font-semibold'>CANCEL</h1>
                                             </button>
