@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CommentUserCardAdmin from './CommentUserCardAdmin';
 import { CalendarDays } from 'lucide-react';
 import ConfirmationPopUpAlert from '../ConfirmationPopUpAlert';
+import IconFile from '../IconFile';
 
 function ContentAdmin() {
 
@@ -15,6 +16,7 @@ function ContentAdmin() {
 
     const [content, setContent] = useState({})
     const [comments, setComments] = useState([])
+    const [files, setFiles] = useState([])
 
     const [availableComments, setAvailableComments] = useState([])
     const [disableComments, setDisableComments] = useState([])
@@ -60,6 +62,7 @@ function ContentAdmin() {
                 console.log(response.data);
                 setContent(response.data);
                 setComments(response.data.comentarios)
+                setFiles(response.data.archivoDTOS)
                 setTitleContent(response.data.titulo);
                 setFileContent(response.data.archivo);
                 setDescriptionContent(response.data.detalleDelContenido);
@@ -197,7 +200,7 @@ function ContentAdmin() {
 
             <div className=' relative flex flex-row justify-center'>
                 <div className='w-[95%] mb-[80px]'>
- 
+
                     {/* ------------------------------------------------------------------------------------EDIT CONTENT------------------------------------------------------------------------------------ */}
                     <div>
                         {/* --------------------------------------------------------------------------------------------------------------EDIT TITLE CONTENT--------------------------------------------------------------------  */}
@@ -307,9 +310,18 @@ function ContentAdmin() {
                             </div>
                         </div>
                         {/* --------------------------------------------------------------------------------------------------------------EDIT DESCRIPTION CONTENT--------------------------------------------------------------------  */}
+
+
+                        {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
+                        <div className='mt-[20px]'>
+
+                            <IconFile id={id} />
+
+                        </div>
+                        {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
                     </div>
                     {/* ------------------------------------------------------------------------------------EDIT CONTENT------------------------------------------------------------------------------------ */}
-                    
+
 
                     <div className="mb-4 flex items-center text-[12px] mt-[15px] lg:text-sm text-gray-500 dark:text-gray-400">
                         <CalendarDays className="mr-2 h-4 w-4" />

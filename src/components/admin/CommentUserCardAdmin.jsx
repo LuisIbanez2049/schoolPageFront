@@ -39,7 +39,7 @@ function CommentUserCardAdmin({ commentId, viewMoreDetailsCommentBoolean }) {
                 },
             })
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 setComment(response.data);
 
                 const auxDateDate = response.data.fecha.slice(0, 10);

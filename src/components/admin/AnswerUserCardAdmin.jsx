@@ -26,7 +26,7 @@ function AnswerUserCardAdmin({ answerId, viewMoreDetailsAnswerBoolean }) {
                 },
             })
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 setAnswer(response.data);
 
                 const auxDateDate = response.data.fecha.slice(0, 10);
