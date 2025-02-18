@@ -545,9 +545,11 @@ function SubjectAdmin() {
                                     <div className="">
 
                                         <button type="button" onClick={() => {
-                                            setOpenAddFilesForm(true)
+                                            if (openAddFilesForm) {
+                                                setOpenAddFilesForm(false)
+                                            } else { setOpenAddFilesForm(true) }
                                         }}>
-                                            <h1 className=" font-bold">ADD FILE <i className="fa-solid fa-arrow-turn-down"></i> </h1>
+                                            <h1 className=" font-bold text-[13px] lg:text-[16px]">ADD FILE <i className="fa-solid fa-arrow-turn-down"></i> </h1>
                                         </button>
                                     </div>
 
@@ -564,7 +566,7 @@ function SubjectAdmin() {
                                                         placeholder="Title"
                                                         value={form.values.field1}
                                                         onChange={(e) => handleChange(form.id, e)}
-                                                        className="block p-2 border rounded mb-2"
+                                                        className="block p-2 border rounded mb-2 w-full text-[13px] lg:text-[16px]"
                                                     />
                                                     <input
                                                         type="text"
@@ -572,7 +574,7 @@ function SubjectAdmin() {
                                                         placeholder="Link"
                                                         value={form.values.field2}
                                                         onChange={(e) => handleChange(form.id, e)}
-                                                        className="block p-2 border rounded mb-2"
+                                                        className="block p-2 border rounded mb-2 w-full text-[13px] lg:text-[16px]"
                                                     />
 
                                                     {/* Selector de íconos */}
@@ -604,7 +606,7 @@ function SubjectAdmin() {
                                                         onClick={() => removeForm(form.id)}
                                                         className="rounded mt-2"
                                                     >
-                                                        <i className="fa-solid fa-circle-xmark text-red-500 text-[40px]"></i>
+                                                        <i className="fa-solid fa-circle-xmark text-red-500 text-[30px] lg:text-[40px]"></i>
                                                     </button>
 
                                                 </div>
@@ -613,9 +615,9 @@ function SubjectAdmin() {
                                             <button
                                                 type="button"
                                                 onClick={addForm}
-                                                className={`relative ${forms.length == 0 ? "" : "right-[-120px] top-[-72px]"}  rounded`}
+                                                className={`relative ${forms.length == 0 ? "" : "right-[-120px] top-[-65px] lg:top-[-72px]"}  rounded`}
                                             >
-                                                <i className={`fa-solid fa-circle-plus clas text-green-500 text-[40px]`}></i>
+                                                <i className={`fa-solid fa-circle-plus clas text-green-500 text-[30px] lg:text-[40px]`}></i>
                                             </button>
 
                                             {/* <button onClick={() => handleSubmit()}

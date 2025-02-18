@@ -45,7 +45,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
 
     const [files, setFiles] = useState([])
-    
+
 
     function showPopUpFunction(data) {
         dispatch(showPopUpAction(data))
@@ -109,25 +109,25 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
             })
     }
 
-    function editContent (body){
+    function editContent(body) {
         setViewLoadingComponent(true)
         console.log(body)
         axios.patch(`http://localhost:8080/api/contenido/modificar`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
-        } )
-        .then((response) => {
-            setViewLoadingComponent(false)
-            console.log(response.data)
-            //------------------------------------------------
-            window.location.reload()
-            //------------------------------------------------
         })
-        .catch((error) => {
-            setViewLoadingComponent(false)
-            console.log(error)
-        })
+            .then((response) => {
+                setViewLoadingComponent(false)
+                console.log(response.data)
+                //------------------------------------------------
+                window.location.reload()
+                //------------------------------------------------
+            })
+            .catch((error) => {
+                setViewLoadingComponent(false)
+                console.log(error)
+            })
     }
 
 
@@ -193,7 +193,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                                     <i class="fa-solid fa-circle-xmark text-red-500"></i>
                                 </button>
                                 <button onClick={() => {
-                                    const upDateBody = {idContenido: contentId, titulo: valueTitle, detalleContenido: "", archivo: ""}
+                                    const upDateBody = { idContenido: contentId, titulo: valueTitle, detalleContenido: "", archivo: "" }
                                     setBodyEditContent(upDateBody)
                                     editContent(upDateBody)
                                 }}>
@@ -243,10 +243,10 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                             <i class="fa-solid fa-circle-xmark text-red-500"></i>
                         </button>
                         <button onClick={() => {
-                                    const upDateBody = {idContenido: contentId, titulo: "", detalleContenido: valueDescription, archivo: ""}
-                                    setBodyEditContent(upDateBody)
-                                    editContent(upDateBody)
-                                }}>
+                            const upDateBody = { idContenido: contentId, titulo: "", detalleContenido: valueDescription, archivo: "" }
+                            setBodyEditContent(upDateBody)
+                            editContent(upDateBody)
+                        }}>
                             <i class="fa-solid fa-circle-check text-green-500"></i>
                         </button>
                     </div>
@@ -296,7 +296,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                                     <i class="fa-solid fa-circle-xmark text-red-500"></i>
                                 </button>
                                 <button onClick={() => {
-                                    const upDateBody = {idContenido: contentId, titulo: "", detalleContenido: "", archivo: valueUrl}
+                                    const upDateBody = { idContenido: contentId, titulo: "", detalleContenido: "", archivo: valueUrl }
                                     setBodyEditContent(upDateBody)
                                     editContent(upDateBody)
                                 }}>
@@ -307,17 +307,15 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                         {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
                     </div>
 
-                </div> 
+                </div>
                 {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
 
 
                 {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
                 <div className='flex flex-row flex-wrap gap-4'>
-                    {files && files.length > 0 && files.map(file => {
-                        return (<>
-                         <IconFile link={file.link} logo={file.tipoArchivo} title={file.name}/>
-                        </>)
-                    })}
+
+                    <IconFile id={contentId} />
+
                 </div>
                 {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
 

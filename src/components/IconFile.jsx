@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import EditIconFile from './EditIconFile';
 
 function IconFile({ id }) {
 
@@ -8,10 +9,16 @@ function IconFile({ id }) {
   const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
 
   const [files, setFiles] = useState([])
+  const [openEditFiles, setOpenEditFiles] = useState(false)
 
   useEffect(() => {
+
+    let aux;
+    if (userInformationLocalStorage.rol == "ADMIN") {
+      aux = "/admin/"
+    } else { aux = "/" }
     axios
-      .get(`http://localhost:8080/api/contenido/admin/${id}`, {
+      .get(`http://localhost:8080/api/contenido${aux}${id}`, {
         headers: {
           Authorization: `Bearer ${tokenSinComillas}`,
         },
@@ -32,15 +39,17 @@ function IconFile({ id }) {
 
   return (
     <div className='border border-black w-full'>
-      <div>
-        <button className='my-[15px]'>
-          <h1 className='font-bold text-gray-600 bg-slate-300 p-1 rounded-md'>EDIT FILES</h1>
+      <div className={`${userInformationLocalStorage.rol == "ADMIN" ? "SHOW" : `${userInformationLocalStorage.rol == "PROFESOR" ? "SHOW" : "hidden"}`}`}>
+        <button className='my-[15px]' onClick={() => {
+          setOpenEditFiles(true)
+        }}>
+          <h1 className='font-bold text-gray-600 bg-slate-300 p-1 rounded-md'>{`${files.length > 0 ? "EDIT FILES" : "ADD FILES"}`}</h1>
         </button>
       </div>
 
 
       {/* ----------------------------------------------------FILES FILES FILES---------------------------------------------------- */}
-      <div className='flex flex-row flex-wrap'>
+      <div className={`${openEditFiles ? "hidden" : "show"} flex flex-row flex-wrap`}>
         {files && files.length > 0 && files.map(file => {
           let color;
           if (file.tipoArchivo == "fa-brands fa-youtube") {
@@ -48,15 +57,15 @@ function IconFile({ id }) {
           } else if (file.tipoArchivo == "fa-solid fa-image") {
             color = "text-blue-500"
           } else {
-            color = "text-red-500"
+            color = "text-red-800"
           }
 
           return (<>
-            <div className='flex flex-col items-center w-[90px] h-[65px] lg:h-[75px] overflow-hidden'>
+            <div className='flex flex-col items-center w-[90px] h-[65px] lg:h-[75px]'>
               <a href={file.link} target="_blank" rel="noopener noreferrer">
                 <i className={`${file.tipoArchivo} ${color} text-[30px] lg:text-[35px]`}></i>
               </a>
-              <small className=' text-center text-[11px] lg:text-[13px]'>{file.name}</small>
+              <small className=' text-center text-[11px] lg:text-[13px] w-[90px] h-[40px] overflow-hidden'>{file.name}</small>
             </div>
           </>)
         })}
@@ -64,14 +73,21 @@ function IconFile({ id }) {
       </div>
       {/* ----------------------------------------------------FILES FILES FILES---------------------------------------------------- */}
 
-      <div>
-        {files && files.length > 0 && files.map(file => {
-          return (<>
-           <div>
-            <input type="text" />
-           </div>
-          </>)
-        })}
+      <div className={`${openEditFiles ? "show" : "hidden"} border border-slate-300 bg-slate-100 p-2 rounded-[15px]`}>
+        <div className='w-full flex flex-row justify-end mb-[20px]'>
+          <button onClick={() => setOpenEditFiles(false)}>
+            <i className="fa-solid fa-circle-xmark text-red-500 text-[35px]"></i>
+          </button>
+        </div>
+
+        <div className='flex flex-col gap-6 '>
+          {files && files.length > 0 && files.map(file => {
+            return (<>
+             <EditIconFile fileId={file.id}/> 
+            </>)
+          })}
+        </div>
+
       </div>
 
 
