@@ -16,7 +16,7 @@ function EditIconFile({ fileId }) {
     const [linkFileInputDisabled, setLinkFileInputDisabled] = useState(true)
 
     const [iconFile, setIconFile] = useState("")
-    const[editIconFile, setEditIconFile] = useState(false)
+    const [editIconFile, setEditIconFile] = useState(false)
 
 
     useEffect(() => {
@@ -66,6 +66,42 @@ function EditIconFile({ fileId }) {
         color = "text-red-800"
     }
 
+    function deleteFile() {
+        axios.delete(`http://localhost:8080/api/archivo/delete/${fileId}`, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`,
+            },
+        })
+            .then((response) => {
+                console.log(response.data);
+                //------------------------------------------------
+                window.location.reload()
+                //------------------------------------------------
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    function restoreFile() {
+        axios.patch(`http://localhost:8080/api/archivo/restore/${fileId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`,
+            },
+        })
+            .then((response) => {
+                console.log(response.data);
+                //------------------------------------------------
+                window.location.reload()
+                //------------------------------------------------
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
+
 
 
     return (
@@ -74,12 +110,12 @@ function EditIconFile({ fileId }) {
             <div className=' relative flex flex-col gap-4 bg-slate-200 p-3 border border-slate-300 rounded-xl'>
 
                 <div className=' absolute top-0 right-0 border border-black p-3'>
-                    <button className={`${file.asset ? "show" : "hidden"}`}>
-                      <i className="fa-solid fa-trash-can text-[22px] text-red-600"></i>
+                    <button className={`${file.asset ? "show" : "hidden"}`} onClick={() => deleteFile()}>
+                        <i className="fa-solid fa-trash-can text-[22px] text-red-600"></i>
                     </button>
 
-                    <button className={`${file.asset ? "hidden" : "show"}`}>
-                      <i className="fa-solid fa-trash-can text-[22px] text-red-600"></i>
+                    <button className={`${file.asset ? "hidden" : "show"}`} onClick={() => restoreFile()}>
+                        <i className="fa-solid fa-trash-can-arrow-up text-[23px] text-green-600"></i>
                     </button>
                 </div>
 
