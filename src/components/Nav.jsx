@@ -75,7 +75,15 @@ function Nav() {
                             setIsVisible(true)
                         }
                     }}>
-                        <span className={`text-[30px] lg:text-[40px] text-[${isOnclick ? "#EFB071" : "black"}] hover:text-[#EFB071]`}> <i className="fa-solid fa-user"></i> </span>
+                        {/* <span className={`text-[30px] lg:text-[40px] text-[${isOnclick ? "#EFB071" : "black"}] hover:text-[#EFB071]`}> <i className="fa-solid fa-user"></i> </span> */}
+                        {/* border border-[${isOnclick ? "#EFB071" : "gray"}] */}
+                        <div className={`w-[65px] h-[65px] my-[10px] ${isOnclick ? "border-2 border-[#EFB071]" : "border border-gray-400"}  hover:border-[#EFB071] rounded-full`} style={{
+                            backgroundImage: `url('${userInformationLocalStorage && userInformationLocalStorage.userProfileImg}')`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}>
+
+                        </div>
                     </button>
 
                     <div className={`absolute right-8 top-[80px] w-[250px] flex flex-col items-center bg-[#7eaaaa] pt-4 rounded-[15px] shadow-xl transition-all duration-500 transform ${isVisible ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
