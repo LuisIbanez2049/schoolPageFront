@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logOutAction } from '../redux/actions/authenticationAction';
 import EasyLearn from "../assets/EASYLEARNpng.png"
 import { useNavigate } from 'react-router-dom';
 import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction';
+import axios from 'axios';
 function Nav() {
 
     const [isVisible, setIsVisible] = useState(false)
@@ -11,12 +12,66 @@ function Nav() {
 
     const [isOnclickSubjectsAdmin, setIsOnclickSubjectsAdmin] = useState(true)
 
+
     const dispatch = useDispatch();
     const dispatchUser = useDispatch();
     const navigate = useNavigate();
 
     const user = useSelector(store => store.authenticationReducer)
     const userInformationLocalStorage = JSON.parse(localStorage.getItem("userInformation"))
+
+    const token = localStorage.getItem("userToken")
+    let tokenSinComillas = token && token.replace(/"/g, '');
+
+    const [userInformation, setUserInformation] = useState({})
+    const [notifications, setNotifications] = useState([])
+    const [contador, setContador] = useState(0);
+
+
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/auth/current", {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+            .then((response) => {
+                console.log(response.data)
+                setUserInformation(response.data)
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }, [token])
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/auth/current", {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+            .then((response) => {
+                setNotifications(response.data.notificacionDTOS)
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }, [contador])
+
+    
+
+    useEffect(() => {
+        const intervalo = setInterval(() => {
+                setContador(prevContador => prevContador + 1);
+        }, 3000);
+
+        return () => clearInterval(intervalo); // Limpia el intervalo al desmontar el componente
+    }, []);
+
+
+
 
     return (
         <nav className='bg-[#476c77]'>
@@ -40,6 +95,10 @@ function Nav() {
                     </div>
                 </div>
                 {/* --------------------------------------------------------------------LOGO LOGO LOGO----------------------------------------------- */}
+
+                <div>
+                    <h1>{contador}</h1>
+                </div>
 
 
 
@@ -66,25 +125,36 @@ function Nav() {
 
 
                 <div id='profile' className=' relative h-[80px] w-[80px] flex flex-row justify-center items-center'>
-                    <button onClick={() => {
-                        if (isOnclick) {
-                            setIsOnclick(false)
-                            setIsVisible(false)
-                        } else {
-                            setIsOnclick(true)
-                            setIsVisible(true)
-                        }
-                    }}>
-                        {/* <span className={`text-[30px] lg:text-[40px] text-[${isOnclick ? "#EFB071" : "black"}] hover:text-[#EFB071]`}> <i className="fa-solid fa-user"></i> </span> */}
-                        {/* border border-[${isOnclick ? "#EFB071" : "gray"}] */}
-                        <div className={`w-[65px] h-[65px] my-[10px] ${isOnclick ? "border-2 border-[#EFB071]" : "border border-gray-400"}  hover:border-[#EFB071] rounded-full`} style={{
-                            backgroundImage: `url('${userInformationLocalStorage && userInformationLocalStorage.userProfileImg}')`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                        }}>
 
-                        </div>
-                    </button>
+
+                    <div className='flex flex-row gap-6  mr-[30px]'>
+
+                        <button className=' relative'>
+                            <span className=' absolute top-3 left-[-12px] w-[24px] h-[24px] bg-red-500 rounded-full text-[15px]'>{notifications.length}</span>
+                            <i className="fa-solid fa-bell text-[30px] text-slate-100"></i>
+                        </button>
+
+                        <button onClick={() => {
+                            if (isOnclick) {
+                                setIsOnclick(false)
+                                setIsVisible(false)
+                            } else {
+                                setIsOnclick(true)
+                                setIsVisible(true)
+                            }
+                        }}>
+                            {/* <span className={`text-[30px] lg:text-[40px] text-[${isOnclick ? "#EFB071" : "black"}] hover:text-[#EFB071]`}> <i className="fa-solid fa-user"></i> </span> */}
+                            {/* border border-[${isOnclick ? "#EFB071" : "gray"}]  */}
+                            <div className={`w-[65px] h-[65px] my-[10px] ${isOnclick ? "border-2 border-[#EFB071]" : "border border-gray-400"}  hover:border-[#EFB071] rounded-full`} style={{
+                                // backgroundImage: `url('${userInformationLocalStorage && userInformationLocalStorage.userProfileImg}')`,
+                                backgroundImage: `url('${userInformation && userInformation.userProfileImg}')`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}>
+
+                            </div>
+                        </button>
+                    </div>
 
                     <div className={`absolute right-8 top-[80px] w-[250px] flex flex-col items-center bg-[#7eaaaa] pt-4 rounded-[15px] shadow-xl transition-all duration-500 transform ${isVisible ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"
                         }`}>

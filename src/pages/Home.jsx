@@ -56,7 +56,6 @@ function Home() {
       console.log(response)
       dispatch(loginAction(response.data))
       navigate("/materias")
-
       const token = localStorage.getItem("userToken")
       let tokenSinComillas = token.replace(/"/g, '');
       axios.get("http://localhost:8080/api/auth/current", {
