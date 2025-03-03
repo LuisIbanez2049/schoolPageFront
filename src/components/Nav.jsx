@@ -5,6 +5,8 @@ import EasyLearn from "../assets/EASYLEARNpng.png"
 import { useNavigate } from 'react-router-dom';
 import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction';
 import axios from 'axios';
+import NotificationCard from './NotificationCard';
+
 function Nav() {
 
     const [isVisible, setIsVisible] = useState(false)
@@ -25,6 +27,7 @@ function Nav() {
 
     const [userInformation, setUserInformation] = useState({})
     const [notifications, setNotifications] = useState([])
+    const [showNotifications, setShowNotifications] = useState(false)
     const [contador, setContador] = useState(0);
 
 
@@ -60,11 +63,11 @@ function Nav() {
             });
     }, [contador])
 
-    
+
 
     useEffect(() => {
         const intervalo = setInterval(() => {
-                setContador(prevContador => prevContador + 1);
+            setContador(prevContador => prevContador + 1);
         }, 3000);
 
         return () => clearInterval(intervalo); // Limpia el intervalo al desmontar el componente
@@ -127,12 +130,40 @@ function Nav() {
                 <div id='profile' className=' relative h-[80px] w-[80px] flex flex-row justify-center items-center'>
 
 
-                    <div className='flex flex-row gap-6  mr-[30px]'>
+                    <div className='relative flex flex-row gap-6  mr-[30px]'>
 
-                        <button className=' relative'>
+
+                        {/* ------------------------------------------------------------------NOTIFICATION PART------------------------------------------------------------------ */}
+                        <button className=' relative' onClick={() => {
+                            if (showNotifications) {
+                                setShowNotifications(false)
+                            } else { setShowNotifications(true) }
+                        }}>
                             <span className=' absolute top-3 left-[-12px] w-[24px] h-[24px] bg-red-500 rounded-full text-[15px]'>{notifications.length}</span>
                             <i className="fa-solid fa-bell text-[30px] text-slate-100"></i>
                         </button>
+
+                        <div className={` ${showNotifications ? "show" : "hidden"} absolute z-20 flex flex-col gap-4 top-[60px] left-[-390px] w-[400px] h-[700px] overflow-y-auto px-2 py-3 shadow-md bg-slate-100 rounded-[20px]`}>
+                            {/* <h2 className="text-xl font-bold mb-4">Notificaciones</h2> */}
+
+                            {notifications && notifications.length > 0 && notifications.map(notification => {
+                                return (
+                                    <>
+                                        <NotificationCard
+                                            name={notification.mensajeDe}
+                                            message={notification.texto}
+                                            timePassed={notification.tiempoTranscurrido}
+                                            isSeen={notification.visto}
+                                            userImg={notification.userImg}
+                                            content={notification.contenido}
+                                            subject={notification.materia}
+                                        />
+                                    </>)
+                            })}
+
+                        </div>
+                        {/* ------------------------------------------------------------------NOTIFICATION PART------------------------------------------------------------------ */}
+
 
                         <button onClick={() => {
                             if (isOnclick) {
@@ -182,7 +213,7 @@ function Nav() {
                             <div className='w-full py-3'>
 
                                 <div className=' hover:bg-gray-300 '>
-                                    <button className=' block w-full'
+                                    <button disabled={!isVisible} className=' block w-full'
                                         onClick={() => {
                                             navigate("configuration")
                                             setIsVisible(false)
@@ -194,7 +225,7 @@ function Nav() {
 
                                 <div className=' hover:bg-gray-300 '>
                                     <a href="/">
-                                        <button className=' block w-full' onClick={() => {
+                                        <button disabled={!isVisible} className=' block w-full' onClick={() => {
                                             dispatch(logOutAction())
                                             dispatchUser(logOutUserAction())
                                         }}>
