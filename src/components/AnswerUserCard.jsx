@@ -127,7 +127,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
     }
 
     return (
-        <div>
+        <div id={answerId}>
 
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
             <LoadingView show={viewLoadingComponent}/>
@@ -136,8 +136,6 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
             <div>
                 <div className='w-[272px] lg:w-[1150px] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#00000015]'>
                     <div className=' relative flex flex-row '>
-
-
                         {/* ----------------------------------------------------------- TRES PUNTITOS VERTICAL MAS EL CUADRO POPUP CON LOS BOTONES DELETE Y EDIT-------------------------------------- */}
                         <div className={` ${userInformationLocalStorage.id == answerUserId ? "show" : "hidden"} absolute top-0 right-0`}>
                             <button onClick={() => {

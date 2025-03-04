@@ -114,7 +114,7 @@ function IconFile({ id }) {
 
 
   return (
-    <div className='border border-black w-full'>
+    <div className=' w-full'>
       <div className={`${userInformationLocalStorage.rol == "ADMIN" ? "SHOW" : `${userInformationLocalStorage.rol == "PROFESOR" ? "SHOW" : "hidden"}`}`}>
         <button className={`${files.length > 0 ? "show" : "hidden"} my-[15px]`} onClick={() => {
           setOpenEditFiles(true)

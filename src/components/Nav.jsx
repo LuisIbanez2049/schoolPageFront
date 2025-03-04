@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction';
 import axios from 'axios';
 import NotificationCard from './NotificationCard';
+import LoadingView from './LoadingView';
+import ConfirmationPopUpAlert from './ConfirmationPopUpAlert';
 
 function Nav() {
 
@@ -29,6 +31,9 @@ function Nav() {
     const [notifications, setNotifications] = useState([])
     const [showNotifications, setShowNotifications] = useState(false)
     const [contador, setContador] = useState(0);
+    const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
+    const [viewConfirmationComponent, setViewConfirmationComponent] = useState(false)
+    const [newNotifications, setNewNotifications] = useState([])
 
 
 
@@ -56,11 +61,14 @@ function Nav() {
         })
             .then((response) => {
                 setNotifications(response.data.notificacionDTOS)
-
             })
             .catch((error) => {
                 console.log(error)
             });
+    }, [contador])
+
+    useEffect(() => {
+        setNewNotifications(notifications && notifications.length > 0 && notifications.filter(notification => notification.visto == false))
     }, [contador])
 
 
@@ -73,11 +81,43 @@ function Nav() {
         return () => clearInterval(intervalo); // Limpia el intervalo al desmontar el componente
     }, []);
 
+    const handleOnConfirmFuntionPopUpComponent = () => {
+        setViewConfirmationComponent(false)
+        setViewLoadingComponent(true)
+        axios.patch("http://localhost:8080/api/notificacion/clean",{}, {
+            headers: {
+                Authorization: `Bearer ${tokenSinComillas}`
+            }
+        })
+            .then((response) => {
+                console.log(response.data)
+                setViewLoadingComponent(false)
+            })
+            .catch((error) => {
+                console.log(error)
+                setViewLoadingComponent(false)
+            });
+    }
+
+    const handleOnCancelFuntionPopUpComponent = () => {
+        setViewConfirmationComponent(false)
+    }
+
 
 
 
     return (
         <nav className='bg-[#476c77]'>
+
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+            <LoadingView show={viewLoadingComponent} />
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+            <ConfirmationPopUpAlert isShow={viewConfirmationComponent} handleOnConfirmFunction={handleOnConfirmFuntionPopUpComponent} handleOnCancelFunction={handleOnCancelFuntionPopUpComponent}
+                message={<><h1>Do you want to delete notifications <span className='font-bold'>viewed</span>?</h1></>} />
+            {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
+
             <div className={`${isVisible ? "" : "hidden"} min-h-screen w-[99vw] absolute z-20`}>
                 <button className=' block w-full h-[98vh] cursor-default' onClick={() => {
                     setIsOnclick(false)
@@ -99,9 +139,12 @@ function Nav() {
                 </div>
                 {/* --------------------------------------------------------------------LOGO LOGO LOGO----------------------------------------------- */}
 
-                <div>
+
+                {/* --------------------------------------CONTADOR-------------------------------------- */}
+                {/* <div>
                     <h1>{contador}</h1>
-                </div>
+                </div> */}
+                {/* --------------------------------------CONTADOR-------------------------------------- */}
 
 
 
@@ -139,12 +182,18 @@ function Nav() {
                                 setShowNotifications(false)
                             } else { setShowNotifications(true) }
                         }}>
-                            <span className=' absolute top-3 left-[-12px] w-[24px] h-[24px] bg-red-500 rounded-full text-[15px]'>{notifications.length}</span>
+                            <span className={`${newNotifications && newNotifications.length < 1 ? "hidden" : "show"} ${notifications && notifications.length == 0 ? "hidden" : "show"} absolute top-3 left-[-12px] w-[24px] h-[24px] bg-red-500 rounded-full text-[15px]`}>{newNotifications && newNotifications.length}</span>
                             <i className="fa-solid fa-bell text-[30px] text-slate-100"></i>
                         </button>
 
-                        <div className={` ${showNotifications ? "show" : "hidden"} absolute z-20 flex flex-col gap-4 top-[60px] left-[-390px] w-[400px] h-[700px] overflow-y-auto px-2 py-3 shadow-md bg-slate-100 rounded-[20px]`}>
+                        <div className={` ${showNotifications ? "show" : "hidden"} absolute z-20 flex flex-col gap-4 top-[60px] left-[-400px] w-[420px] h-[700px] overflow-y-auto px-2 py-3 shadow-md bg-slate-100 rounded-[20px]`}>
                             {/* <h2 className="text-xl font-bold mb-4">Notificaciones</h2> */}
+
+                            <div className={`${notifications && notifications.length == 0 ? "hidden" : "show"}`}>
+                                <button className=' font-bold bg-slate-300 p-1 rounded-[7px] shadow-sm' onClick={() => setViewConfirmationComponent(true)}>
+                                    CLEAN <i className="fa-solid fa-broom"></i>
+                                </button>
+                            </div>
 
                             {notifications && notifications.length > 0 && notifications.map(notification => {
                                 return (
@@ -157,9 +206,13 @@ function Nav() {
                                             userImg={notification.userImg}
                                             content={notification.contenido}
                                             subject={notification.materia}
+                                            notificationId={notification.id}
                                         />
                                     </>)
                             })}
+
+                            <h1 className={`${notifications && notifications.length == 0 ? "show" : "hidden"} font-extrabold text-[20px] text-center text-slate-500`}>THERE AREN´T NOTIFICATIONS</h1>
+
 
                         </div>
                         {/* ------------------------------------------------------------------NOTIFICATION PART------------------------------------------------------------------ */}
