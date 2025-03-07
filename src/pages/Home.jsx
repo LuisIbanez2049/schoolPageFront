@@ -11,6 +11,8 @@ import store from "../redux/store";
 import { Navigate, useNavigate } from "react-router-dom";
 import { loginUserAction } from "../redux/actions/authenticatedUserInformationAction";
 import LoadingView from "../components/LoadingView";
+import LoginFondo from "../assets/fondoLogin.jpg"
+import InputGodEfecto2 from "../components/InputGodEfecto2";
 
 function Home() {
   const [buttonLogin, setButtonLogin] = useState("h-[80px] lg:h-[100px] top-[-15px] lg:top-[-20px] rounded-tr-[20px]");
@@ -197,9 +199,17 @@ function Home() {
 
 
 
+  const [activeCard, setActiveCard] = useState(1)
+
+
   return (
     <div>
-      <div className="flex flex-col min-h-screen bg-[#1a3c7d]">
+      <div className="flex flex-col min-h-screen"
+        style={{
+          backgroundImage: `url('${LoginFondo}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
 
 
         <PopUpMessage show={showPopUp} message={messagePopUp} />
@@ -209,7 +219,9 @@ function Home() {
         {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
         <div className="w-full min-h-screen flex flex-row justify-center items-center">
-          <div className="w-[95%] lg:w-[800px] h-[560px] ">
+
+
+          <div className="w-[95%] lg:w-[800px] h-[560px] hidden">
 
             {/* CONTENEDOR DOS BOTONES */}
             <div className={`w-full h-[80px] lg:h-[100px] flex flex-row ${bgForm} `}>
@@ -279,6 +291,9 @@ function Home() {
               </form>
 
             </div>
+            {/* CONTENEDOR FORMULARIO LOGGIN*/}
+
+
 
 
 
@@ -341,10 +356,124 @@ function Home() {
               </form>
 
             </div>
+            {/* CONTENEDOR FORMULARIO REGISTER*/}
             {/* rgb(224, 226, 237)  --  rgb(239, 176, 113)  --  rgb(71, 108, 119) */}
 
 
           </div>
+
+
+
+
+          <div className="relative w-full max-w-[700px] h-[500px] ">
+
+            {/* ------------------------------------------------------------------------CARD 1 CARD 1 CARD 1 CARD 1------------------------------------------------------------------------ */}
+            <div id="card1"
+              className={`absolute w-[700px] h-[500px] bg-[green] inset-0 p-6 transition-all duration-500 ease-in-out shadow-lg ${activeCard === 1
+                ? "z-10 opacity-100 "
+                : "z-0 opacity-0 scale-105"
+                }`}
+            >
+              <div className="p-4 flex flex-col justify-between border border-black">
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">Tarjeta 1</h2>
+                  <p className="text-muted-foreground">
+                    Esta es la primera tarjeta. Puedes ver los bordes de la otra tarjeta detrás.
+                  </p>
+                </div>
+              </div>
+
+
+              <div className="text-center">
+                <h1 className="mb-2 text-3xl font-bold text-white">Login</h1>
+                <p className="text-sm text-white/80">Please enter your Login and your Password</p>
+              </div>
+
+              <form className="space-y-4">
+                <div className="relative">
+                  <i className="fa-solid fa-user absolute top-2 left-2 text-[30px] text-[#ffffffd7]"></i>
+                  <input
+                    type="text"
+                    placeholder="Username or E-mail"
+                    className="w-full rounded-md border border-white/20 bg-white/10 py-3 pl-10 pr-4 text-white placeholder-white/60 focus:border-white/40 focus:outline-none"
+                  />
+                </div>
+
+                {/* Input god --------------------------------------------------- */}
+                <div className={`relative w-[270px] lg:w-[500px]`}>
+                  <input
+                    type="text"
+                    value={""}
+                    
+                    className={` w-full rounded-md border border-white/20 bg-white/10 py-3 pl-10 pr-4 text-white placeholder-white/60 focus:border-white/40 focus:outline-none transition-colors peer relative z-10`}
+                    placeholder=" "
+                  />
+                  <label
+                    className={`absolute z-0 left-10 -top-3.5  text-sm transition-all 
+                   peer-placeholder-shown:text-base  peer-placeholder-shown:top-2 
+                   peer-focus:-top-3.5 peer-focus:text-sm text-white/60`}
+                  >
+                    {"Username or E-mail"}
+                  </label>
+                </div>
+                {/* Input god --------------------------------------------------- */}
+
+                <InputGodEfecto2 placeHolder={"hola"}/>
+
+
+                <button
+                  type="button"
+                  className="w-full rounded-md border border-green-400 bg-green-400/20 py-3 text-center text-white hover:bg-green-400/30 focus:outline-none"
+                >
+                  Login
+                </button>
+
+              </form>
+
+
+
+
+              <div>
+                <button onClick={() => setActiveCard(2)} className="w-full text-white">
+                  Ver Tarjeta 2
+                </button>
+              </div>
+            </div>
+            {/* ------------------------------------------------------------------------CARD 1 CARD 1 CARD 1 CARD 1------------------------------------------------------------------------ */}
+
+
+
+
+
+            {/* ------------------------------------------------------------------------CARD 2 CARD 2 CARD 2 CARD 2------------------------------------------------------------------------ */}
+            <div id="card2"
+              className={`absolute inset-0 p-6 bg-blue-600 transition-all duration-500 ease-in-out shadow-lg ${activeCard === 2
+                ? "z-10 opacity-100 scale-105"
+                : "z-0 opacity-0"
+                }`}
+
+              style={{ boxShadow: "0px 0px 0px white" }}
+            >
+              <div className="p-4 h-full flex flex-col justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">Tarjeta 2</h2>
+                  <p className="text-muted-foreground">
+                    Esta es la segunda tarjeta. Puedes ver los bordes de la otra tarjeta detrás.
+                  </p>
+                </div>
+              </div>
+              <div>
+                <button onClick={() => setActiveCard(1)} className="w-full">
+                  Ver Tarjeta 1
+                </button>
+              </div>
+            </div>
+          </div>
+          {/* ------------------------------------------------------------------------CARD 2 CARD 2 CARD 2 CARD 2------------------------------------------------------------------------ */}
+
+
+
+
         </div>
       </div>
     </div>
