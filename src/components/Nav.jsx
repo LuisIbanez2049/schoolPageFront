@@ -73,13 +73,13 @@ function Nav() {
 
 
 
-    useEffect(() => {
-        const intervalo = setInterval(() => {
-            setContador(prevContador => prevContador + 1);
-        }, 3000);
+    // useEffect(() => {
+    //     const intervalo = setInterval(() => {
+    //         setContador(prevContador => prevContador + 1);
+    //     }, 3000);
 
-        return () => clearInterval(intervalo); // Limpia el intervalo al desmontar el componente
-    }, []);
+    //     return () => clearInterval(intervalo); // Limpia el intervalo al desmontar el componente
+    // }, []);
 
     const handleOnConfirmFuntionPopUpComponent = () => {
         setViewConfirmationComponent(false)
