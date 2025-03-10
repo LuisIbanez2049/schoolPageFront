@@ -13,6 +13,7 @@ import { loginUserAction } from "../redux/actions/authenticatedUserInformationAc
 import LoadingView from "../components/LoadingView";
 import LoginFondo from "../assets/fondoLogin.jpg"
 import FondoScolar from "../assets/fondoLoginScolar.jpg"
+import FondoScolarVertical from "../assets/fondoLoginScolarVertical.jpg"
 import InputGodEfecto2 from "../components/InputGodEfecto2";
 import InputContrasena2 from "../components/InputContrasena2";
 
@@ -205,12 +206,31 @@ function Home() {
   const [activeCard, setActiveCard] = useState(1)
 
 
+
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 450);
+
+  useEffect(() => {
+    // Función para actualizar el estado según el ancho de la pantalla
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 450);
+    };
+
+    // Agregar el listener de evento al cargar el componente
+    window.addEventListener('resize', handleResize);
+
+    // Eliminar el listener al desmontar el componente para evitar pérdidas de memoria
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
   return (
     <div>
       {/* LoginFondo FondoScolar*/}
       <div className="flex flex-col min-h-screen"
         style={{
-          backgroundImage: `url('${FondoScolar}')`,
+          backgroundImage: `url('${isMobileView ? FondoScolarVertical : FondoScolar }')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}>

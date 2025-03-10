@@ -73,13 +73,13 @@ function Nav() {
 
 
 
-    // useEffect(() => {
-    //     const intervalo = setInterval(() => {
-    //         setContador(prevContador => prevContador + 1);
-    //     }, 3000);
+    useEffect(() => {
+        const intervalo = setInterval(() => {
+            setContador(prevContador => prevContador + 1);
+        }, 3000);
 
-    //     return () => clearInterval(intervalo); // Limpia el intervalo al desmontar el componente
-    // }, []);
+        return () => clearInterval(intervalo); // Limpia el intervalo al desmontar el componente
+    }, []);
 
     const handleOnConfirmFuntionPopUpComponent = () => {
         setViewConfirmationComponent(false)
@@ -182,7 +182,10 @@ function Nav() {
                                 setShowNotifications(false)
                             } else { setShowNotifications(true) }
                         }}>
-                            <span className={`${newNotifications && newNotifications.length < 1 ? "hidden" : "show"} ${notifications && notifications.length == 0 ? "hidden" : "show"} absolute top-3 left-[-12px] w-[24px] h-[24px] bg-red-500 rounded-full text-[15px]`}>{newNotifications && newNotifications.length}</span>
+                            <span className={`${newNotifications && newNotifications.length < 1 ? "hidden" : "show"} ${notifications && notifications.length == 0 ? "hidden" : "show"} 
+                            absolute top-3 left-[-12px] w-[24px] h-[24px] bg-red-500 rounded-full text-[15px]`}>
+                                {newNotifications && newNotifications.length}
+                            </span>
                             <i className="fa-solid fa-bell text-[30px] text-slate-100"></i>
                         </button>
 
