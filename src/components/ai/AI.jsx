@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import OpenAI from 'openai'
 import Robot from "../../assets/robot.png"
 import RobotAnimated from "../../assets/robotAnimated.gif"
+import LoaderStars from "../../assets/loaderGif.gif"
 
 
 
@@ -26,7 +27,7 @@ function AI() {
 
     async function askAi() {
         if (!valueInputAi.trim()) return; // No enviar mensajes vacíos
-
+        //setIsLoading(true)
         try {
             setIsLoading(true); // Iniciar estado de carga
 
@@ -42,7 +43,7 @@ function AI() {
 
             setMessages(prev => [...prev, { role: "assistant", content: aiResponse }]);
             setValueInputAi(""); // Limpiar el input después de enviar
-
+            setIsLoading(false)
         } catch (error) {
             console.error("Error al comunicarse con la IA: ", error);
             alert("Ocurrió un error. Intenta de nuevo.");
@@ -83,16 +84,6 @@ function AI() {
     return (
         <div className=' fixed right-6 bottom-6 z-20 p-2'>
 
-            {/* ----------------------AI Loader---------------------- */}
-            <div className=' rounded-full w-[80px] h-[80px] hidden'
-                style={{
-                    backgroundImage: `url('${LoadingAI}')`,
-                    backgroundSize: '280% 230%',
-                    backgroundPosition: 'center',
-                }}>
-            </div>
-            {/* ----------------------AI Loader---------------------- */}
-
             <button onClick={() => setViewChatAi(true)}>
                 <div className=' w-[70px] h-[70px] rounded-[12px] bg-slate-150'
                     style={{
@@ -110,12 +101,12 @@ function AI() {
                 <textarea name="" id="" className='w-[340px]' value={responseAi}></textarea>
             </div> */}
 
-            
-            <div className={`absolute top-[-545px] ${viewChatAi ? "show" : "hidden"} left-[-310px] border border-slate-200 shadow-md rounded-[15px] w-[400px] h-[640px] p-4 bg-white`}>
+
+            <div className={`absolute top-[-545px] ${viewChatAi ? "show" : "hidden"} left-[-360px] border border-slate-200 shadow-md rounded-[15px] w-[450px] h-[640px] p-4 bg-[white]`}>
 
                 <div className='w-full flex flex-row justify-end'>
                     <button onClick={() => setViewChatAi(false)}>
-                        <i className="fa-solid fa-xmark text-[25px] text-[black]"></i>
+                        <i className="fa-solid fa-xmark text-[25px] text-[#00000094]"></i>
                     </button>
                 </div>
 
@@ -124,13 +115,13 @@ function AI() {
                     <div className={` ${messages.length <= 0 ? "show" : "hidden"} w-full h-full flex flex-col justify-center items-center`}>
                         <h1 className='font-thin text-center text-[19px]'>This is the new chat box implemented with artificial intelligence. </h1>
                         <h1 className='font-thin text-center text-[19px]'>It will help you with any doubt! </h1>
-                        <div className=' w-[180px] h-[180px] mt-[40px] opacity-[90%]' 
-                        style={{
-                            backgroundImage: `url('${RobotAnimated}')`,
-                            backgroundSize: '160% 150%',
-                            backgroundPosition: 'center',
-                            //boxShadow: "1px 2px 8px rgba(0, 0, 0, 0.3)",
-                        }}></div>
+                        <div className=' w-[180px] h-[180px] mt-[40px] opacity-[90%]'
+                            style={{
+                                backgroundImage: `url('${RobotAnimated}')`,
+                                backgroundSize: '160% 150%',
+                                backgroundPosition: 'center',
+                                //boxShadow: "1px 2px 8px rgba(0, 0, 0, 0.3)",
+                            }}></div>
                     </div>
 
 
@@ -143,20 +134,55 @@ function AI() {
                         // <textarea name="" id=""></textarea>
                     ))}
                 </div>
-                <input
-                    type="text"
-                    value={valueInputAi}
-                    className="bg-slate-200 p-2 rounded-lg w-full"
-                    onChange={(e) => setValueInputAi(e.target.value)}
-                    disabled={isLoading} // Deshabilitar input mientras carga
-                />
-                <button
-                    className="bg-green-400 rounded-lg p-1 mt-2 w-full"
-                    onClick={askAi}
-                    disabled={isLoading} // Deshabilitar botón mientras carga
-                >
-                    {isLoading ? "Cargando..." : "SEND"}
-                </button>
+                <div className=' w-full rounded-[10px] flex flex-row justify-center items-center gap-4 bg-[#FCFCFB] p-2'>
+                    <input
+                        type="text"
+                        value={valueInputAi}
+                        className="bg-slate-200 p-2 rounded-lg w-full h-[40px] border-b focus:border-[#74C0FC] focus:outline-none transition-colors peer"
+                        onChange={(e) => setValueInputAi(e.target.value)}
+                        disabled={isLoading} // Deshabilitar input mientras carga
+                    />
+                    <button
+                        className=""
+                        onClick={askAi}
+                        disabled={isLoading} // Deshabilitar botón mientras carga
+                    >
+                        {isLoading ?
+                            <>
+                               {/* ----------------------AI Loader---------------------- */}
+                               <div className=' rounded-[5px] w-[55px] h-[55px] '
+                                    style={{
+                                        backgroundImage: `url('${LoaderStars}')`,
+                                        backgroundSize: '220% 130%',
+                                        backgroundPosition: 'center',
+                                    }}>
+                                </div>
+                                {/* ----------------------AI Loader---------------------- */}
+                            </> : <>
+                                <span className=''><i className="fa-brands fa-vuejs fa-rotate-270 text-[#74C0FC] text-[45px] hidden"></i></span>
+                                {/* ----------------------AI Loader---------------------- */}
+                                <div className=' rounded-full w-[50px] h-[50px] hidden'
+                                    style={{
+                                        backgroundImage: `url('${LoadingAI}')`,
+                                        backgroundSize: '280% 230%',
+                                        backgroundPosition: 'center',
+                                    }}>
+                                </div>
+                                {/* ----------------------AI Loader---------------------- */}
+
+                                {/* ----------------------AI Loader---------------------- */}
+                                <div className=' rounded-[5px] w-[55px] h-[55px] hidden'
+                                    style={{
+                                        backgroundImage: `url('${LoaderStars}')`,
+                                        backgroundSize: '220% 130%',
+                                        backgroundPosition: 'center',
+                                    }}>
+                                </div>
+                                {/* ----------------------AI Loader---------------------- */}
+
+                            </>}
+                    </button>
+                </div>
             </div>
 
         </div>
