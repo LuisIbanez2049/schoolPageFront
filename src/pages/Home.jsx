@@ -389,11 +389,11 @@ function Home() {
 
 
 
-          <div className={`relative w-full max-w-[300px] lg:max-w-[700px] ${activeCard === 1 ? "h-[500px]" : "h-[650px]"}`}>
+          <div className={`relative w-full max-w-[90%] lg:max-w-[700px] ${activeCard === 1 ? "h-[350px] lg:h-[440px]" : "h-[560px] lg:h-[640px]"}`}>
 
             {/* ------------------------------------------------------------------------CARD 1 CARD 1 CARD 1 CARD 1------------------------------------------------------------------------ */}
             <div id="card1"
-              className={`absolute bg-[#3250298f] rounded-[25px] flex flex-col justify-center  inset-0 p-2 transition-all duration-500 ease-in-out shadow-lg ${activeCard === 1
+              className={`absolute bg-[#3250298f] rounded-[25px] flex flex-col justify-center  inset-0 py-2 px-2 lg:px-20 transition-all duration-500 ease-in-out shadow-lg ${activeCard === 1
                 ? "z-10 opacity-100 "
                 : "z-0 opacity-0 scale-105"
                 }`}
@@ -452,7 +452,7 @@ function Home() {
 
             {/* ------------------------------------------------------------------------CARD 2 CARD 2 CARD 2 CARD 2------------------------------------------------------------------------ */}
             <div id="card2"
-              className={`absolute bg-[#3250298f] rounded-[25px] flex flex-col justify-center inset-0 p-2 transition-all duration-500 ease-in-out shadow-lg ${activeCard === 2
+              className={`absolute bg-[#3250298f] rounded-[25px] flex flex-col justify-center inset-0 py-2 px-2 lg:px-20 transition-all duration-500 ease-in-out shadow-lg ${activeCard === 2
                 ? "z-10 opacity-100 scale-105"
                 : "z-0 opacity-0"
                 }`}

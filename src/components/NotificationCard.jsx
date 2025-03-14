@@ -37,23 +37,29 @@ function NotificationCard({ name, message, timePassed, isSeen, userImg, subject,
             <LoadingView show={viewLoadingComponent} />
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
-            <div className='flex flex-row '>
-                <div className=' flex flex-row justify-center items-center border-l-4  border-black rounded-l-[10px] p-1'>
+            <div className='flex flex-col border-l-4  border-black rounded-l-[10px]'>
+                <div className=' flex flex-row justify-between   p-1'>
                     {/* <div className='border border-black w-[70px] h-[70px] rounded-full'></div> */}
-                    <div className={`w-[70px] h-[70px] border border-slate-400  rounded-full`} style={{
-                        // backgroundImage: `url('${userInformationLocalStorage && userInformationLocalStorage.userProfileImg}')`,
-                        backgroundImage: `url('${userImg}')`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}></div>
+                    <div className='flex flex-row gap-2 '>
+                        <div className={`w-[70px] h-[70px] border border-slate-400  rounded-full`} style={{
+                            // backgroundImage: `url('${userInformationLocalStorage && userInformationLocalStorage.userProfileImg}')`,
+                            backgroundImage: `url('${userImg}')`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}></div>
+
+                        <div className=' flex flex-col justify-center items-center '>
+                            <h1 className=' font-semibold text-[17px]'>{name}</h1>
+                        </div>
+                    </div>
+                    <div className='flex flex-row gap-2'>
+                        <h1 className='text-[12px] pt-[5px] font-semibold text-slate-500 '>{timePassed}</h1>
+                        <span className={`${isSeen ? "hidden" : "show"}`}><i className={`fa-solid fa-circle text-[11px] `}></i></span>
+                    </div>
                 </div>
                 <div className='p-2 w-full'>
                     <div className='flex flex-row justify-between gap-14'>
-                        <h1 className=' font-semibold text-[17px]'>{name}</h1>
-                        <div className='flex flex-row gap-2'>
-                            <h1 className='text-[12px] pt-[5px] font-semibold text-slate-500 '>{timePassed}</h1>
-                            <span className={`${isSeen ? "hidden" : "show"}`}><i className={`fa-solid fa-circle text-[11px] `}></i></span>
-                        </div>
+
                     </div>
 
                     <div className='w-full flex flex-col'>

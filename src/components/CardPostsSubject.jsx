@@ -132,7 +132,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
 
     return (
-        <div className=" relative w-[96%] lg:w-[1300px] rounded-lg bg-[#f3f2f2] p-3 lg:p-6 shadow-md" style={divStyle}>
+        <div className=" relative w-[96%] 2xl:w-[100%] rounded-lg bg-[#f3f2f2] p-3 lg:p-6 shadow-md" style={divStyle}>
 
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
             <LoadingView show={viewLoadingComponent} />

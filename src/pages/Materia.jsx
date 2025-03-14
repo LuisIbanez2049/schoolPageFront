@@ -388,11 +388,11 @@ function Materia() {
 
 
 
-                        <div className=' relative w-full overflow-hidden flex flex-col justify-center items-center '>
+                        <div className=' relative w-full overflow-hidden flex flex-col justify-center items-center'>
 
                             {/* ----------------------------------------------NOMBRE DE ALUMNOS Y PROFESORES VERSION MOVILE---------------------------------------------- */}
                             <div className={` relative ${isMobileView ? "show" : "hidden"} relative w-full lg:w-[95%]`}>
-                                <div className={` ${isDesplegable ? "hidden" : "show"} absolute top-[6px] z-50 p-2 `}>
+                                <div className={` ${isDesplegable ? "hidden" : "show"} absolute top-[6px] z-40 p-2 `}>
                                     <button onClick={() => { setIsDesplegable(true) }}>
                                         <i className="fa-solid fa-bars text-[20px]"></i>
                                     </button>
@@ -486,8 +486,8 @@ function Materia() {
                                 {/* ----------------------------------------------NOMBRE DE ALUMNOS Y PROFESORES---------------------------------------------- */}
                                 <div className={` relative h-auto`}>
                                     <div className={`${isMobileView ? "hidden" : ""}`}>
-                                        <div className={` w-[240px] border-4 border-[${subject && subject.color}] rounded-[15px] p-2 bg-gray-100`}>
-                                            <h1 className={`font-bold text-[24px] text-[#2c2c2c]`}>STUDENTS</h1>
+                                        <div className={` w-[14vw] border-4 border-[${subject && subject.color}] rounded-[15px] p-2 bg-gray-100`}>
+                                            <h1 className={`font-bold text-[18px] text-[#2c2c2c]`}>STUDENTS</h1>
                                             <ul className=' pl-1 '>
 
                                                 {/* --------------------------------------------------------------------------------------------------------------------------- */}
@@ -496,7 +496,7 @@ function Materia() {
                                                     let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
                                                     // console.log(shift) 
                                                     return (
-                                                        <> <li className='text-[19px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                        <> <li className='text-[16px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
                                                     )
                                                 })}
 
@@ -504,7 +504,7 @@ function Materia() {
                                                     let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
                                                     // console.log(shift) 
                                                     return (
-                                                        <> <li className='text-[19px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                        <> <li className='text-[16px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
                                                     )
                                                 })}
 
@@ -512,18 +512,18 @@ function Materia() {
                                                     let shift = alumno.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
                                                     // console.log(shift) 
                                                     return (
-                                                        <> <li className='text-[19px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
+                                                        <> <li className='text-[16px]'> {alumno.name + " " + alumno.lastName}  <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>
                                                     )
                                                 })}
 
                                                 {/* --------------------------------------------------------------------------------------------------------------------------- */}
 
                                             </ul>
-                                            <h1 className='font-bold text-[24px] text-[#2c2c2c]'>PROFESSOR</h1>
+                                            <h1 className='font-bold text-[18px] text-[#2c2c2c]'>PROFESSOR</h1>
                                             <ul className='pl-1'>
                                                 {subject && subject.profesores && subject.profesores.map(professor => {
                                                     let shift = professor.usuarioMaterias.filter(usuarioMateria => usuarioMateria.nombreMateria === subject.nombre)
-                                                    return (<> <li className='text-[19px]'> {professor.name + " " + professor.lastName} <span className='text-[14px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>)
+                                                    return (<> <li className='text-[16px]'> {professor.name + " " + professor.lastName} <span className='text-[12px]'> {`[${shift[0].jornadaTurno}]`} </span> </li> </>)
                                                 })}
                                             </ul>
                                         </div>
@@ -533,7 +533,7 @@ function Materia() {
                                                 handleLeaveSubject()
                                             }}>
                                                 <div onMouseEnter={() => { setPopUpH1(true) }} onMouseLeave={() => { setPopUpH1(false) }}>
-                                                    <h1 className='rounded-[5px] py-2 px-6 bg-[#ff00007a] font-semibold' > <i className="fa-solid fa-right-from-bracket text-[40px]"></i> </h1>
+                                                    <h1 className='rounded-[5px] py-2 px-6 bg-[#ff00007a] font-semibold' > <i className="fa-solid fa-right-from-bracket text-[25px]"></i> </h1>
                                                 </div>
                                             </button>
                                             <div className='absolute top-[38px] right-[-60px]'>
@@ -551,7 +551,7 @@ function Materia() {
 
 
 
-                                <div className='w-full flex flex-col items-center gap-12  pb-[40px]'>
+                                <div className='w-full flex flex-col items-center gap-12  pb-[40px] lg:p-3'>
 
 
                                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
@@ -696,9 +696,9 @@ function Materia() {
 
 
 
-                                    <div className=' relative w-[95%] lg:w-[1310px] p-2 mt-[40px] lg:mt-[0px]'
+                                    <div className=' relative w-[95%] 2xl:w-[100%] p-0 mt-[40px] lg:mt-[0px]'
                                         onMouseEnter={() => { setViewDescriptionSubjectPen(true) }} onMouseLeave={() => { setViewDescriptionSubjectPen(false) }}>
-                                        <textarea name="" id="" className={` w-[100%] lg:w-[1290px] h-[120px] lg:h-[160px] text-gray-800 font-normal shadow-md bg-[#f3f2f2] p-1 text-[13px] lg:text-[18px] lg:p-2 rounded-[5px] lg:rounded-md focus:border focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
+                                        <textarea name="" id="" className={` w-[100%] 2xl:w-[100%] h-[120px] lg:h-[160px] text-gray-800 font-normal shadow-md bg-[#f3f2f2] p-1 text-[13px] lg:text-[18px] lg:p-2 rounded-[5px] lg:rounded-md focus:border focus:border-[${subject && subject.color}] focus:outline-none transition-colors peer`}
                                             disabled={isDesabledDescriptionInputSubject} value={valueInputDescriptionSubject} onChange={(e) => { setValueInputDescriptionSubject(e.target.value) }}></textarea>
 
                                         {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}

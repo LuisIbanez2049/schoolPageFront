@@ -189,7 +189,7 @@ function Nav() {
                             <i className="fa-solid fa-bell text-[30px] text-slate-100"></i>
                         </button>
 
-                        <div className={` ${showNotifications ? "show" : "hidden"} absolute z-20 flex flex-col gap-4 top-[60px] left-[-400px] w-[420px] h-[700px] overflow-y-auto px-2 py-3 shadow-md bg-slate-100 rounded-[20px]`}>
+                        <div className={` ${showNotifications ? "show" : "hidden"} absolute ${viewConfirmationComponent ? "z-20" : " z-50"} flex flex-col gap-4 top-[65px] lg:top-[60px] left-[-205px] lg:left-[-400px] w-[320px] lg:w-[420px] h-[700px] overflow-y-auto px-2 py-3 shadow-md bg-slate-100 rounded-[20px]`}>
                             {/* <h2 className="text-xl font-bold mb-4">Notificaciones</h2> */}
 
                             <div className={`${notifications && notifications.length == 0 ? "hidden" : "show"}`}>
