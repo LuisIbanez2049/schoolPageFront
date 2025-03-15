@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import SendButton from "../assets/sendButton.png"
+import SendButton from "../assets/sendbutton.png"
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 import LoadingView from './LoadingView'
-import { useDispatch, useSelector } from 'react-redux'
-import { falseAuxAction, truAuxAction } from '../redux/actions/auxAction'
-import store from '../redux/store'
+
 
 function TarjetaMateriaWithAccessCode({ titulo, imagen, descripcion, bg, id }) {
 
