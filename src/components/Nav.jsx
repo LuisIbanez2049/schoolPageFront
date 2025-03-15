@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logOutAction } from '../redux/actions/authenticationAction';
-import EasyLearn from "../assets/EASYLEARNpng.png"
+import EasyLearn from "../assets/EASYLEARNPNG.png"
 import { useNavigate } from 'react-router-dom';
 import { logOutUserAction } from '../redux/actions/authenticatedUserInformationAction';
 import axios from 'axios';
