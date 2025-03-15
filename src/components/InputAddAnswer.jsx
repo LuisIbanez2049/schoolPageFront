@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SendButton from "../assets/sendButton.png"
+import SendButton from "../assets/sendbutton.png"
 import axios from 'axios'
 
 function InputAddAnswer({ color, userName, onClickFunction, onClickCancelFunction, onChangeFunction, valueInput }) {

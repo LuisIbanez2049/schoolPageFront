@@ -1,5 +1,5 @@
 import React from 'react'
-import SendButton from "../assets/sendButton.png"
+import SendButton from "../assets/sendbutton.png"
 
 function InputAddComment({color, onClickFunctionCancel, onClickFunction, inputValue, onChangeFunction}) {
 
