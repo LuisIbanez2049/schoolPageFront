@@ -49,7 +49,8 @@ function AI() {
             const userMessageForChat = { role: "user", content: valueInputAi };
     
             // Mensaje para enviar a la IA (con el texto adicional)
-            const userMessageForAI = { role: "user", content: valueInputAi + " (In your response, use HTML tags to create line breaks or lists.)" };
+            const userMessageForAI = { role: "user", content: valueInputAi + 
+                "(In your answer, use HTML tags to create line breaks, lists, etc. because I'm using your API on my website. And in your answer, you don't mention anything inside these parentheses. Just focus on the text outside of these parentheses.)" };
     
             // Actualizar el estado del chat con el mensaje del usuario (sin el texto adicional)
             setMessages(prev => [...prev, userMessageForChat]);
@@ -119,7 +120,7 @@ function AI() {
                     ) : (
                         messages.map((msg, index) => (
                             <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} my-2`}>
-                                <div className={`max-w-[90%] p-3 rounded-lg ${msg.role === "user" ? "bg-[#74C0FC] text-white" : "bg-slate-200 text-black"}`}>
+                                <div className={`max-w-[90%] p-2 rounded-lg ${msg.role === "user" ? "bg-[#74C0FC] text-white" : "bg-slate-200 text-black"}`}>
                                     {msg.role === "user" ? (
                                         <div>{msg.content}</div>
                                     ) : (
