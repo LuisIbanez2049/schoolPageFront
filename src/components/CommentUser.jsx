@@ -25,7 +25,8 @@ function CommentUser({ date, text, fullName, color, contentId, userIdFromComment
 
     useEffect(() => {
         setViewLoadingComponent(true)
-        axios.get(`http://localhost:8080/api/contenido/${contentId}`, {
+        // axios.get(`http://localhost:8080/api/contenido/${contentId}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/contenido/${contentId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -52,7 +53,8 @@ function CommentUser({ date, text, fullName, color, contentId, userIdFromComment
             idContenido: contentId,
             texto: inputValueTextComment,
         }
-        axios.post("http://localhost:8080/api/comentario/create", bodyCreateComment, {
+        // axios.post("http://localhost:8080/api/comentario/create", bodyCreateComment, {
+            axios.post("https://schoolpagebackend.onrender.com/api/comentario/create", bodyCreateComment, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

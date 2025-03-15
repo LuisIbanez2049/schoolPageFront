@@ -32,8 +32,8 @@ function CommentUserCardAdmin({ commentId, viewMoreDetailsCommentBoolean }) {
 
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/comentario/admin/${commentId}`, {
+        // axios.get(`http://localhost:8080/api/comentario/admin/${commentId}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/comentario/admin/${commentId}`, {
                 headers: {
                     Authorization: `Bearer ${tokenSinComillas}`,
                 },
@@ -60,8 +60,8 @@ function CommentUserCardAdmin({ commentId, viewMoreDetailsCommentBoolean }) {
         setViewConfirmationComponent(false)
         setViewLoadingComponent(true);
         if (comment && comment.asset) {
-            axios
-                .delete(`http://localhost:8080/api/comentario/adminDesactivar/${commentId}`, {
+            // axios.delete(`http://localhost:8080/api/comentario/adminDesactivar/${commentId}`, {
+                axios.delete(`https://schoolpagebackend.onrender.com/api/comentario/adminDesactivar/${commentId}`, {
                     headers: {
                         Authorization: `Bearer ${tokenSinComillas}`,
                     },
@@ -78,9 +78,8 @@ function CommentUserCardAdmin({ commentId, viewMoreDetailsCommentBoolean }) {
                     console.log(error);
                 });
         } else {
-            axios
-                .patch(
-                    `http://localhost:8080/api/comentario/adminActivar/${commentId}`,
+            // axios.patch(`http://localhost:8080/api/comentario/adminActivar/${commentId}`,
+            axios.patch(`https://schoolpagebackend.onrender.com/api/comentario/adminActivar/${commentId}`,
                     {},
                     {
                         headers: {
@@ -155,8 +154,13 @@ function CommentUserCardAdmin({ commentId, viewMoreDetailsCommentBoolean }) {
             <div className=' relative bg-slate-100 p-1 rounded-[10px] border border-slate-300 shadow-md'>
 
                 <div className=' relative flex flex-row gap-4'>
-                    <div className='w-[45px] h-[45px] lg:w-[65px] lg:h-[65px] rounded-full overflow-hidden'>
-                        <img src={comment.profileImgFromUserComment} alt="" />
+                    <div className='w-[45px] h-[45px] lg:w-[65px] lg:h-[65px] rounded-full overflow-hidden'
+                    style={{
+                        backgroundImage: `url('${comment.profileImgFromUserComment}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}>
+                        {/* <img src={comment.profileImgFromUserComment} alt="" /> */}
                     </div>
 
                     <div>

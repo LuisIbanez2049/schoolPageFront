@@ -43,8 +43,8 @@ function SubjectAdmin() {
     const [fileURL, setFileURL] = useState("")
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/materias/admin/${id}`, {
+        // axios.get(`http://localhost:8080/api/materias/admin/${id}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/materias/admin/${id}`, {
                 headers: {
                     Authorization: `Bearer ${tokenSinComillas}`,
                 },
@@ -66,8 +66,8 @@ function SubjectAdmin() {
     function editSubject(body) {
         setViewLoadingComponent(true);
         console.log(body);
-        axios
-            .patch(`http://localhost:8080/api/materias/modificarMateriaAdmin`, body, {
+        // axios.patch(`http://localhost:8080/api/materias/modificarMateriaAdmin`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/materias/modificarMateriaAdmin`, body, {
                 headers: {
                     Authorization: `Bearer ${tokenSinComillas}`,
                 },
@@ -88,8 +88,9 @@ function SubjectAdmin() {
     const handleOnConfirmFuntionPopUpComponent = () => {
         setViewLoadingComponent(true);
         if (subject && subject.asset) {
-            axios
-                .delete(`http://localhost:8080/api/materias/desactivar/${id}`, {
+            // axios.delete(`http://localhost:8080/api/materias/desactivar/${id}`, {
+                axios.delete(`https://schoolpagebackend.onrender.com/api/materias/desactivar/${id}`, {
+
                     headers: {
                         Authorization: `Bearer ${tokenSinComillas}`,
                     },
@@ -104,9 +105,8 @@ function SubjectAdmin() {
                     console.log(error);
                 });
         } else {
-            axios
-                .patch(
-                    `http://localhost:8080/api/materias/activar/${id}`,
+            // axios.patch(`http://localhost:8080/api/materias/activar/${id}`,
+            axios.patch(`https://schoolpagebackend.onrender.com/api/materias/activar/${id}`,
                     {},
                     {
                         headers: {
@@ -156,7 +156,8 @@ function SubjectAdmin() {
             fileObjectList: data
         }
         console.log(bodyCreateContent)
-        axios.post("http://localhost:8080/api/contenido/create", bodyCreateContent, {
+        // axios.post("http://localhost:8080/api/contenido/create", bodyCreateContent, {
+            axios.post("https://schoolpagebackend.onrender.com/api/contenido/create", bodyCreateContent, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

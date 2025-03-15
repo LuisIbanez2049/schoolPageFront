@@ -56,14 +56,16 @@ function Home() {
     console.log(bodyLogin)
 
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/login", bodyLogin)
+      // const response = await axios.post("http://localhost:8080/api/auth/login", bodyLogin)
+      const response = await axios.post("https://schoolpagebackend.onrender.com/api/auth/login", bodyLogin)
       setViewLoadingComponent(false)
       console.log(response)
       dispatch(loginAction(response.data))
       navigate("/materias")
       const token = localStorage.getItem("userToken")
       let tokenSinComillas = token.replace(/"/g, '');
-      axios.get("http://localhost:8080/api/auth/current", {
+      // axios.get("http://localhost:8080/api/auth/current", {
+        axios.get("https://schoolpagebackend.onrender.com/api/auth/current", {
         headers: {
           Authorization: `Bearer ${tokenSinComillas}`
         }
@@ -154,7 +156,8 @@ function Home() {
     console.log(bodyRegister)
 
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/register", bodyRegister)
+      // const response = await axios.post("http://localhost:8080/api/auth/register", bodyRegister)
+      const response = await axios.post("https://schoolpagebackend.onrender.com/api/auth/register", bodyRegister)
       setViewLoadingComponent(false)
       console.log(response.data)
       setMessagePopUp(response.data)

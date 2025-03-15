@@ -17,8 +17,8 @@ function IconFile({ id }) {
     if (userInformationLocalStorage.rol == "ADMIN") {
       aux = "/admin/"
     } else { aux = "/" }
-    axios
-      .get(`http://localhost:8080/api/contenido${aux}${id}`, {
+    // axios.get(`http://localhost:8080/api/contenido${aux}${id}`, {
+      axios.get(`https://schoolpagebackend.onrender.com/api/contenido${aux}${id}`, {
         headers: {
           Authorization: `Bearer ${tokenSinComillas}`,
         },
@@ -43,7 +43,8 @@ function IconFile({ id }) {
       contentId: id,
       fileObjectList: data
     }
-    axios.patch(`http://localhost:8080/api/contenido/addFiles`, bodyAddFilesToAContent, {
+    // axios.patch(`http://localhost:8080/api/contenido/addFiles`, bodyAddFilesToAContent, {
+      axios.patch(`https://schoolpagebackend.onrender.com/api/contenido/addFiles`, bodyAddFilesToAContent, {
       headers: {
         Authorization: `Bearer ${tokenSinComillas}`,
       },

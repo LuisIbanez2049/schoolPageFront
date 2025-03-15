@@ -12,7 +12,8 @@ function NotificationCard({ name, message, timePassed, isSeen, userImg, subject,
 
     const handleOnMarkAnotificationAsViewed = () => {
         setViewLoadingComponent(true)
-        axios.patch(`http://localhost:8080/api/notificacion/markAsViewed/${notificationId}`, {}, {
+        // axios.patch(`http://localhost:8080/api/notificacion/markAsViewed/${notificationId}`, {}, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/notificacion/markAsViewed/${notificationId}`, {}, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

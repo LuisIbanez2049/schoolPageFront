@@ -23,7 +23,8 @@ function Materias() {
         const token = localStorage.getItem("userToken")
         let tokenSinComillas = token.replace(/"/g, '');
         console.log(tokenSinComillas)
-        axios.get("http://localhost:8080/api/materias/availablesubjects", {
+        // axios.get("http://localhost:8080/api/materias/availablesubjects", {
+            axios.get("https://schoolpagebackend.onrender.com/api/materias/availablesubjects", {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

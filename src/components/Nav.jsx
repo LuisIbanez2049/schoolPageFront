@@ -38,7 +38,8 @@ function Nav() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/auth/current", {
+        // axios.get("http://localhost:8080/api/auth/current", {
+            axios.get("https://schoolpagebackend.onrender.com/api/auth/current", {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -54,7 +55,8 @@ function Nav() {
     }, [token])
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/auth/current", {
+        // axios.get("http://localhost:8080/api/auth/current", {
+            axios.get("https://schoolpagebackend.onrender.com/api/auth/current", {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -84,7 +86,8 @@ function Nav() {
     const handleOnConfirmFuntionPopUpComponent = () => {
         setViewConfirmationComponent(false)
         setViewLoadingComponent(true)
-        axios.patch("http://localhost:8080/api/notificacion/clean",{}, {
+        // axios.patch("http://localhost:8080/api/notificacion/clean",{}, {
+            axios.patch("https://schoolpagebackend.onrender.com/api/notificacion/clean",{}, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

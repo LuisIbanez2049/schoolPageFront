@@ -19,8 +19,8 @@ function AnswerUserCardAdmin({ answerId, viewMoreDetailsAnswerBoolean }) {
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/respuesta/admin/${answerId}`, {
+        // axios.get(`http://localhost:8080/api/respuesta/admin/${answerId}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/respuesta/admin/${answerId}`, {
                 headers: {
                     Authorization: `Bearer ${tokenSinComillas}`,
                 },
@@ -45,8 +45,8 @@ function AnswerUserCardAdmin({ answerId, viewMoreDetailsAnswerBoolean }) {
         setViewConfirmationComponent(false)
         setViewLoadingComponent(true);
         if (answer && answer.asset) {
-            axios
-                .delete(`http://localhost:8080/api/respuesta/adminDesactivar/${answerId}`, {
+            // axios.delete(`http://localhost:8080/api/respuesta/adminDesactivar/${answerId}`, {
+                axios.delete(`https://schoolpagebackend.onrender.com/api/respuesta/adminDesactivar/${answerId}`, {
                     headers: {
                         Authorization: `Bearer ${tokenSinComillas}`,
                     },
@@ -63,9 +63,8 @@ function AnswerUserCardAdmin({ answerId, viewMoreDetailsAnswerBoolean }) {
                     console.log(error);
                 });
         } else {
-            axios
-                .patch(
-                    `http://localhost:8080/api/respuesta/adminActivar/${answerId}`,
+            // axios.patch(`http://localhost:8080/api/respuesta/adminActivar/${answerId}`,
+            axios.patch(`https://schoolpagebackend.onrender.com/api/respuesta/adminActivar/${answerId}`,
                     {},
                     {
                         headers: {
@@ -117,8 +116,13 @@ function AnswerUserCardAdmin({ answerId, viewMoreDetailsAnswerBoolean }) {
             <div className=' relative bg-slate-100 p-1 rounded-[10px] border border-slate-300 shadow-md'>
 
                 <div className=' relative flex flex-row gap-4'>
-                    <div className='w-[45px] h-[45px] lg:w-[65px] lg:h-[65px] rounded-full overflow-hidden'>
-                        <img src={answer.profileImgFromUserAnswer} alt="" />
+                    <div className='w-[45px] h-[45px] lg:w-[65px] lg:h-[65px] rounded-full overflow-hidden'
+                    style={{
+                        backgroundImage: `url('${answer.profileImgFromUserAnswer}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}>
+                        {/* <img src={answer.profileImgFromUserAnswer} alt="" /> */}
                     </div>
 
                     <div>

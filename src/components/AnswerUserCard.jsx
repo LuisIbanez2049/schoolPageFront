@@ -39,7 +39,8 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
             texto: valueInput,
         }
         console.log(bodyAnswer)
-        axios.post("http://localhost:8080/api/respuesta/create", bodyAnswer, {
+        // axios.post("http://localhost:8080/api/respuesta/create", bodyAnswer, {
+            axios.post("https://schoolpagebackend.onrender.com/api/respuesta/create", bodyAnswer, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -73,7 +74,8 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
     function editAnswer(body) {
         setViewLoadingComponent(true)
         console.log(body)
-        axios.patch(`http://localhost:8080/api/respuesta/modificar`, body, {
+        // axios.patch(`http://localhost:8080/api/respuesta/modificar`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/respuesta/modificar`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -107,7 +109,8 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
     function deleteAnswer() {
         setViewLoadingComponent(true)
-        axios.delete(`http://localhost:8080/api/respuesta/authenticatedUserDesactivar/${answerId}`, {
+        // axios.delete(`http://localhost:8080/api/respuesta/authenticatedUserDesactivar/${answerId}`, {
+            axios.delete(`https://schoolpagebackend.onrender.com/api/respuesta/authenticatedUserDesactivar/${answerId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -171,8 +174,13 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
 
 
                         <div className=''>
-                            <div className='w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full overflow-hidden'>
-                                <img src={profileImgFromUserAnswer} alt="" />
+                            <div className='w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] rounded-full overflow-hidden'
+                            style={{
+                                backgroundImage: `url('${profileImgFromUserAnswer}')`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}>
+                                {/* <img src={profileImgFromUserAnswer} alt="" /> */}
                             </div>
                         </div>
                         <div className='pl-4 '>

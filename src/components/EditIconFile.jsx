@@ -20,8 +20,8 @@ function EditIconFile({ fileId }) {
 
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/archivo/${fileId}`, {
+        // axios.get(`http://localhost:8080/api/archivo/${fileId}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/archivo/${fileId}`, {
                 headers: {
                     Authorization: `Bearer ${tokenSinComillas}`,
                 },
@@ -41,7 +41,8 @@ function EditIconFile({ fileId }) {
     function editFile() {
         let body = { id: fileId, name: nameFile, tipoArchivo: iconFile, link: linkFile }
         console.log(body)
-        axios.patch(`http://localhost:8080/api/archivo/editFile`, body, {
+        // axios.patch(`http://localhost:8080/api/archivo/editFile`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/archivo/editFile`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`,
             },
@@ -67,7 +68,8 @@ function EditIconFile({ fileId }) {
     }
 
     function deleteFile() {
-        axios.delete(`http://localhost:8080/api/archivo/delete/${fileId}`, {
+        // axios.delete(`http://localhost:8080/api/archivo/delete/${fileId}`, {
+            axios.delete(`https://schoolpagebackend.onrender.com/api/archivo/delete/${fileId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`,
             },
@@ -84,7 +86,8 @@ function EditIconFile({ fileId }) {
     }
 
     function restoreFile() {
-        axios.patch(`http://localhost:8080/api/archivo/restore/${fileId}`, {}, {
+        // axios.patch(`http://localhost:8080/api/archivo/restore/${fileId}`, {}, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/archivo/restore/${fileId}`, {}, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`,
             },

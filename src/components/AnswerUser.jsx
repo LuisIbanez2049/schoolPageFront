@@ -17,7 +17,8 @@ function AnswerUser({ color, commentId, userIdFromComment, fullName }) {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/respuesta/fromAcomment/${commentId}`, {
+        // axios.get(`http://localhost:8080/api/respuesta/fromAcomment/${commentId}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/respuesta/fromAcomment/${commentId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -50,7 +51,8 @@ function AnswerUser({ color, commentId, userIdFromComment, fullName }) {
             texto: valueInput,
         }
         console.log(bodyAnswer)
-        axios.post("http://localhost:8080/api/respuesta/create", bodyAnswer, {
+        // axios.post("http://localhost:8080/api/respuesta/create", bodyAnswer, {
+            axios.post("https://schoolpagebackend.onrender.com/api/respuesta/create", bodyAnswer, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

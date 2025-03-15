@@ -68,7 +68,8 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
     useEffect(() => {
         setViewLoadingComponent(true)
-        axios.get(`http://localhost:8080/api/contenido/${contentId}`, {
+        // axios.get(`http://localhost:8080/api/contenido/${contentId}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/contenido/${contentId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -91,7 +92,8 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
     const deleteContend = async (event) => {
         event.preventDefault()
         setViewLoadingComponent(true)
-        axios.delete(`http://localhost:8080/api/contenido/desactivar/${contentId}`, {
+        // axios.delete(`http://localhost:8080/api/contenido/desactivar/${contentId}`, {
+            axios.delete(`https://schoolpagebackend.onrender.com/api/contenido/desactivar/${contentId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -112,7 +114,8 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
     function editContent(body) {
         setViewLoadingComponent(true)
         console.log(body)
-        axios.patch(`http://localhost:8080/api/contenido/modificar`, body, {
+        // axios.patch(`http://localhost:8080/api/contenido/modificar`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/contenido/modificar`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

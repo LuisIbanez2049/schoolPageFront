@@ -14,7 +14,8 @@ function MySubjects({ useStateP }) {
         const token = localStorage.getItem("userToken")
         let tokenSinComillas = token.replace(/"/g, '');
         console.log(tokenSinComillas)
-        axios.get("http://localhost:8080/api/materias/mysubjects", {
+        // axios.get("http://localhost:8080/api/materias/mysubjects", {
+            axios.get("https://schoolpagebackend.onrender.com/api/materias/mysubjects", {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

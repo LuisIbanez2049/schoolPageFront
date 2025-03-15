@@ -71,7 +71,8 @@ function Materia() {
         setViewLoadingComponent(true)
         console.log(tokenSinComillas)
         console.log(id)
-        axios.get(`http://localhost:8080/api/materias/${id}`, {
+        // axios.get(`http://localhost:8080/api/materias/${id}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/materias/${id}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -105,7 +106,8 @@ function Materia() {
             fileObjectList: data
         }
         console.log(bodyCreateContent)
-        axios.post("http://localhost:8080/api/contenido/create", bodyCreateContent, {
+        // axios.post("http://localhost:8080/api/contenido/create", bodyCreateContent, {
+            axios.post("https://schoolpagebackend.onrender.com/api/contenido/create", bodyCreateContent, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -138,7 +140,8 @@ function Materia() {
             idUsuario: userInformationLocalStorage.id
         }
         console.log(bodyCreateContent)
-        axios.patch("http://localhost:8080/api/usuarios/leaveSubject", bodyCreateContent, {
+        // axios.patch("http://localhost:8080/api/usuarios/leaveSubject", bodyCreateContent, {
+            axios.patch("https://schoolpagebackend.onrender.com/api/usuarios/leaveSubject", bodyCreateContent, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -162,7 +165,8 @@ function Materia() {
     function editSubject(body) {
         setViewLoadingComponent(true)
         console.log(body)
-        axios.patch(`http://localhost:8080/api/materias/modificarMateria`, body, {
+        // axios.patch(`http://localhost:8080/api/materias/modificarMateria`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/materias/modificarMateria`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

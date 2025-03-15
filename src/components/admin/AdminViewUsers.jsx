@@ -19,7 +19,8 @@ function AdminViewUsers() {
   const [subjects, setSubjects] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/usuarios/", {
+    // axios.get("http://localhost:8080/api/usuarios/", {
+      axios.get("https://schoolpagebackend.onrender.com/api/usuarios/", {
       headers: {
         Authorization: `Bearer ${tokenSinComillas}`
       }
@@ -37,7 +38,8 @@ function AdminViewUsers() {
   }, [])
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/materias/all", {
+    // axios.get("http://localhost:8080/api/materias/all", {
+      axios.get("https://schoolpagebackend.onrender.com/api/materias/all", {
       headers: {
         Authorization: `Bearer ${tokenSinComillas}`
       }

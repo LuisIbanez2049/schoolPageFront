@@ -88,7 +88,8 @@ function UserInformation() {
 
     useEffect(() => {
         setViewLoadingComponent(true)
-        axios.get(`http://localhost:8080/api/usuarios/admin/${id}`, {
+        // axios.get(`http://localhost:8080/api/usuarios/admin/${id}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/usuarios/admin/${id}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -144,7 +145,8 @@ function UserInformation() {
     function editUserParemeters(body) {
         setViewLoadingComponent(true)
         console.log(body)
-        axios.patch(`http://localhost:8080/api/usuarios/configurationAdmin`, body, {
+        // axios.patch(`http://localhost:8080/api/usuarios/configurationAdmin`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/usuarios/configurationAdmin`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -194,7 +196,8 @@ function UserInformation() {
             idUsuario: id
         }
         console.log(bodyExpelUser)
-        axios.patch("http://localhost:8080/api/usuarios/leaveSubject", bodyExpelUser, {
+        // axios.patch("http://localhost:8080/api/usuarios/leaveSubject", bodyExpelUser, {
+            axios.patch("https://schoolpagebackend.onrender.com/api/usuarios/leaveSubject", bodyExpelUser, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

@@ -33,7 +33,8 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
     function editComment(body) {
         setViewLoadingComponent(true)
         console.log(body)
-        axios.patch(`http://localhost:8080/api/comentario/modificar`, body, {
+        // axios.patch(`http://localhost:8080/api/comentario/modificar`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/comentario/modificar`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -68,7 +69,8 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
 
     function deleteComment() {
         setViewLoadingComponent(true)
-        axios.delete(`http://localhost:8080/api/comentario/authenticatedUserDesactivar/${commentId}`, {
+        // axios.delete(`http://localhost:8080/api/comentario/authenticatedUserDesactivar/${commentId}`, {
+            axios.delete(`https://schoolpagebackend.onrender.com/api/comentario/authenticatedUserDesactivar/${commentId}`, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -136,8 +138,12 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
 
 
                     <div className=''>
-                        <div className='w-[45px] h-[45px] lg:w-[65px] lg:h-[65px] rounded-full overflow-hidden'>
-                            <img src={profileImgFromUserComment} alt="" />
+                        <div className='w-[45px] h-[45px] lg:w-[65px] lg:h-[65px] rounded-full overflow-hidden'
+                        style={{
+                            backgroundImage: `url('${profileImgFromUserComment}')`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}>
                         </div>
                     </div>
                     <div className='pl-4 '>

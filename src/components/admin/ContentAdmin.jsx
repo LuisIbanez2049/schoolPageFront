@@ -52,8 +52,8 @@ function ContentAdmin() {
 
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/contenido/admin/${id}`, {
+        // axios.get(`http://localhost:8080/api/contenido/admin/${id}`, {
+            axios.get(`https://schoolpagebackend.onrender.com/api/contenido/admin/${id}`, {
                 headers: {
                     Authorization: `Bearer ${tokenSinComillas}`,
                 },
@@ -80,8 +80,8 @@ function ContentAdmin() {
     function editContent(body) {
         setViewLoadingComponent(true);
         console.log(body);
-        axios
-            .patch(`http://localhost:8080/api/contenido/modificar`, body, {
+        // axios.patch(`http://localhost:8080/api/contenido/modificar`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/contenido/modificar`, body, {
                 headers: {
                     Authorization: `Bearer ${tokenSinComillas}`,
                 },
@@ -129,8 +129,8 @@ function ContentAdmin() {
         setViewConfirmationComponent(false)
         setViewLoadingComponent(true);
         if (content && content.asset) {
-            axios
-                .delete(`http://localhost:8080/api/contenido/desactivar/${id}`, {
+            // axios.delete(`http://localhost:8080/api/contenido/desactivar/${id}`, {
+                axios.delete(`https://schoolpagebackend.onrender.com/api/contenido/desactivar/${id}`, {
                     headers: {
                         Authorization: `Bearer ${tokenSinComillas}`,
                     },
@@ -147,9 +147,8 @@ function ContentAdmin() {
                     console.log(error);
                 });
         } else {
-            axios
-                .patch(
-                    `http://localhost:8080/api/contenido/activar/${id}`,
+            // axios.patch(`http://localhost:8080/api/contenido/activar/${id}`,
+            axios.patch(`https://schoolpagebackend.onrender.com/api/contenido/activar/${id}`,
                     {},
                     {
                         headers: {

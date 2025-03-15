@@ -23,7 +23,8 @@ function AdminViewSubjects() {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/materias/all", {
+    // axios.get("http://localhost:8080/api/materias/all", {
+      axios.get("https://schoolpagebackend.onrender.com/api/materias/all", {
       headers: {
         Authorization: `Bearer ${tokenSinComillas}`
       }
@@ -57,7 +58,8 @@ function AdminViewSubjects() {
       accessCode: accessCode
     }
     console.log(bodyCreateSubject)
-    axios.post("http://localhost:8080/api/materias/create", bodyCreateSubject, {
+    // axios.post("http://localhost:8080/api/materias/create", bodyCreateSubject, {
+      axios.post("https://schoolpagebackend.onrender.com/api/materias/create", bodyCreateSubject, {
       headers: {
         Authorization: `Bearer ${tokenSinComillas}`
       }

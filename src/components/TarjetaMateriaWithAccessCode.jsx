@@ -32,7 +32,8 @@ function TarjetaMateriaWithAccessCode({ titulo, imagen, descripcion, bg, id }) {
             accessCode: valueInput
         }
         console.log(bodyLoginSubject)
-        axios.post("http://localhost:8080/api/usuarios/loginMateria", bodyLoginSubject, {
+        // axios.post("http://localhost:8080/api/usuarios/loginMateria", bodyLoginSubject, {
+            axios.post("https://schoolpagebackend.onrender.com/api/usuarios/loginMateria", bodyLoginSubject, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }

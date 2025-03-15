@@ -63,7 +63,8 @@ function Configuration() {
 
     function updateLocalStorage() {
 
-        axios.get("http://localhost:8080/api/auth/current", {
+        // axios.get("http://localhost:8080/api/auth/current", {
+            axios.get("https://schoolpagebackend.onrender.com/api/auth/current", {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -84,7 +85,8 @@ function Configuration() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/auth/current", {
+        // axios.get("http://localhost:8080/api/auth/current", {
+            axios.get("https://schoolpagebackend.onrender.com/api/auth/current", {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
@@ -108,7 +110,8 @@ function Configuration() {
     function editUserParemeters(body) {
         setViewLoadingComponent(true)
         console.log(body)
-        axios.patch(`http://localhost:8080/api/usuarios/configuration`, body, {
+        // axios.patch(`http://localhost:8080/api/usuarios/configuration`, body, {
+            axios.patch(`https://schoolpagebackend.onrender.com/api/usuarios/configuration`, body, {
             headers: {
                 Authorization: `Bearer ${tokenSinComillas}`
             }
