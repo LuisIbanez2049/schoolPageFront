@@ -59,6 +59,7 @@ function AI() {
                 model: "deepseek-reasoner",
                 messages: [...messages, userMessageForAI], // Incluye el historial + el mensaje con el texto adicional
             });
+            console.log(chat)
     
             // Obtener la respuesta de la IA
             const aiResponse = chat.choices[0].message.content;
