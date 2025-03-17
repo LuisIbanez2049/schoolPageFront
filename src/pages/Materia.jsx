@@ -408,7 +408,7 @@ function Materia() {
                                 <div className={` transition-all duration-500 transform ${isDesplegable ? "bg-[#00000086] z-30" : "bg-transparent z-0"} w-full min-h-screen absolute  top-0 `}
                                     onClick={() => { setIsDesplegable(false) }}>
 
-                                    <div className={` relative w-[240px] h-[100vh] transition-all duration-500 transform ${isDesplegable ? "translate-x-[0%]" : "translate-x-[-100%]"} 
+                                    <div className={` relative w-[240px] h-[85vh] transition-all duration-500 transform ${isDesplegable ? "translate-x-[0%]" : "translate-x-[-100%]"} 
                                          border-r-4 border-t-4 border-b-4 border-[${subject && subject.color}] rounded-r-[15px] p-2 bg-gray-100`}>
 
                                         <h1 className={`font-bold text-[20px] text-[#2c2c2c]`}>STUDENTS</h1>

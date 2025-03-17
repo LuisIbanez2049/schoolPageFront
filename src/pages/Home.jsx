@@ -392,7 +392,7 @@ function Home() {
 
 
 
-          <div className={`relative w-full max-w-[90%] lg:max-w-[700px] ${activeCard === 1 ? "h-[350px] lg:h-[440px]" : "h-[560px] lg:h-[640px]"}`}>
+          <div className={`relative w-full max-w-[90%] lg:max-w-[700px] ${activeCard === 1 ? "h-[375px] lg:h-[440px]" : "h-[580px] lg:h-[640px]"}`}>
 
             {/* ------------------------------------------------------------------------CARD 1 CARD 1 CARD 1 CARD 1------------------------------------------------------------------------ */}
             <div id="card1"

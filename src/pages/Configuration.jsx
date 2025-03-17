@@ -179,7 +179,7 @@ function Configuration() {
 
 
                     {/* ----------------------------------------------------------------------------------------------------IMG IMG IMG----------------------------------------------------------------------------- */}
-                    <div className=' relative w-full flex flex-row justify-center items-center bg-[#476c77] p-4 rounded-t-[30px]'
+                    <div className=' relative w-full flex flex-row justify-center items-center bg-[#476c77] p-4 rounded-t-[30px] '
                         onMouseEnter={() => { setViewProfileImgPen(true) }} onMouseLeave={() => { setViewProfileImgPen(false) }}>
 
                         <div className=' absolute top-0 right-0 p-6'>
@@ -197,8 +197,8 @@ function Configuration() {
 
                         <div className={`${viewInputEditProfileImg ? "show" : "hidden"} absolute w-full h-full bg-[#0000009c] flex flex-row  justify-center items-center rounded-t-[30px]`}>
                             {/* ----------------------------------------------------------------INPUT MAS DOS BOTONES -------------------------------------------------- */}
-                            <div className={` ${viewInputEditProfileImg ? "show" : "hidden"}  bg-[#f3f2f2] flex lg:flex-row flex-col justify-center items-center p-2 lg:p-6 rounded-[12px] lg:rounded-[20px]`}>
-                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-1 lg:p-2 lg:w-[600px] text-[12px] lg:text-[16px] w-[270px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
+                            <div className={` ${viewInputEditProfileImg ? "show" : "hidden"}  w-[90%]  bg-[#f3f2f2] flex lg:flex-row flex-col justify-center items-center p-2 lg:p-6 rounded-[12px] lg:rounded-[20px]`}>
+                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-1 lg:p-2 lg:w-[600px] w-full text-[12px] lg:text-[16px] w-[270px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
 
                                 <div className=' ml-2 flex flex-row gap-3 text-[25px] lg:text-3xl'>
                                     <button onClick={() => {
@@ -231,12 +231,12 @@ function Configuration() {
 
                     <div className='w-full flex flex-col justify-around bg-[#EFB071] font-extrabold text-gray-800 p-2 lg:p-4 rounded-b-[30px]'>
 
-                        <div className=' flex flex-col lg:flex-row justify-center items-center'>
+                        <div className=' flex flex-col lg:flex-row lg:justify-center lg:items-center'>
 
                             {/* ----------------------------------------------------------------------------------------------------NAME NAME NAME-------------------------------------------------- */}
                             <div className='flex flex-row w-[310px]' onMouseEnter={() => { setViewNamePen(true) }} onMouseLeave={() => { setViewNamePen(false) }}>
 
-                                <div>
+                                <div className=''>
                                     <input className={`text-[22px] lg:text-[45px] text-start lg:text-center ${viewInputEditName ? "border border-gray-800 rounded-[5px]" : ""} px-1 focus:outline-none focus:border-none w-[270px] bg-transparent`} 
                                     type="text" value={inputValueName} disabled={isDisabledInputName}
                                         onChange={(e) => { 
