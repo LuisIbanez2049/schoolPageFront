@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Materias from './pages/Materias'
 import Home from './pages/Home'
+//import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
 import { useSelector } from 'react-redux'
