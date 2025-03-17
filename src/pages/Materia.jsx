@@ -305,7 +305,7 @@ function Materia() {
 
 
 
-                <PopUpMessage message={bodyPopUpMessage.message} show={bodyPopUpMessage.isShow} />
+                {/* <PopUpMessage message={bodyPopUpMessage.message} show={bodyPopUpMessage.isShow} /> */}
 
                 <AI/>
                 
