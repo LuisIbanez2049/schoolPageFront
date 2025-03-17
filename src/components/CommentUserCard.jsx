@@ -97,7 +97,7 @@ function CommentUserCard({ date, text, fullName, color, commentId, userIdFromCom
             <LoadingView show={viewLoadingComponent}/>
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
-            <div className='w-[290px] lg:w-[1220px] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#0000001f]'>
+            <div className='w-full lg:w-[1220px] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#0000001f]'>
                 <div className=' relative  flex flex-row'>
 
 

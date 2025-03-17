@@ -137,7 +137,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
             <div>
-                <div className='w-[272px] lg:w-[1150px] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#00000015]'>
+                <div className='w-full lg:w-[1150px] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#00000015]'>
                     <div className=' relative flex flex-row '>
                         {/* ----------------------------------------------------------- TRES PUNTITOS VERTICAL MAS EL CUADRO POPUP CON LOS BOTONES DELETE Y EDIT-------------------------------------- */}
                         <div className={` ${userInformationLocalStorage.id == answerUserId ? "show" : "hidden"} absolute top-0 right-0`}>
@@ -207,9 +207,9 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
                         </div>
                         {/* --------------------------------------------POPUP ERROR MESAGGE-------------------------------------------- */}
 
-                        <div className='text-[11px] lg:text-[15px] flex flex-col lg:flex-row font-light'>
+                        <div className='text-[11px] lg:text-[15px] flex flex-col lg:flex-row font-light flex-wrap'>
                             <div className=' inline-block py-2 '>
-                                <span className=' font-semibold text-[#0000ffc0] text-[11px] lg:text-[17px]'> <i className="fa-brands fa-threads"></i>{receptorFullName} </span>
+                                <span className=' font-semibold text-[#0000ffc0] text-[11px] lg:text-[17px]'> <i className="fa-brands fa-threads"></i>{receptorFullName}</span>
                             </div>
 
                             <textarea disabled={isDisabledTextArea} className={` relative w-[100%] lg:w-[85%] text-[12px] lg:text-[17px] ${showEditInputText ? "border border-gray-400 bg-gray-300 rounded-[5px]" : "bg-transparent"}  px-0 py-0 lg:px-2 lg:py-2 focus:outline-none focus:border-gray-400`}

@@ -223,7 +223,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
                 {/* ---------------------------------------------------------------- DESCRIPTION DESCRIPTION DESCRIPTION -------------------------------------------------- */}
                 <div className=' relative' onMouseEnter={() => { setViewDescriptionPen(true) }} onMouseLeave={() => { setViewDescriptionPen(false) }}>
-                    <textarea name="" id="" className={`bg-transparent w-[86%] lg:w-[95%] h-[50px] lg:h-[120px] ${viewInputEditDescription ? "show border border-gray-700 rounded-[2px]" : ""} text-[14px] lg:text-[18px] p-1`} value={valueDescription} disabled={isDisabledInputTextArea}
+                    <textarea name="" id="" className={`bg-transparent w-full lg:w-[95%] h-[50px] lg:h-[120px] ${viewInputEditDescription ? "show border border-gray-700 rounded-[2px]" : ""} text-[14px] lg:text-[18px] p-1`} value={valueDescription} disabled={isDisabledInputTextArea}
                         onChange={(e) => { setValueDescription(e.target.value) }}></textarea>
 
                     {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
@@ -338,7 +338,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                         </span>
                     </h1>
                 </button>
-                <div className={` py-${viewComments ? "3" : "0"} mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} `}>
+                <div className={`w-full py-${viewComments ? "3" : "0"} mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} `}>
 
                     <CommentUser color={color} contentId={contentId} />
 
