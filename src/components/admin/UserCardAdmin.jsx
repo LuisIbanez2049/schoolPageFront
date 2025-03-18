@@ -3,7 +3,7 @@ import { Link, useActionData } from 'react-router-dom'
 
 function UserCardAdmin({ userId, nombre, dni, rol }) {
     return (
-        <div>
+        <div className='w-[255px]'>
             <Link to={`/userInformation/${userId}`}>
                 <div className={`w-full bg-slate-200 rounded-[12px] text-[#000000af] px-3`}>
                     <h1 className='font-extrabold text-[30px] text-center py-3'>{nombre}</h1>

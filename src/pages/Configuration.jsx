@@ -198,7 +198,7 @@ function Configuration() {
                         <div className={`${viewInputEditProfileImg ? "show" : "hidden"} absolute w-full h-full bg-[#0000009c] flex flex-row  justify-center items-center rounded-t-[30px]`}>
                             {/* ----------------------------------------------------------------INPUT MAS DOS BOTONES -------------------------------------------------- */}
                             <div className={` ${viewInputEditProfileImg ? "show" : "hidden"}  w-[90%]  bg-[#f3f2f2] flex lg:flex-row flex-col justify-center items-center p-2 lg:p-6 rounded-[12px] lg:rounded-[20px]`}>
-                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-1 lg:p-2 lg:w-[600px] w-full text-[12px] lg:text-[16px] w-[270px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
+                                <input type="text" value={inputValueProfileImg} className='bg-gray-300 p-1 lg:p-2 lg:w-[600px] w-full text-[12px] lg:text-[16px] rounded-[5px]' onChange={(e) => { setInputValueProfileImg(e.target.value) }} />
 
                                 <div className=' ml-2 flex flex-row gap-3 text-[25px] lg:text-3xl'>
                                     <button onClick={() => {

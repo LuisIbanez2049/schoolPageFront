@@ -92,7 +92,7 @@ function AdminViewSubjects() {
 
 
           {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
-          <div className="flex flex-row justify-center">
+          <div className="relative flex flex-row justify-center">
             <div className={` w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2] mb-[30px]`}>
               <form action="" onSubmit={handleCreateSubject}>
                 <h1 className={`text-[16px] lg:text-[25px] font-bold bg-[#008000a4] p-2 rounded-[8px] text-center`}>CREATE SUBJECT</h1>

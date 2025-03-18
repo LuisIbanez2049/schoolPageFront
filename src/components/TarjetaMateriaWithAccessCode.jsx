@@ -74,7 +74,7 @@ function TarjetaMateriaWithAccessCode({ titulo, imagen, descripcion, bg, id }) {
 
             <div className='relative'>
 
-                <div className={` ${viewInputAccessCode ? "show" : "hidden"} absolute z-20 w-full h-[75%] lg:h-[89%] top-[33px] lg:top-[45px] flex flex-row justify-center gap-6 items-center bg-[#0000008a] rounded-r-[30px]`}>
+                <div className={` ${viewInputAccessCode ? "show" : "hidden"} absolute z-20 w-full h-[78%] lg:h-[88%] top-[33px] lg:top-[45px] flex flex-row justify-center gap-6 items-center bg-[#0000008a] rounded-r-[30px]`}>
 
                     <div className=' absolute top-2 right-2 w-[35px] h-[35px] flex flex-row justify-center items-center rounded-full bg-white'>
                         <button onClick={onClickFunctionCancel}>

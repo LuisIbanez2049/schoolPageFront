@@ -101,7 +101,7 @@ function AdminViewUsers() {
 
 
           {/* ----------------------------------------------------FILTROS---------------------------------------------------- */}
-          <div className='flex flex-row justify-center items-center gap-6 mb-[50px]' >
+          <div className='flex flex-col lg:flex-row justify-center items-center gap-6 mb-[50px]' >
 
             <input value={valueInputSearch} type="text" placeholder='Search by name or DNI...' className='bg-slate-200 p-2 rounded-md my-[20px]' onChange={(e) => setValueInputSearch(e.target.value)} />
 
@@ -134,7 +134,7 @@ function AdminViewUsers() {
           {/* ----------------------------------------------------FILTROS---------------------------------------------------- */}
 
 
-          <div className='flex flex-row gap-8'>
+          <div className='flex flex-row gap-8 flex-wrap justify-center'>
             {users && users.length > 0 && users.map(user => {
               return (<>
                 <UserCardAdmin key={user.id} userId={user.id} nombre={user.name + " " + user.lastName} dni={user.dni} rol={user.rol} />

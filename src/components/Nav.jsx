@@ -180,7 +180,7 @@ function Nav() {
 
 
                         {/* ------------------------------------------------------------------NOTIFICATION PART------------------------------------------------------------------ */}
-                        <button className=' relative' onClick={() => {
+                        <button className={`relative ${userInformationLocalStorage && userInformationLocalStorage.rol === "ADMIN" ? "hidden" : "show"}`} onClick={() => {
                             if (showNotifications) {
                                 setShowNotifications(false)
                             } else { setShowNotifications(true) }
