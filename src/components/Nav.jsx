@@ -34,6 +34,7 @@ function Nav() {
     const [viewLoadingComponent, setViewLoadingComponent] = useState(false)
     const [viewConfirmationComponent, setViewConfirmationComponent] = useState(false)
     const [newNotifications, setNewNotifications] = useState([])
+    const [closeNotifications, setCloseNotifications] = useState(false)
 
 
 
@@ -127,6 +128,12 @@ function Nav() {
                     setIsVisible(false)
                 }}></button>
             </div>
+            <div className={`${closeNotifications ? "" : "hidden z-0"} min-h-screen w-[99vw] absolute z-20`}>
+                <button className=' block w-full h-[98vh] cursor-default' onClick={() => {
+                    setShowNotifications(false)
+                    setCloseNotifications(false)
+                }}></button>
+            </div>
             <div className=' min-w-screen h-[100px] py-2 px-4 flex flex-row justify-between'>
 
                 {/* --------------------------------------------------------------------LOGO LOGO LOGO----------------------------------------------- */}
@@ -183,7 +190,10 @@ function Nav() {
                         <button className={`relative ${userInformationLocalStorage && userInformationLocalStorage.rol === "ADMIN" ? "hidden" : "show"}`} onClick={() => {
                             if (showNotifications) {
                                 setShowNotifications(false)
-                            } else { setShowNotifications(true) }
+                            } else { 
+                                setShowNotifications(true)
+                                setCloseNotifications(true)
+                            }
                         }}>
                             <span className={`${newNotifications && newNotifications.length < 1 ? "hidden" : "show"} ${notifications && notifications.length == 0 ? "hidden" : "show"} 
                             absolute top-3 left-[-12px] w-[24px] h-[24px] bg-red-500 rounded-full text-[15px]`}>
@@ -231,6 +241,7 @@ function Nav() {
                             } else {
                                 setIsOnclick(true)
                                 setIsVisible(true)
+                                setShowNotifications(false)
                             }
                         }}>
                             {/* <span className={`text-[30px] lg:text-[40px] text-[${isOnclick ? "#EFB071" : "black"}] hover:text-[#EFB071]`}> <i className="fa-solid fa-user"></i> </span> */}

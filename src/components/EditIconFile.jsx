@@ -112,7 +112,7 @@ function EditIconFile({ fileId }) {
 
             <div className=' relative flex flex-col gap-4 bg-slate-200 p-3 border border-slate-300 rounded-xl'>
 
-                <div className=' absolute top-0 right-0 border border-black p-3'>
+                <div className=' absolute top-0 right-0 p-3'>
                     <button className={`${file.asset ? "show" : "hidden"}`} onClick={() => deleteFile()}>
                         <i className="fa-solid fa-trash-can text-[22px] text-red-600"></i>
                     </button>

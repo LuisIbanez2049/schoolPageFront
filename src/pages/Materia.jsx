@@ -461,7 +461,7 @@ function Materia() {
                                                     <h1 className='rounded-[5px] py-2 px-4 bg-[#ff00007a] font-semibold' > <i className="fa-solid fa-right-from-bracket text-[30px]"></i> </h1>
                                                 </div>
                                             </button>
-                                            <div className='absolute top-[38px] right-[-60px]'>
+                                            <div className='absolute top-[0pX] hidden right-[0px]'>
                                                 <h1 className={` bg-gray-100  font-thin border border-[#00000065] rounded-[6px] p-[2px] shadow-md transition-all duration-500 transform
                                          ${popUpH1 ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"}`}>LEAVE SUBJECT</h1>
                                             </div>
@@ -540,7 +540,7 @@ function Materia() {
                                                     <h1 className='rounded-[5px] py-2 px-6 bg-[#ff00007a] font-semibold' > <i className="fa-solid fa-right-from-bracket text-[25px]"></i> </h1>
                                                 </div>
                                             </button>
-                                            <div className='absolute top-[38px] right-[-60px]'>
+                                            <div className='absolute top-[34%] right-[-20%] z-30'>
                                                 <h1 className={` bg-gray-100  font-thin border border-[#00000065] rounded-[6px] p-[2px] shadow-md transition-all duration-500 transform
                                          ${popUpH1 ? "opacity-100 scale-100 z-30" : "opacity-0 scale-90 z-0"}`}>LEAVE SUBJECT</h1>
                                             </div>
@@ -642,7 +642,7 @@ function Materia() {
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => removeForm(form.id)}
-                                                                        className="rounded mt-2"
+                                                                        className={`${forms.length === 1 ? "hidden" : "show"} rounded mt-2`}
                                                                     >
                                                                         <i className="fa-solid fa-circle-xmark text-red-500 text-[30px] lg:text-[40px]"></i>
                                                                     </button>
@@ -653,7 +653,7 @@ function Materia() {
                                                             <button
                                                                 type="button"
                                                                 onClick={addForm}
-                                                                className={`relative ${forms.length == 0 ? "" : "right-[-120px] top-[-65px] lg:top-[-72px]"}  rounded`}
+                                                                className={`relative ${forms.length == 0 ? "" : `${forms.length === 1 ? "" : "right-[-120px] top-[-65px] lg:top-[-72px]" }`}  rounded`}
                                                             >
                                                                 <i className={`fa-solid fa-circle-plus clas text-green-500 text-[30px] lg:text-[40px]`}></i>
                                                             </button>
