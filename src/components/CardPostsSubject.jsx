@@ -135,7 +135,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
 
     return (
-        <div className=" relative w-[96%] 2xl:w-[100%] rounded-lg bg-[#f3f2f2] p-3 lg:p-6 shadow-md" style={divStyle}>
+        <div className=" relative w-[96%] lg:w-[100%] rounded-lg bg-[#f3f2f2] p-3 lg:p-6 shadow-md" style={divStyle}>
 
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
             <LoadingView show={viewLoadingComponent} />
@@ -264,55 +264,6 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
 
 
 
-                {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
-                <div className=' relative hidden' onMouseEnter={() => { setViewFileUrlPen(true) }} onMouseLeave={() => { setViewFileUrlPen(false) }}>
-                    <a
-                        href={`${file}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center rounded-[5px] lg:rounded-lg bg-[${color}] px-1 lg:px-4 py-1 lg:py-2 text-center text-sm  text-[#000000c0] font-semibold hover:text-black`}
-                    >
-                        <FileText className="mr-2 h-4 w-4 lg:h-5 lg:w-5" />
-                        <h1 className='text-[12px] lg:text-[16px]'>View Document</h1>
-                    </a>
-
-                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
-                    <span className={` ${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} ml-[20px]`}>
-                        <button className={`${viewFileUrlPen ? "show" : "hidden"}`} onClick={() => {
-                            setViewInputEditUrl(true)
-                        }}>
-                            <i class="fa-solid fa-pen text-[20px]"></i>
-                        </button>
-                    </span>
-                    {/* ----------------------------------------------------------------PEN BUTTON TITLE-------------------------------------------------- */}
-
-                    <div className={`${viewInputEditUrl ? "show" : "hidden"} absolute top-0 w-full h-full`}>
-                        {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
-                        <div className={` ${viewInputEditUrl ? "show" : "hidden"} absolute top-0 h-full  bg-[#f3f2f2] flex flex-row justify-center items-center`}>
-                            <input type="text" value={valueUrl} className='bg-transparent px-2 w-[250px] text-[14px] lg:text-[18px] lg:w-[900px]' onChange={(e) => { setValueUrl(e.target.value) }} />
-
-                            <div className=' ml-2 flex flex-row gap-2 lg:gap-3 text-[20px] lg:text-3xl'>
-                                <button onClick={() => {
-                                    setValueUrl(file)
-                                    setViewInputEditUrl(false)
-                                }}>
-                                    <i class="fa-solid fa-circle-xmark text-red-500"></i>
-                                </button>
-                                <button onClick={() => {
-                                    const upDateBody = { idContenido: contentId, titulo: "", detalleContenido: "", archivo: valueUrl }
-                                    setBodyEditContent(upDateBody)
-                                    editContent(upDateBody)
-                                }}>
-                                    <i class="fa-solid fa-circle-check text-green-500"></i>
-                                </button>
-                            </div>
-                        </div>
-                        {/* ----------------------------------------------------------------INPUT TITLE MAS DOS BOTONES -------------------------------------------------- */}
-                    </div>
-
-                </div>
-                {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
-
 
                 {/* ---------------------------------------------------------------- FILE URL FILE URL FILE URL -------------------------------------------------- */}
                 <div className='flex flex-row flex-wrap gap-4'>
@@ -338,7 +289,7 @@ function CardPostsSubject({ color, title, description, date, file, contentId }) 
                         </span>
                     </h1>
                 </button>
-                <div className={`w-full py-${viewComments ? "3" : "0"} mt-[15px] flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} `}>
+                <div className={`w-full py-${viewComments ? "3" : "0"} mt-[15px] px-2 flex flex-col gap-12 transition-all duration-700 overflow-hidden overflow-y-auto ${viewComments ? "h-[400px]" : "h-0"} `}>
 
                     <CommentUser color={color} contentId={contentId} />
 

@@ -22,7 +22,7 @@ function InputAddComment({color, onClickFunctionCancel, onClickFunction, inputVa
                     <div className=' w-full flex flex-row p-1 lg:p-2 justify-between px-4'>
                         <div className='w-[85%] lg:w-[93%]'>
 
-                             <textarea name="" id="" className={`h-[25px] lg:h-[50px] w-full lg:w-[1020px] text-pretty text-[12px] lg:text-[18px] font-light px-1 lg:px-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
+                             <textarea name="" id="" className={`h-[25px] lg:h-[50px] w-full text-pretty text-[12px] lg:text-[18px] font-light px-1 lg:px-2 bg-transparent border-b border-[#00000071] focus:border-[${color}] focus:outline-none transition-colors peer`}
                              placeholder='Add comment...' value={inputValue} onChange={onChangeFunction}></textarea>
 
                             <div className='w-full flex flex-row justify-end pr-3'>

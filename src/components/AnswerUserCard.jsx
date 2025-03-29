@@ -137,7 +137,7 @@ function AnswerUserCard({ answerId, date, text, fullName, receptorFullName, answ
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
             <div>
-                <div className='w-full lg:w-[1150px] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#00000015]'>
+                <div className='w-full lg:w-[72vw] p-2 lg:p-4 bg-[#ffffff69] rounded-[15px] lg:rounded-[30px] shadow-md border border-[#00000015]'>
                     <div className=' relative flex flex-row '>
                         {/* ----------------------------------------------------------- TRES PUNTITOS VERTICAL MAS EL CUADRO POPUP CON LOS BOTONES DELETE Y EDIT-------------------------------------- */}
                         <div className={` ${userInformationLocalStorage.id == answerUserId ? "show" : "hidden"} absolute top-0 right-0`}>

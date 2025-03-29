@@ -560,7 +560,7 @@ function Materia() {
 
                                     {/* -----------------------------------------------------------------------------------------------------------FORMULARIO PARA CREAR CONTENIDO---------------------------------------------- */}
                                     <div className={`${userInformationLocalStorage.rol == "PROFESOR" ? "show" : "hidden"} flex flex-row justify-center`}>
-                                        <div className={` w-[95%] lg:w-[1300px] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2] mb-[30px]`}>
+                                        <div className={` w-[95%] lg:w-[72vw] border-2 border-[#00000060] p-3 rounded-[15px] bg-[#f3f2f2] mb-[30px]`}>
                                             <form action="" onSubmit={handleCreateAContent}>
                                                 <h1 className={`text-[16px] lg:text-[25px] font-bold bg-[${subject && subject.color}] p-2 rounded-[8px] text-center`}>CREATE CONTENT</h1>
 

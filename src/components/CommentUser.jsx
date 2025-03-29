@@ -95,7 +95,7 @@ function CommentUser({ date, text, fullName, color, contentId, userIdFromComment
             <LoadingView show={viewLoadingComponent} />
             {/* ------------------------------------------------------------LOADING VIEW------------------------------------------------------------ */}
 
-            <div className='w-full lg:w-[1220px] mb-[25px]'>
+            <div className='w-full lg:w-[75vw] mb-[25px] '>
                 <InputAddComment color={color} onClickFunction={handleOnClick} inputValue={inputValueTextComment} onChangeFunction={handleOnChange} onClickFunctionCancel={handleOnClickCancel} />
             </div>
 
